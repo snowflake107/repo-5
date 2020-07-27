@@ -743,17 +743,29 @@ type Regexp struct {
 	original string
 }
 
+// NewRegexp instantiates a regexp.Regexp
+func NewRegexp(s string) (*Regexp, error) {
+	regex, err := regexp.Compile("^(?:" + s + ")$")
+	if err != nil {
+		return nil, err
+	}
+	return &Regexp{
+		Regexp:   regex,
+		original: s,
+	}, nil
+}
+
 // UnmarshalYAML implements the yaml.Unmarshaler interface for Regexp.
 func (re *Regexp) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	var s string
 	if err := unmarshal(&s); err != nil {
 		return err
 	}
-	regex, err := regexp.Compile("^(?:" + s + ")$")
+	regex, err := NewRegexp(s)
 	if err != nil {
 		return err
 	}
-	re.Regexp = regex
+	re.Regexp = regex.Regexp
 	re.original = s
 	return nil
 }
