@@ -1,0 +1,8 @@
+  slow_proxy:
+    build: docker/blocks/slow_proxy
+    network_mode: host
+    ports:
+      - "3011:3011"
+    environment:
+      ORIGIN_SERVER: ${ORIGIN_SERVER}
+      SLEEP_DURATION: ${SLEEP_DURATION}
