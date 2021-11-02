@@ -26,7 +26,7 @@ import { dashboardWatcher } from 'app/features/live/dashboard/dashboardWatcher';
 import { GrafanaRouteComponentProps } from 'app/core/navigation/types';
 import { getTimeSrv } from '../services/TimeSrv';
 import { getKioskMode } from 'app/core/navigation/kiosk';
-import { GrafanaTheme2, UrlQueryValue } from '@grafana/data';
+import { GrafanaTheme2, UrlQueryValue, logzioServices } from '@grafana/data'; // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Global Filters :: Import logzioServices
 import { DashboardLoading } from '../components/DashboardLoading/DashboardLoading';
 import { DashboardFailed } from '../components/DashboardLoading/DashboardFailed';
 import { DashboardPrompt } from '../components/DashboardPrompt/DashboardPrompt';
@@ -88,9 +88,32 @@ export class UnthemedDashboardPage extends PureComponent<Props, State> {
     };
   }
 
+  // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Global Filters :: Listen to global filters changes
+  private logzioGlobalFiltersSubscriber: any;
+  private logzioSearchVariablesSubscriber: any;
+  // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Global Filters :: Listen to global filters changes :: End
+
   componentDidMount() {
     this.initDashboard();
     this.forceRouteReloadCounter = (this.props.history.location.state as any)?.routeReloadCounter || 0;
+
+    // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Global Filters :: Listen to global filters changes
+    try {
+      this.logzioGlobalFiltersSubscriber = logzioServices.globalFiltersStateService.globalFilters.subscribe(() => {
+        getTimeSrv().refreshDashboard();
+      });
+
+      this.logzioSearchVariablesSubscriber = logzioServices.globalFiltersStateService.searchVariables.subscribe(() => {
+        getTimeSrv().refreshDashboard();
+      });
+    } catch (e) {
+      logzioServices.LoggerService.logError({
+        origin: logzioServices.LoggerService.Origin.GRAFANA,
+        message: 'Could not subscribe to globalFiltersStateService',
+        error: e,
+      });
+    }
+    // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Global Filters :: Listen to global filters changes :: End
   }
 
   componentWillUnmount() {
@@ -98,6 +121,16 @@ export class UnthemedDashboardPage extends PureComponent<Props, State> {
   }
 
   closeDashboard() {
+    // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Global Filters :: Listen to global filters changes
+    if (typeof this.logzioGlobalFiltersSubscriber === 'function') {
+      this.logzioGlobalFiltersSubscriber();
+    }
+
+    if (typeof this.logzioSearchVariablesSubscriber === 'function') {
+      this.logzioSearchVariablesSubscriber();
+    }
+    // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Global Filters :: Listen to global filters changes :: End
+
     this.props.cleanUpDashboardAndVariables();
     this.setPanelFullscreenClass(false);
     this.setState(this.getCleanState());
