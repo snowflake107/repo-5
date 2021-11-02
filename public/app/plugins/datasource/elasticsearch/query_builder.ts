@@ -390,6 +390,25 @@ export class ElasticQueryBuilder {
     return populateLogzioQuery(query); // LOGZ.IO GRAFANA CHANGE :: DEV-18135 populate query with logzio extensions
   }
 
+  private buildScript(script: string) {
+    if (gte(this.esVersion, '5.6.0')) {
+      return script;
+    }
+
+    return {
+      inline: script,
+    };
+  }
+
+  private toNumber(stringValue: unknown): unknown | number {
+    const parsedValue = parseFloat(`${stringValue}`);
+    if (isNaN(parsedValue)) {
+      return stringValue;
+    }
+
+    return parsedValue;
+  }
+
   getTermsQuery(queryDef: any) {
     const query: any = {
       size: 0,
