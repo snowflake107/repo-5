@@ -18,7 +18,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-kit/kit/log"
+	"github.com/go-kit/log"
 	"github.com/hashicorp/go-sockaddr"
 	"github.com/stretchr/testify/require"
 
@@ -92,6 +92,7 @@ func testJoinLeave(t *testing.T) {
 	)
 	require.NoError(t, err)
 	go p2.Settle(context.Background(), 0*time.Second)
+	require.NoError(t, p2.WaitReady(context.Background()))
 
 	require.Equal(t, 2, p.ClusterSize())
 	p2.Leave(0 * time.Second)

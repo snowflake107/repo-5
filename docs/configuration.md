@@ -50,7 +50,7 @@ Generic placeholders are defined as follows:
 
 The other placeholders are specified separately.
 
-A provided [valid example file](https://github.com/prometheus/alertmanager/blob/master/doc/examples/simple.yml)
+A provided [valid example file](https://github.com/prometheus/alertmanager/blob/main/doc/examples/simple.yml)
 shows usage in context.
 
 The global configuration specifies parameters that are valid in all other
@@ -264,7 +264,7 @@ immediately before 24:00. They are specified like so:
         - start_time: HH:MM
           end_time: HH:MM
 
-`weeekday_range`: A list of days of the week, where the week begins on Sunday and ends on Saturday.
+`weekday_range`: A list of days of the week, where the week begins on Sunday and ends on Saturday.
 Days should be specified by name (e.g. ‘Sunday’). For convenience, ranges are also accepted
 of the form <start_day>:<end_day> and are inclusive on both ends. For example:
 `[‘monday:wednesday','saturday', 'sunday']`
@@ -583,6 +583,8 @@ Pushover notifications are sent via the [Pushover API](https://pushover.net/api)
 user_key: <secret>
 
 # Your registered application’s API token, see https://pushover.net/apps
+# You can also register a token by cloning this Prometheus app:
+# https://pushover.net/apps/clone/prometheus
 token: <secret>
 
 # Notification title.
@@ -691,6 +693,64 @@ value: <tmpl_string>
 [ short: <boolean> | default = slack_config.short_fields ]
 ```
 
+## `<sns_configs>`
+```yaml
+# Whether or not to notify about resolved alerts.
+[ send_resolved: <boolean> | default = false ]
+
+# The SNS API URL i.e. https://sns.us-east-2.amazonaws.com.
+#  If not specified, the SNS API URL from the SNS SDK will be used.
+[ api_url: <tmpl_string> ]
+
+# Configures AWS's Signature Verification 4 signing process to sign requests.
+sigv4:
+  [ <sigv4_config> ]
+  
+# SNS topic ARN, i.e. arn:aws:sns:us-east-2:698519295917:My-Topic
+# If you don't specify this value, you must specify a value for the phone_number or target_arn.
+# If you are using a FIFO SNS topic you should set a message group interval longer than 5 minutes
+# to prevent messages with the same group key being deduplicated by the SNS default deduplication window
+[ topic_arn: <tmpl_string> ]
+
+# Subject line when the message is delivered to email endpoints.
+[ subject: <tmpl_string> | default = '{{ template "sns.default.subject" .}}' ] 
+
+# Phone number if message is delivered via SMS in E.164 format.
+# If you don't specify this value, you must specify a value for the topic_arn or target_arn.
+[ phone_number: <tmpl_string> ] 
+
+# The  mobile platform endpoint ARN if message is delivered via mobile notifications.
+# If you don't specify this value, you must specify a value for the topic_arn or phone_number.
+[ target_arn: <tmpl_string> ] 
+
+# The message content of the SNS notification.
+[ message: <tmpl_string> | default = '{{ template "sns.default.message" .}}' ] 
+
+# SNS message attributes.
+attributes: 
+  [ <string>: <string> ... ]
+
+# The HTTP client's configuration.
+[ http_config: <http_config> | default = global.http_config ]
+```
+
+###`<sigv4_config>`
+```yaml
+# The AWS region. If blank, the region from the default credentials chain is used.
+[ region: <string> ]
+
+# The AWS API keys. Both access_key and secret_key must be supplied or both must be blank.
+# If blank the environment variables `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` are used. 
+[ access_key: <string> ]
+[ secret_key: <secret> ]
+
+# Named AWS profile used to authenticate.
+[ profile: <string> ]
+
+# AWS Role ARN, an alternative to using AWS API keys.
+[ role_arn: <string> ]
+```
+
 ## `<matcher>`
 
 A matcher is a string with a syntax inspired by PromQL and OpenMetrics. The syntax of a matcher consists of three tokens: 
@@ -759,14 +819,14 @@ OpsGenie notifications are sent via the [OpsGenie API](https://docs.opsgenie.com
 # Alert text limited to 130 characters.
 [ message: <tmpl_string> ]
 
-# A description of the incident.
+# A description of the alert.
 [ description: <tmpl_string> | default = '{{ template "opsgenie.default.description" . }}' ]
 
 # A backlink to the sender of the notification.
 [ source: <tmpl_string> | default = '{{ template "opsgenie.default.source" . }}' ]
 
 # A set of arbitrary key/value pairs that provide further detail
-# about the incident.
+# about the alert.
 # All common labels are included as details by default.
 [ details: { <string>: <tmpl_string>, ... } ]
 

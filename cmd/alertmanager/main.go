@@ -28,8 +28,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/go-kit/kit/log"
-	"github.com/go-kit/kit/log/level"
+	"github.com/go-kit/log"
+	"github.com/go-kit/log/level"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -54,6 +54,7 @@ import (
 	"github.com/prometheus/alertmanager/notify/pagerduty"
 	"github.com/prometheus/alertmanager/notify/pushover"
 	"github.com/prometheus/alertmanager/notify/slack"
+	"github.com/prometheus/alertmanager/notify/sns"
 	"github.com/prometheus/alertmanager/notify/victorops"
 	"github.com/prometheus/alertmanager/notify/webhook"
 	"github.com/prometheus/alertmanager/notify/wechat"
@@ -164,6 +165,9 @@ func buildReceiverIntegrations(nc *config.Receiver, tmpl *template.Template, log
 	}
 	for i, c := range nc.PushoverConfigs {
 		add("pushover", i, c, func(l log.Logger) (notify.Notifier, error) { return pushover.New(c, tmpl, l) })
+	}
+	for i, c := range nc.SNSConfigs {
+		add("sns", i, c, func(l log.Logger) (notify.Notifier, error) { return sns.New(c, tmpl, l) })
 	}
 	if errs.Len() > 0 {
 		return nil, &errs
@@ -321,7 +325,7 @@ func run() int {
 		go peer.Settle(ctx, *gossipInterval*10)
 	}
 
-	alerts, err := mem.NewAlerts(context.Background(), marker, *alertGCInterval, logger)
+	alerts, err := mem.NewAlerts(context.Background(), marker, *alertGCInterval, nil, logger)
 	if err != nil {
 		level.Error(logger).Log("err", err)
 		return 1
@@ -383,7 +387,7 @@ func run() int {
 		tmpl      *template.Template
 	)
 
-	dispMetrics := dispatch.NewDispatcherMetrics(prometheus.DefaultRegisterer)
+	dispMetrics := dispatch.NewDispatcherMetrics(false, prometheus.DefaultRegisterer)
 	pipelineBuilder := notify.NewPipelineBuilder(prometheus.DefaultRegisterer)
 	configLogger := log.With(logger, "component", "configuration")
 	configCoordinator := config.NewCoordinator(
@@ -460,7 +464,7 @@ func run() int {
 			silencer.Mutes(labels)
 		})
 
-		disp = dispatch.NewDispatcher(alerts, routes, pipeline, marker, timeoutFunc, logger, dispMetrics)
+		disp = dispatch.NewDispatcher(alerts, routes, pipeline, marker, timeoutFunc, nil, logger, dispMetrics)
 		routes.Walk(func(r *dispatch.Route) {
 			if r.RouteOpts.RepeatInterval > *retention {
 				level.Warn(configLogger).Log(
