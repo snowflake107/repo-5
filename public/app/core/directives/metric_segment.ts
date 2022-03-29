@@ -166,12 +166,12 @@ export function metricSegment($compile: any, $sce: any, templateSrv: TemplateSrv
 
       // LOGZ.IO GRAFANA CHANGE :: Select all field for copy full field name
       // And add tooltip
-      $button.contextmenu(evt => {
+      $button.contextmenu((evt) => {
         // Select full field name
         window.getSelection()?.selectAllChildren(evt.target);
       });
 
-      $button.mouseover(evt => {
+      $button.mouseover((evt) => {
         const button = evt.target as HTMLElement;
         $button.attr('title', button.innerText);
       });

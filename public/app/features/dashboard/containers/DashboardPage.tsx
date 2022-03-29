@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { locationService } from '@grafana/runtime';
 import { selectors } from '@grafana/e2e-selectors';
 import { CustomScrollbar, ScrollbarPosition, stylesFactory, Themeable2, withTheme2 } from '@grafana/ui';
-
+import { debounce } from 'lodash'; // LOGZ.IO GRAFANA CHANGE :: DEV-28669 :: Global Filters :: Enable/Disable filters and debounce refresh-subscribers
 import { createErrorNotification } from 'app/core/copy/appNotification';
 import { Branding } from 'app/core/components/Branding/Branding';
 import { DashboardGrid } from '../dashgrid/DashboardGrid';
@@ -88,32 +88,15 @@ export class UnthemedDashboardPage extends PureComponent<Props, State> {
     };
   }
 
-  // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Global Filters :: Listen to global filters changes
-  private logzioGlobalFiltersSubscriber: any;
-  private logzioSearchVariablesSubscriber: any;
-  // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Global Filters :: Listen to global filters changes :: End
+  // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Unified Filters :: Listen to unified filters changes
+  private logzioUnifiedFiltersSubscriber: any;
+  private logzioUnifiedVariablesSubscriber: any;
+  private logzioEnabledFiltersStatusSubscriber: any;
+  // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Unified Filters :: Listen to unified filters changes :: End
 
   componentDidMount() {
     this.initDashboard();
     this.forceRouteReloadCounter = (this.props.history.location.state as any)?.routeReloadCounter || 0;
-
-    // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Global Filters :: Listen to global filters changes
-    try {
-      this.logzioGlobalFiltersSubscriber = logzioServices.globalFiltersStateService.globalFilters.subscribe(() => {
-        getTimeSrv().refreshDashboard();
-      });
-
-      this.logzioSearchVariablesSubscriber = logzioServices.globalFiltersStateService.searchVariables.subscribe(() => {
-        getTimeSrv().refreshDashboard();
-      });
-    } catch (e) {
-      logzioServices.LoggerService.logError({
-        origin: logzioServices.LoggerService.Origin.GRAFANA,
-        message: 'Could not subscribe to globalFiltersStateService',
-        error: e,
-      });
-    }
-    // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Global Filters :: Listen to global filters changes :: End
   }
 
   componentWillUnmount() {
@@ -121,19 +104,11 @@ export class UnthemedDashboardPage extends PureComponent<Props, State> {
   }
 
   closeDashboard() {
-    // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Global Filters :: Listen to global filters changes
-    if (typeof this.logzioGlobalFiltersSubscriber === 'function') {
-      this.logzioGlobalFiltersSubscriber();
-    }
-
-    if (typeof this.logzioSearchVariablesSubscriber === 'function') {
-      this.logzioSearchVariablesSubscriber();
-    }
-    // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Global Filters :: Listen to global filters changes :: End
-
     this.props.cleanUpDashboardAndVariables();
     this.setPanelFullscreenClass(false);
     this.setState(this.getCleanState());
+
+    this.unsubscribeFromLogzioUnifiedFilters(); // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Global Filters :: Listen to global filters changes
   }
 
   initDashboard() {
@@ -151,6 +126,8 @@ export class UnthemedDashboardPage extends PureComponent<Props, State> {
       routeName: this.props.route.routeName,
       fixUrl: true,
     });
+
+    this.subscribeToLogzioUnifiedFilters(); // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Unified Filters :: Listen to filters changes
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -319,6 +296,32 @@ export class UnthemedDashboardPage extends PureComponent<Props, State> {
 
     return inspectPanel;
   }
+
+  // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Unified Filters :: Listen to filters changes
+  subscribeToLogzioUnifiedFilters() {
+    this.unsubscribeFromLogzioUnifiedFilters();
+
+    const debouncedRefresh = debounce(() => getTimeSrv().refreshDashboard(), 50);
+    const { unifiedFilters, unifiedVariables, isEnabled } = logzioServices.unifiedFiltersStateService;
+    try {
+      this.logzioUnifiedFiltersSubscriber = unifiedFilters.subscribe(debouncedRefresh);
+      this.logzioUnifiedVariablesSubscriber = unifiedVariables.subscribe(debouncedRefresh);
+      this.logzioEnabledFiltersStatusSubscriber = isEnabled.subscribe(debouncedRefresh);
+    } catch (e) {
+      logzioServices.LoggerService.logError({
+        origin: logzioServices.LoggerService.Origin.GRAFANA,
+        message: 'Could not subscribe to unifiedFiltersStateService',
+        error: e,
+      });
+    }
+  }
+
+  unsubscribeFromLogzioUnifiedFilters() {
+    this.logzioUnifiedFiltersSubscriber?.();
+    this.logzioUnifiedVariablesSubscriber?.();
+    this.logzioEnabledFiltersStatusSubscriber?.();
+  }
+  // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Unified Filters :: Listen to filters changes :: End
 
   render() {
     const { dashboard, isInitSlow, initError, isPanelEditorOpen, queryParams, theme } = this.props;

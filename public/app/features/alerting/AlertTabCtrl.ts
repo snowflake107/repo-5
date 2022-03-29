@@ -159,7 +159,7 @@ export class AlertTabCtrl {
     // LOGZ.IO GRAFANA CHANGE :: (ALERTS) Get name from 'type.name'
     const endpointName = this.addNotificationSegment.value.substr(this.addNotificationSegment.value.indexOf('.') + 1);
 
-    const model: any = _.find(this.notifications, {
+    const model: any = find(this.notifications, {
       name: endpointName,
     });
     // LOGZ.IO GRAFANA CHANGE :: end
@@ -229,15 +229,15 @@ export class AlertTabCtrl {
   }
 
   removeEmailNotification(an: any) {
-    _.remove(this.alertEmailNotifications, (n: any) => n.name === an.name);
-    _.remove(this.alert.emailNotifications, (n: any) => n.address === an.name);
+    remove(this.alertEmailNotifications, (n: any) => n.name === an.name);
+    remove(this.alert.emailNotifications, (n: any) => n.address === an.name);
   }
 
   removeNotification(an: any) {
     // remove notifiers refeered to by id and uid to support notifiers added
     // before and after we added support for uid
-    _.remove(this.alert.notifications, (n: any) => n.uid === an.uid);
-    _.remove(this.alertNotifications, (n: any) => n.uid === an.uid);
+    remove(this.alert.notifications, (n: any) => n.uid === an.uid);
+    remove(this.alertNotifications, (n: any) => n.uid === an.uid);
   }
   // LOGZ.IO GRAFANA CHANGE :: (ALERTS) Handle email endpoint : End
 
