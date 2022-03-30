@@ -46,7 +46,8 @@ export const DashboardLinksDashboard: React.FC<Props> = (props) => {
                     <a
                       href={resolvedLink.url}
                       // LOGZ.IO GRAFANA CHANGE :: link open on same tab to open on top frame
-                      target={link.targetBlank ? '_blank' : '_top'}                      rel="noreferrer"
+                      target={link.targetBlank ? '_blank' : '_top'}
+                      rel="noreferrer"
                       aria-label={selectors.components.DashboardLinks.link}
                     >
                       {resolvedLink.title}
@@ -75,6 +76,7 @@ export const DashboardLinksDashboard: React.FC<Props> = (props) => {
                 href={resolvedLink.url}
                 // LOGZ.IO GRAFANA CHANGE :: link open on same tab to open on top frame
                 target={link.targetBlank ? '_blank' : '_top'}
+                rel="noreferrer"
                 aria-label={selectors.components.DashboardLinks.link}
               >
                 <Icon name="apps" style={{ marginRight: '4px' }} />

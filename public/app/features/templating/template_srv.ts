@@ -323,12 +323,12 @@ export class TemplateSrv implements BaseTemplateSrv {
   }
 
   private getAdHocVariables(): any[] {
-    // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Global Filters :: concat logzioAdHocVariables to actual variables
-    const logzioAdHocVariables = logzioServices.globalFiltersService.grafana.getGlobalFilterAdHocVariables();
+    // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Unified Filters :: concat logzioAdHocVariables to actual variables
+    const logzioAdHocVariables = logzioServices.unifiedFiltersService.grafana.getUnifiedFilterAdHocVariables();
     if (logzioAdHocVariables?.length) {
       return this.dependencies.getFilteredVariables(isAdHoc).concat(logzioAdHocVariables);
     }
-    // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Global Filters :: concat logzioAdHocVariables to actual variables :: End
+    // LOGZ.IO GRAFANA CHANGE :: DEV-27954 :: Unified Filters :: concat logzioAdHocVariables to actual variables :: End
 
     return this.dependencies.getFilteredVariables(isAdHoc);
   }

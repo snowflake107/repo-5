@@ -2,17 +2,7 @@ import React, { FormEvent, PureComponent } from 'react';
 import { MapDispatchToProps, MapStateToProps } from 'react-redux';
 import { css } from '@emotion/css';
 import { AppEvents, GrafanaTheme2, NavModel } from '@grafana/data';
-import {
-  Button,
-  stylesFactory,
-  withTheme2,
-  TextArea,
-  Field,
-  Form,
-  Legend,
-  FileUpload,
-  Themeable2,
-} from '@grafana/ui';  // LOGZ.IO GRAFANA CHANGE :: DEV-23444 Hide import via grafana.com
+import { Button, stylesFactory, withTheme2, TextArea, Field, Form, Legend, FileUpload, Themeable2 } from '@grafana/ui'; // LOGZ.IO GRAFANA CHANGE :: DEV-23444 Hide import via grafana.com
 import Page from 'app/core/components/Page/Page';
 import { connectWithCleanUp } from 'app/core/components/connectWithCleanUp';
 import { ImportDashboardOverview } from './components/ImportDashboardOverview';

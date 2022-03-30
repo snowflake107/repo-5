@@ -1,5 +1,5 @@
 import { EchoBackend, EchoEvent, EchoEventType } from '@grafana/runtime';
-import { backendSrv } from '../../backend_srv';
+// import { backendSrv } from '../../backend_srv'; // LOGZ.IO GRAFANA CHANGE :: Disable sending frontend metrics
 
 export interface PerformanceEventPayload {
   name: string;

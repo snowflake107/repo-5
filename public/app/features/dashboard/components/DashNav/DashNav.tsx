@@ -7,7 +7,7 @@ import { playlistSrv } from 'app/features/playlist/PlaylistSrv';
 import { DashNavButton } from './DashNavButton';
 import { DashNavTimeControls } from './DashNavTimeControls';
 import { ButtonGroup, ModalsController, ToolbarButton, PageToolbar } from '@grafana/ui';
-// import { textUtil } from '@grafana/data'; // LOGZ.IO GRAFANA CHANGE :: DEV-20896 Remove unneccesry imprt
+import { textUtil } from '@grafana/data'; // LOGZ.IO GRAFANA CHANGE :: DEV-20896 Remove unneccesry imprt
 // State
 import { updateTimeZoneForSession } from 'app/features/profile/state/reducers';
 // Types

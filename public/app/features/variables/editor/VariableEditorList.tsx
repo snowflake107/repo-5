@@ -60,6 +60,7 @@ export class VariableEditorList extends PureComponent<Props> {
             className="external-link"
             href="https://docs.logz.io/user-guide/infrastructure-monitoring/configure-grafana-drilldown-links.html"
             target="_blank"
+            rel="noreferrer"
             style={{ paddingLeft: '4px' }}
           >
             Learn more

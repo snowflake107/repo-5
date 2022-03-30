@@ -97,7 +97,7 @@ export default class PrometheusMetricFindQuery {
       url = `/api/v1/label/${label}/values?${params.toString()}`;
 
       return this.datasource.metadataRequest(url).then((result: any) => {
-        return _.map(result.data.data, value => {
+        return _map(result.data.data, (value) => {
           return { text: value };
         });
       });
