@@ -94,10 +94,9 @@ export class KeybindingSrv {
     locationService.push('/');
   }
 
-  // LOGZ.IO GRAFANA CHANGE :: DEV-20681 Block profile shortcut
-  // private goToProfile() {
-  //   locationService.push('/profile');
-  // }
+  private goToProfile() {
+    locationService.push('/profile');
+  }
 
   private showHelpModal() {
     appEvents.publish(new ShowModalReactEvent({ component: HelpModal }));

@@ -31,7 +31,7 @@ import {
   isFetchErrorResponse,
   PromDataErrorResponse,
   PromDataSuccessResponse,
-  // PromExemplarData, // LOGZ.IO GRAFANA CHANGE :: Disable exemplars
+  PromExemplarData,
   PromMatrixData,
   PromOptions,
   PromQuery,
