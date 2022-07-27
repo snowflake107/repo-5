@@ -14,18 +14,17 @@
 package cli
 
 import (
-	"crypto/tls"
 	"fmt"
-	"net/http"
 	"net/url"
 	"os"
 	"path"
 	"time"
 
 	"github.com/go-openapi/strfmt"
+	promconfig "github.com/prometheus/common/config"
 	"github.com/prometheus/common/version"
 	"golang.org/x/mod/semver"
-	kingpin "gopkg.in/alecthomas/kingpin.v2"
+	"gopkg.in/alecthomas/kingpin.v2"
 
 	"github.com/prometheus/alertmanager/api/v2/client"
 	"github.com/prometheus/alertmanager/cli/config"
@@ -35,12 +34,12 @@ import (
 )
 
 var (
-	verbose               bool
-	alertmanagerURL       *url.URL
-	output                string
-	timeout               time.Duration
-	tlsInsecureSkipVerify bool
-	versionCheck          bool
+	verbose         bool
+	alertmanagerURL *url.URL
+	output          string
+	timeout         time.Duration
+	httpConfigFile  string
+	versionCheck    bool
 
 	configFiles = []string{os.ExpandEnv("$HOME/.config/amtool/config.yml"), "/etc/amtool/config.yml"}
 	legacyFlags = map[string]string{"comment_required": "require-comment"}
@@ -84,16 +83,27 @@ func NewAlertmanagerClient(amURL *url.URL) *client.Alertmanager {
 
 	cr := clientruntime.New(address, path.Join(amURL.Path, defaultAmApiv2path), schemes)
 
-	if tlsInsecureSkipVerify {
-		transport := http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		}
-		cr.Transport = &transport
+	if amURL.User != nil && httpConfigFile != "" {
+		kingpin.Fatalf("basic authentication and http.config.file are mutually exclusive")
 	}
 
 	if amURL.User != nil {
 		password, _ := amURL.User.Password()
 		cr.DefaultAuthentication = clientruntime.BasicAuth(amURL.User.Username(), password)
+	}
+
+	if httpConfigFile != "" {
+		var err error
+		httpConfig, err := config.LoadHTTPConfigFile(httpConfigFile)
+		if err != nil {
+			kingpin.Fatalf("failed to load HTTP config file: %v", err)
+		}
+
+		httpclient, err := promconfig.NewClientFromConfig(*httpConfig, "amtool")
+		if err != nil {
+			kingpin.Fatalf("failed to create a new HTTP client: %v", err)
+		}
+		cr = clientruntime.NewWithClient(address, path.Join(amURL.Path, defaultAmApiv2path), schemes, httpclient)
 	}
 
 	c := client.New(cr, strfmt.Default)
@@ -117,9 +127,7 @@ func NewAlertmanagerClient(amURL *url.URL) *client.Alertmanager {
 
 // Execute is the main function for the amtool command
 func Execute() {
-	var (
-		app = kingpin.New("amtool", helpRoot).UsageWriter(os.Stdout)
-	)
+	app := kingpin.New("amtool", helpRoot).UsageWriter(os.Stdout)
 
 	format.InitFormatFlags(app)
 
@@ -127,7 +135,7 @@ func Execute() {
 	app.Flag("alertmanager.url", "Alertmanager to talk to").URLVar(&alertmanagerURL)
 	app.Flag("output", "Output formatter (simple, extended, json)").Short('o').Default("simple").EnumVar(&output, "simple", "extended", "json")
 	app.Flag("timeout", "Timeout for the executed command").Default("30s").DurationVar(&timeout)
-	app.Flag("tls.insecure.skip.verify", "Skip TLS certificate verification").BoolVar(&tlsInsecureSkipVerify)
+	app.Flag("http.config.file", "HTTP client configuration file for amtool to connect to Alertmanager.").PlaceHolder("<filename>").ExistingFileVar(&httpConfigFile)
 	app.Flag("version-check", "Check alertmanager version. Use --no-version-check to disable.").Default("true").BoolVar(&versionCheck)
 
 	app.Version(version.Print("amtool"))
@@ -184,8 +192,8 @@ static configuration:
 	date.format
 		Sets the output format for dates. Defaults to "2006-01-02 15:04:05 MST"
 
-	tls.insecure.skip.verify
-		Skips TLS certificate verification for all HTTPS requests.
-		Defaults to false.
+	http.config.file
+		HTTP client configuration file for amtool to connect to Alertmanager.
+		The format is https://prometheus.io/docs/alerting/latest/configuration/#http_config.
 `
 )
