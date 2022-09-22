@@ -1,6 +1,7 @@
-<%@ page import="org.owasp.encoder.Encode, utils.ShepherdLogManager" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"  language="java" import="utils.*" errorPage="" %>
-<%@ include file="translation.jsp" %>
+<%@ page import="org.owasp.encoder.Encode, utils.ShepherdLogManager"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+	language="java" import="utils.*" errorPage=""%>
+<%@ include file="translation.jsp"%>
 <%
 /**
  * This file assigns the tracking cookie for the exposed server
@@ -45,18 +46,116 @@
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title><fmt:message key="readyToPlay.title.readyToPlay" /></title>
-	<link href="css/lessonCss/theCss.css" rel="stylesheet" type="text/css" media="screen" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title><fmt:message key="readyToPlay.title.readyToPlay" /></title>
+<link href="css/lessonCss/theCss.css" rel="stylesheet" type="text/css"
+	media="screen" />
+<style>
+	.points th, td {
+		border: 1px solid #ddd;
+		padding: 8px;
+	}
+	.points tr:nth-child(even){background-color: #f2f2f2;}
+	.points tr:hover {background-color: #ddd;}
+	.points table {
+		border-collapse: unset;
+		box-sizing: unset;
+		text-indent: unset;
+		white-space: unset;
+		line-height: unset;
+		font-size: unset;
+		border-spacing: unset;
+		border-color: unset;
+		font-variant: unset;
+	}
+	.points th {
+		vertical-align: unset;
+		font-weight: unset;
+		padding-top: 12px;
+		padding-bottom: 12px;
+		text-align: left;
+		background-color: #0077CC;
+		color: white;
+	}
+	.points h3 {
+		font-size: 18px;
+	}
+</style>
 </head>
 <body>
 	<script type="text/javascript" src="js/jquery.js"></script>
-		<div id="contentDiv">
-			<h2 class="title"><fmt:message key="readyToPlay.title.enteredGame" /></h2>
-			<p> <fmt:message key="readyToPlay.text.info.enteredGame" /> </p>
-			<%= Analytics.sponsorshipMessage(new Locale(Validate.validateLanguage(request.getSession()))) %>
-			<% if(Analytics.googleAnalyticsOn) { %><%= Analytics.googleAnalyticsScript %><% } %>
-		</div>
+	<div class="points" style="visibility: hidden; display: none">
+		<h2 class="title">Points</h2>
+		<p>Below is a breakdown of the points on offer for helping out your fellow participants and completing a level.</p>
+		<h3>Levels</h3>
+		<table>
+			<tr>
+				<th>Rank</th>
+				<th>Points Range</th>
+			</tr>
+			<tr>
+				<td>Field Training</td>
+				<td>10 - 20</td>
+			</tr>
+			<tr>
+				<td>Private</td>
+				<td>25 - 40</td>
+			</tr>
+			<tr>
+				<td>Corporal</td>
+				<td>45 - 50</td>
+			</tr>
+			<tr>
+				<td>Sergeant</td>
+				<td>55 - 65</td>
+			</tr>
+			<tr>
+				<td>Lieutenant</td>
+				<td>70 - 75</td>
+			</tr>
+			<tr>
+				<td>Major</td>
+				<td>80 - 85</td>
+			</tr>
+			<tr>
+				<td>Admiral</td>
+				<td>90 - 180</td>
+			</tr>
+		</table>
+		<br />
+		<h3>Medals</h3>
+		<p>Be the 1st, 2nd or 3rd person to complete a level to gain a medal and bonus points.</p>
+		<table>
+			<tr>
+				<th>Rank</th>
+				<th>Points</th>
+			</tr>
+			<tr>
+				<td>Gold</td>
+				<td>5</td>
+			</tr>
+			<tr>
+				<td>Silver</td>
+				<td>4</td>
+			</tr>
+			<tr>
+				<td>Bronze</td>
+				<td>3</td>
+			</tr>
+		</table>
+	</div>
+	<div id="contentDiv">
+		<p><br /></p>
+		<h2 class="title">
+			<fmt:message key="readyToPlay.title.enteredGame" />
+		</h2>
+		<p>
+			<fmt:message key="readyToPlay.text.info.enteredGame" />
+		</p>
+		<%= Analytics.sponsorshipMessage(new Locale(Validate.validateLanguage(request.getSession()))) %>
+		<% if(Analytics.googleAnalyticsOn) { %><%= Analytics.googleAnalyticsScript %>
+		<% } %>
+	</div>
 </body>
 </html>
 <%
