@@ -34,7 +34,7 @@ jobs:
           password: ${{ steps.auth.outputs.access_token }}
 
       - name: Set environment variables
-        uses: c-py/action-dotenv-to-setenv@v2
+        uses: c-py/action-dotenv-to-setenv@3e796a97c9746d8a3e19461421d94b75528b4ad4 # v2
         with:
           env-file: .env
 
