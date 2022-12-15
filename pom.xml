@@ -19,7 +19,7 @@
 		<dependency>
 			<groupId>com.onelogin</groupId>
 			<artifactId>java-saml</artifactId>
-			<version>2.5.0</version>
+			<version>2.9.0</version>
 		</dependency>
 		<dependency>
 			<groupId>de.mkammerer</groupId>
@@ -36,14 +36,9 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20220320</version>
+			<version>20220924</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
-		<dependency>
-			<groupId>com.googlecode.json-simple</groupId>
-			<artifactId>json-simple</artifactId>
-			<version>1.1.1</version>
-		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -164,7 +159,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>5.3.22</version>
+			<version>6.0.2</version>
 		</dependency>
 
 		<!-- Test -->
@@ -179,6 +174,14 @@
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
 			<version>5.9.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -247,12 +250,6 @@
 									</resources>
 								</configuration>
 							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<artifactId>maven-resources-plugin</artifactId>
-						<version>3.1.0</version>
-						<executions>
 							<execution>
 								<id>copy-mongo-scripts</id>
 								<phase>validate</phase>
