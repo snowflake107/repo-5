@@ -249,7 +249,7 @@ type Alertmanager struct {
 
 	apiAddr     string
 	clusterAddr string
-	clientV2    *apiclient.Alertmanager
+	clientV2    *apiclient.AlertmanagerAPI
 	cmd         *exec.Cmd
 	confFile    *os.File
 	dir         string
@@ -507,15 +507,13 @@ func (amc *AlertmanagerCluster) UpdateConfig(conf string) {
 func (am *Alertmanager) UpdateConfig(conf string) {
 	if _, err := am.confFile.WriteString(conf); err != nil {
 		am.t.Fatal(err)
-		return
 	}
 	if err := am.confFile.Sync(); err != nil {
 		am.t.Fatal(err)
-		return
 	}
 }
 
 // Client returns a client to interact with the API v2 endpoint.
-func (am *Alertmanager) Client() *apiclient.Alertmanager {
+func (am *Alertmanager) Client() *apiclient.AlertmanagerAPI {
 	return am.clientV2
 }
