@@ -75,6 +75,7 @@ import {
     collection: {},
     featuredCards: [{}],
     filterPanel: {},
+    hideCtaIds: [{}],
     sort: {},
     pagination: {},
     bookmarks: {},
@@ -110,6 +111,11 @@ const Container = (props) => {
     const defaultSort = getConfig('sort', 'defaultSort');
     const defaultSortOption = getDefaultSortOption(config, defaultSort);
     const featuredCards = getConfig('featuredCards', '')
+        .toString()
+        .replace(/\[|\]/g, '')
+        .replace(/`/g, '')
+        .split(',');
+    const hideCtaIds = getConfig('hideCtaIds', '')
         .toString()
         .replace(/\[|\]/g, '')
         .replace(/`/g, '')
@@ -749,7 +755,12 @@ const Container = (props) => {
 
                     const { processedCards = [] } = new JsonProcessor(payload.cards)
                         .removeDuplicateCards()
-                        .addCardMetaData(TRUNCATE_TEXT_QTY, onlyShowBookmarks, bookmarkedCardIds);
+                        .addCardMetaData(
+                            TRUNCATE_TEXT_QTY,
+                            onlyShowBookmarks,
+                            bookmarkedCardIds,
+                            hideCtaIds,
+                        );
 
                     const transitions = getTransitions(processedCards);
                     if (sortOption.sort.toLowerCase() === 'eventsort') {
@@ -962,7 +973,7 @@ const Container = (props) => {
      * @returns {Object}
      * */
     const getFilteredCollection = () => cardFilterer
-        .sortCards(sortOption, eventFilter, featuredCards, isFirstLoad)
+        .sortCards(sortOption, eventFilter, featuredCards, hideCtaIds, isFirstLoad)
         .keepBookmarkedCardsOnly(onlyShowBookmarks, bookmarkedCardIds, showBookmarks)
         .keepCardsWithinDateRange()
         .filterCards(activeFilterIds, activePanels, filterLogic, FILTER_TYPES)
