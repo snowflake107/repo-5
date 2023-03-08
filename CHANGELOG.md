@@ -1,5 +1,12 @@
 
 
+## [0.5.9](https://github.com/adobecom/caas/compare/0.5.8...0.5.9) (2023-03-08)
+
+
+### Bug Fixes
+
+* MWPW-127568: Adds specificity the button CSS rule ([979956e](https://github.com/adobecom/caas/commit/979956eaedc165999dae9006d7d13316eb62dcb1))
+
 ## [0.5.8](https://github.com/adobecom/caas/compare/0.5.7...0.5.8) (2023-03-07)
 
 ## [0.5.7](https://github.com/adobecom/caas/compare/0.5.6...0.5.7) (2023-03-05)
