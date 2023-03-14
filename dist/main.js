@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 3/8/2023, 11:08:21
+ * Chimera UI Libraries - Build 3/10/2023, 14:52:43
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -3125,7 +3125,7 @@ var VideoButton = function VideoButton(_ref) {
         _react2.default.createElement(
             'button',
             {
-                className: 'consonant-HalfHeightCard-videoButton-wrapper',
+                className: 'consonant-videoButton-wrapper',
                 'daa-ll': 'play',
                 'aria-label': 'Play',
                 onClick: handleShowModal },
