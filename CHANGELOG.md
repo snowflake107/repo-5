@@ -1,5 +1,12 @@
 
 
+## [0.5.10](https://github.com/adobecom/caas/compare/0.5.9...0.5.10) (2023-03-14)
+
+
+### Bug Fixes
+
+* updates CSS to handle video button on different card styles (MWPW-127824) ([d859c66](https://github.com/adobecom/caas/commit/d859c662999c0305b3e1c6ebdb67c7a4053a11f3))
+
 ## [0.5.9](https://github.com/adobecom/caas/compare/0.5.8...0.5.9) (2023-03-08)
 
 
