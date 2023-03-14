@@ -1,5 +1,13 @@
 
 
+# [0.6.0](https://github.com/adobecom/caas/compare/0.5.10...0.6.0) (2023-03-14)
+
+
+### Features
+
+* change cta rendering to be on clientside ([7933e0a](https://github.com/adobecom/caas/commit/7933e0a82fefad0b3aad9d5aae2762604d0c8965))
+* unit tests ([61771aa](https://github.com/adobecom/caas/commit/61771aa14e14b423c4f3aa7aa9578e000b049b64))
+
 ## [0.5.10](https://github.com/adobecom/caas/compare/0.5.9...0.5.10) (2023-03-14)
 
 
