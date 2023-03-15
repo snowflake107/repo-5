@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 3/10/2023, 14:52:43
+ * Chimera UI Libraries - Build 3/15/2023, 10:34:26
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -6369,6 +6369,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     collection: {},
     featuredCards: [{}],
     filterPanel: {},
+    hideCtaIds: [{}],
     sort: {},
     pagination: {},
     bookmarks: {},
@@ -6405,6 +6406,7 @@ var Container = function Container(props) {
     var defaultSort = getConfig('sort', 'defaultSort');
     var defaultSortOption = (0, _consonant.getDefaultSortOption)(config, defaultSort);
     var featuredCards = getConfig('featuredCards', '').toString().replace(/\[|\]/g, '').replace(/`/g, '').split(',');
+    var hideCtaIds = getConfig('hideCtaIds', '').toString().replace(/\[|\]/g, '').replace(/`/g, '').split(',');
     var leftPanelSearchPlaceholder = getConfig('search', 'i18n.leftFilterPanel.searchPlaceholderText');
     var topPanelSearchPlaceholder = getConfig('search', 'i18n.topFilterPanel.searchPlaceholderText');
     var searchPlaceholderText = getConfig('search', 'i18n.filterInfo.searchPlaceholderText');
@@ -7199,7 +7201,7 @@ var Container = function Container(props) {
                 setIsFirstLoad(true);
                 if (!(0, _general.getByPath)(payload, 'cards.length')) return;
 
-                var _removeDuplicateCards = new _JsonProcessor2.default(payload.cards).removeDuplicateCards().addCardMetaData(_constants.TRUNCATE_TEXT_QTY, onlyShowBookmarks, bookmarkedCardIds),
+                var _removeDuplicateCards = new _JsonProcessor2.default(payload.cards).removeDuplicateCards().addCardMetaData(_constants.TRUNCATE_TEXT_QTY, onlyShowBookmarks, bookmarkedCardIds, hideCtaIds),
                     _removeDuplicateCards2 = _removeDuplicateCards.processedCards,
                     processedCards = _removeDuplicateCards2 === undefined ? [] : _removeDuplicateCards2;
 
@@ -7410,7 +7412,7 @@ var Container = function Container(props) {
      * @returns {Object}
      * */
     var getFilteredCollection = function getFilteredCollection() {
-        return cardFilterer.sortCards(sortOption, eventFilter, featuredCards, isFirstLoad).keepBookmarkedCardsOnly(onlyShowBookmarks, bookmarkedCardIds, showBookmarks).keepCardsWithinDateRange().filterCards(activeFilterIds, activePanels, filterLogic, _constants.FILTER_TYPES).truncateList(totalCardLimit).searchCards(searchQuery, searchFields).removeCards(inclusionIds);
+        return cardFilterer.sortCards(sortOption, eventFilter, featuredCards, hideCtaIds, isFirstLoad).keepBookmarkedCardsOnly(onlyShowBookmarks, bookmarkedCardIds, showBookmarks).keepCardsWithinDateRange().filterCards(activeFilterIds, activePanels, filterLogic, _constants.FILTER_TYPES).truncateList(totalCardLimit).searchCards(searchQuery, searchFields).removeCards(inclusionIds);
     };
 
     /**
@@ -56170,6 +56172,7 @@ var JsonProcessor = function () {
             this.processedCards = (0, _general.removeDuplicatesByKey)(this.processedCards, 'id');
             return this;
         }
+
         /**
          * This method joins authored featured caards with cards returned from API responsee
          *
@@ -56198,13 +56201,14 @@ var JsonProcessor = function () {
          * @param {*} truncateTextQty
          * @param {*} onlyShowBookmarks
          * @param {*} bookmarkedCardIds
+         * @param {*} hideCtaIds
          * @return {*}
          * @memberof JsonProcessor
          */
 
     }, {
         key: 'addCardMetaData',
-        value: function addCardMetaData(truncateTextQty, onlyShowBookmarks, bookmarkedCardIds) {
+        value: function addCardMetaData(truncateTextQty, onlyShowBookmarks, bookmarkedCardIds, hideCtaIds) {
             this.processedCards = this.processedCards.map(function (card) {
                 return _extends({}, card, {
                     description: (0, _general.truncateString)((0, _general.getByPath)(card, 'contentArea.description', ''), truncateTextQty),
@@ -56212,6 +56216,9 @@ var JsonProcessor = function () {
                         return i === card.id;
                     }),
                     disableBookmarkIco: onlyShowBookmarks,
+                    hideCtaId: hideCtaIds.some(function (i) {
+                        return i === card.id;
+                    }),
                     initial: {
                         title: (0, _general.getByPath)(card, 'contentArea.title', ''),
                         description: (0, _general.getByPath)(card, 'contentArea.description', ''),
