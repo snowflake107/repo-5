@@ -1,5 +1,12 @@
 
 
+## [0.6.1](https://github.com/adobecom/caas/compare/0.6.0...0.6.1) (2023-03-15)
+
+
+### Bug Fixes
+
+* adding changes to html files ([e3f6641](https://github.com/adobecom/caas/commit/e3f66412cdec982f9e5e345daf7bbce4dcacba1b))
+
 # [0.6.0](https://github.com/adobecom/caas/compare/0.5.10...0.6.0) (2023-03-14)
 
 
