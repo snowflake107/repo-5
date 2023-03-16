@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 3/16/2023, 11:03:08
+ * Chimera UI Libraries - Build 3/16/2023, 11:57:07
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -1581,6 +1581,7 @@ var DEFAULT_CONFIG = exports.DEFAULT_CONFIG = {
         }
     },
     featuredCards: [],
+    hideCtaIds: [],
     header: {
         enabled: false
     },

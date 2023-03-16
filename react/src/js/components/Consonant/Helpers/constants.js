@@ -144,6 +144,7 @@ export const DEFAULT_CONFIG = {
         },
     },
     featuredCards: [],
+    hideCtaIds: [],
     header: {
         enabled: false,
     },
