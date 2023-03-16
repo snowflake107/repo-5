@@ -1,5 +1,12 @@
 
 
+## [0.6.3](https://github.com/adobecom/caas/compare/0.6.2...0.6.3) (2023-03-16)
+
+
+### Bug Fixes
+
+* **constants.js:** the hideCtaIds feature was missing having a default config ([1c3034e](https://github.com/adobecom/caas/commit/1c3034e747f45c886a006eb5e1dbe4d2df50ee1b))
+
 ## [0.6.2](https://github.com/adobecom/caas/compare/0.6.1...0.6.2) (2023-03-16)
 
 ## [0.6.1](https://github.com/adobecom/caas/compare/0.6.0...0.6.1) (2023-03-15)
