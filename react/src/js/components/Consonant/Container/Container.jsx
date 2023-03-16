@@ -405,7 +405,7 @@ const Container = (props) => {
         urlParams.forEach((value, key) => {
             const chFilter = key.toLowerCase().replace('ch_', '').replace(' ', '-');
             if (key.indexOf(filterGroupPrefix) !== 0 || !id.includes(chFilter)) {
-                setUrlState(key, value);
+                setUrlState(key, value.replace('%20', ' '));
             }
         });
     };
