@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 3/17/2023, 09:04:04
+ * Chimera UI Libraries - Build 3/17/2023, 12:45:53
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -1504,7 +1504,8 @@ var FILTER_PANEL = exports.FILTER_PANEL = {
 var SORT_TYPES = exports.SORT_TYPES = {
     DATEASC: 'dateasc',
     DATEDESC: 'datedesc',
-    DATEMODIFIED: 'datemodified',
+    MODIFIEDDESC: 'modifieddesc',
+    MODIFIEDASC: 'modifiedasc',
     EVENTSORT: 'eventsort',
     FEATURED: 'featured',
     TITLEASC: 'titleasc',
@@ -2245,7 +2246,7 @@ module.exports = Object.keys || function keys(O) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.getFeaturedCards = exports.getRandomSort = exports.getUpdatedCardBookmarkData = exports.processCards = exports.getCardsMatchingSearch = exports.getEventSort = exports.getDateDescSort = exports.getDateAscSort = exports.getFeaturedSort = exports.getDateModifiedSort = exports.getTitleDescSort = exports.getTitleAscSort = exports.hasTag = exports.getCardsMatchingQuery = exports.highlightCard = exports.getFilteredCards = exports.getActivePanels = exports.getActiveFilterIds = exports.getBookmarkedCards = exports.getCollectionCards = exports.getTotalPages = exports.getNumCardsToShow = exports.shouldDisplayPaginator = undefined;
+exports.getFeaturedCards = exports.getRandomSort = exports.getUpdatedCardBookmarkData = exports.processCards = exports.getCardsMatchingSearch = exports.getEventSort = exports.getDateDescSort = exports.getDateAscSort = exports.getFeaturedSort = exports.getModifiedAscSort = exports.getModifiedDescSort = exports.getTitleDescSort = exports.getTitleAscSort = exports.hasTag = exports.getCardsMatchingQuery = exports.highlightCard = exports.getFilteredCards = exports.getActivePanels = exports.getActiveFilterIds = exports.getBookmarkedCards = exports.getCollectionCards = exports.getTotalPages = exports.getNumCardsToShow = exports.shouldDisplayPaginator = undefined;
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -2569,11 +2570,11 @@ var getTitleDescSort = exports.getTitleDescSort = function getTitleDescSort(card
 };
 
 /**
- * Returns all cards sorted by date modified
+ * Returns all cards sorted by date modified newest to oldest
  * @param {Array} cards - All cards in the card collection
  * @returns {Array} - All cards sorted by title
  */
-var getDateModifiedSort = exports.getDateModifiedSort = function getDateModifiedSort(cards) {
+var getModifiedDescSort = exports.getModifiedDescSort = function getModifiedDescSort(cards) {
     return cards.sort(function (cardOne, cardTwo) {
         var cardOneModDate = (0, _general.getByPath)(cardOne, 'modifiedDate');
         var cardTwoModDate = (0, _general.getByPath)(cardTwo, 'modifiedDate');
@@ -2582,6 +2583,15 @@ var getDateModifiedSort = exports.getDateModifiedSort = function getDateModified
         }
         return 0;
     });
+};
+
+/**
+ * Returns all cards sorted by date modified oldest to newest
+ * @param {Array} cards - All cards in the card collection
+ * @returns {Array} - All cards sorted by title
+ */
+var getModifiedAscSort = exports.getModifiedAscSort = function getModifiedAscSort(cards) {
+    return getModifiedDescSort(cards).reverse();
 };
 
 /**
@@ -53771,8 +53781,11 @@ var CardFilterer = function () {
                 case _constants.SORT_TYPES.DATEDESC:
                     this.filteredCards = (0, _Helpers.getDateDescSort)(this.filteredCards);
                     break;
-                case _constants.SORT_TYPES.DATEMODIFIED:
-                    this.filteredCards = (0, _Helpers.getDateModifiedSort)(this.filteredCards);
+                case _constants.SORT_TYPES.MODIFIEDDESC:
+                    this.filteredCards = (0, _Helpers.getModifiedDescSort)(this.filteredCards);
+                    break;
+                case _constants.SORT_TYPES.MODIFIEDASC:
+                    this.filteredCards = (0, _Helpers.getModifiedAscSort)(this.filteredCards);
                     break;
                 case _constants.SORT_TYPES.EVENTSORT:
                     {
