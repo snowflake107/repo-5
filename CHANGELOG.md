@@ -1,5 +1,12 @@
 
 
+## [0.6.6](https://github.com/adobecom/caas/compare/0.6.5...0.6.6) (2023-03-17)
+
+
+### Bug Fixes
+
+* **mwpw-125604:** cherry-picking Enable Sorting for Card "Modified" Date (Oldest to Newest) ([01c0e87](https://github.com/adobecom/caas/commit/01c0e870c4f2ae4047cbbbd9a910e677241c4d65))
+
 ## [0.6.5](https://github.com/adobecom/caas/compare/0.6.4...0.6.5) (2023-03-17)
 
 
