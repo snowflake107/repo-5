@@ -1,5 +1,13 @@
 
 
+## [0.6.5](https://github.com/adobecom/caas/compare/0.6.4...0.6.5) (2023-03-17)
+
+
+### Bug Fixes
+
+* fixes url param encoding issue (MWPW-127988) ([277a2da](https://github.com/adobecom/caas/commit/277a2dab34e0a28ff2ced6b9bf200c5c6271e885))
+* MWPW-127988 fixes wrong encoding when parameter in URL has a space ([1783dd6](https://github.com/adobecom/caas/commit/1783dd63d555415d117fd7a9aae8b8168304aba0))
+
 ## [0.6.4](https://github.com/adobecom/caas/compare/0.6.3...0.6.4) (2023-03-16)
 
 ## [0.6.3](https://github.com/adobecom/caas/compare/0.6.2...0.6.3) (2023-03-16)
