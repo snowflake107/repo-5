@@ -259,11 +259,11 @@ export const getTitleAscSort = cards => cards.sort((cardOne, cardTwo) => {
 export const getTitleDescSort = cards => getTitleAscSort(cards).reverse();
 
 /**
- * Returns all cards sorted by date modified
+ * Returns all cards sorted by date modified newest to oldest
  * @param {Array} cards - All cards in the card collection
  * @returns {Array} - All cards sorted by title
  */
-export const getDateModifiedSort = cards => cards.sort((cardOne, cardTwo) => {
+export const getModifiedDescSort = cards => cards.sort((cardOne, cardTwo) => {
     const cardOneModDate = getByPath(cardOne, 'modifiedDate');
     const cardTwoModDate = getByPath(cardTwo, 'modifiedDate');
     if (cardOneModDate && cardTwoModDate) {
@@ -271,6 +271,13 @@ export const getDateModifiedSort = cards => cards.sort((cardOne, cardTwo) => {
     }
     return 0;
 });
+
+/**
+ * Returns all cards sorted by date modified oldest to newest
+ * @param {Array} cards - All cards in the card collection
+ * @returns {Array} - All cards sorted by title
+ */
+export const getModifiedAscSort = cards => getModifiedDescSort(cards).reverse();
 
 /**
  * Returns all cards Featured sorted
