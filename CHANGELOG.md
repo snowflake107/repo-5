@@ -1,5 +1,12 @@
 
 
+## [0.6.7](https://github.com/adobecom/caas/compare/0.6.6...0.6.7) (2023-03-27)
+
+
+### Bug Fixes
+
+* **mwpw-128735:** reverting commit for inherit fonts as prod discovered issue ([07f65f2](https://github.com/adobecom/caas/commit/07f65f2bb372a0b41803ee9ecae09ef80597e0b7))
+
 ## [0.6.6](https://github.com/adobecom/caas/compare/0.6.5...0.6.6) (2023-03-17)
 
 
