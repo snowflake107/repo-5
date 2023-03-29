@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 3/28/2023, 15:57:15
+ * Chimera UI Libraries - Build 3/29/2023, 08:16:28
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -53581,7 +53581,10 @@ var Paginator = function Paginator(props) {
         } else {
             nextPage = parseInt(target.firstChild.nodeValue, BASE_10);
         }
-        target.closest('.consonant-Wrapper').scrollIntoView({ behavior: 'smooth' });
+        var caasWrapper = target.closest('.consonant-Wrapper');
+        if (caasWrapper && typeof caasWrapper.scrollIntoView === 'function') {
+            caasWrapper.scrollIntoView({ behavior: 'smooth' });
+        }
         onClick(nextPage);
     };
 

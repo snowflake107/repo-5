@@ -105,7 +105,10 @@ const Paginator = (props) => {
         } else {
             nextPage = parseInt(target.firstChild.nodeValue, BASE_10);
         }
-        target.closest('.consonant-Wrapper').scrollIntoView({ behavior: 'smooth' });
+        const caasWrapper = target.closest('.consonant-Wrapper');
+        if (caasWrapper && typeof caasWrapper.scrollIntoView === 'function') {
+            caasWrapper.scrollIntoView({ behavior: 'smooth' });
+        }
         onClick(nextPage);
     };
 
