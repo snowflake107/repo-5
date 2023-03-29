@@ -1,5 +1,13 @@
 
 
+## [0.6.8](https://github.com/adobecom/caas/compare/0.6.7...0.6.8) (2023-03-29)
+
+
+### Bug Fixes
+
+* brings page back to top of collection on page change (MWPW-128673) ([096dc07](https://github.com/adobecom/caas/commit/096dc07ab6e2cc9140725c9977431801ee082440))
+* fixes unit test errors (MWPW-128673) ([f72cc58](https://github.com/adobecom/caas/commit/f72cc5850c064199de92a2689a8a99df19f7f39c))
+
 ## [0.6.7](https://github.com/adobecom/caas/compare/0.6.6...0.6.7) (2023-03-27)
 
 
