@@ -1,6 +1,7 @@
-let config = {
+const PORT = 5000;
+const config = {
     collection: {
-        mode: "lightest", // Can be empty, "light", "dark", "darkest";
+        mode: 'lightest', // Can be empty, "light", "dark", "darkest";
         layout: {
             type: '3up', // Can be "2up", "3up", "4up", "5up";
             gutter: '4x', // Can be "2x", "3x", "4x";
@@ -8,23 +9,23 @@ let config = {
         },
         lazyLoad: false,
         button: {
-            style: "call-to-action", // Can be "primary", "call-to-action";
+            style: 'call-to-action', // Can be "primary", "call-to-action";
         },
         banner: {
             upcoming: {
-                description: "Upcoming"
+                description: 'Upcoming',
             },
             live: {
-                description: "Live"
+                description: 'Live',
             },
             onDemand: {
-                description: "On Demand"
-            }
+                description: 'On Demand',
+            },
         },
         resultsPerPage: '5',
-        endpoint: "../../mock-json/smoke.json",
+        endpoint: '../../caas/mock-json/smoke.json',
         totalCardsToShow: '8',
-        cardStyle: "1:2", // available options: "1:2", "3:4", "full-card", "half-height", "custom-card", "product", "double-wide";
+        cardStyle: '1:2', // available options: "1:2", "3:4", "full-card", "half-height", "custom-card", "product", "double-wide";
         showTotalResults: 'true',
         i18n: {
             prettyDateIntervalFormat: '{LLL} {dd} | {timeRange} {timeZone}',
@@ -34,10 +35,10 @@ let config = {
             cardTitleAccessibilityLevel: '3',
             onErrorTitle: 'Sorry there was a system error.',
             onErrorDescription: 'Please try reloading the page or try coming back to the page another time.',
-            lastModified: "Last modified {date}"
+            lastModified: 'Last modified {date}',
         },
-        setCardBorders: "true", // Can be true or false;
-        useOverlayLinks: "false", // Can be true or false;
+        setCardBorders: 'true', // Can be true or false;
+        useOverlayLinks: 'false', // Can be true or false;
     },
     featuredCards: ['c7d34f39-397c-3727-9dff-5d0d9d8cf731'],
     filterPanel: {
@@ -47,99 +48,99 @@ let config = {
         showEmptyFilters: true,
         filters: [
             {
-                "group": "Topic",
-                "id": "adobe-com-enterprise:topic",
-                "items": [
+                group: 'Topic',
+                id: 'adobe-com-enterprise:topic',
+                items: [
                     {
-                        "label": "Business Continuity",
-                        "id": "adobe-com-enterprise:topic/business-continuity"
+                        label: 'Business Continuity',
+                        id: 'adobe-com-enterprise:topic/business-continuity',
                     },
                     {
-                        "label": "Creativity and Design",
-                        "id": "adobe-com-enterprise:topic/creativity-design"
+                        label: 'Creativity and Design',
+                        id: 'adobe-com-enterprise:topic/creativity-design',
                     },
                     {
-                        "label": "Customer Intelligence",
-                        "id": "adobe-com-enterprise:topic/customer-intelligence"
+                        label: 'Customer Intelligence',
+                        id: 'adobe-com-enterprise:topic/customer-intelligence',
                     },
                     {
-                        "label": "Data Management Platform",
-                        "id": "adobe-com-enterprise:topic/data-management-platform"
+                        label: 'Data Management Platform',
+                        id: 'adobe-com-enterprise:topic/data-management-platform',
                     },
                     {
-                        "label": "Digital Foundation",
-                        "id": "adobe-com-enterprise:topic/digital-foundation"
+                        label: 'Digital Foundation',
+                        id: 'adobe-com-enterprise:topic/digital-foundation',
                     },
                     {
-                        "label": "Digital Trends",
-                        "id": "adobe-com-enterprise:topic/digital-trends"
+                        label: 'Digital Trends',
+                        id: 'adobe-com-enterprise:topic/digital-trends',
                     },
                     {
-                        "label": "Document Management",
-                        "id": "adobe-com-enterprise:topic/document-management"
+                        label: 'Document Management',
+                        id: 'adobe-com-enterprise:topic/document-management',
                     },
                     {
-                        "label": "Marketing Automation",
-                        "id": "adobe-com-enterprise:topic/marketing-automation"
+                        label: 'Marketing Automation',
+                        id: 'adobe-com-enterprise:topic/marketing-automation',
                     },
                     {
-                        "label": "Personalization",
-                        "id": "adobe-com-enterprise:topic/personalization"
+                        label: 'Personalization',
+                        id: 'adobe-com-enterprise:topic/personalization',
                     },
                     {
-                        "label": "Stock",
-                        "id": "adobe-com-enterprise:topic/Stock"
-                    }
-                ]
+                        label: 'Stock',
+                        id: 'adobe-com-enterprise:topic/Stock',
+                    },
+                ],
             },
             {
-                "group": "Availability",
-                "id": "adobe-com-enterprise:availability",
-                "items": [
+                group: 'Availability',
+                id: 'adobe-com-enterprise:availability',
+                items: [
                     {
-                        "label": "On-Demand",
-                        "id": "adobe-com-enterprise:availability/on-demand"
+                        label: 'On-Demand',
+                        id: 'adobe-com-enterprise:availability/on-demand',
                     },
                     {
-                        "label": "Upcoming",
-                        "id": "adobe-com-enterprise:availability/upcoming"
-                    }
-                ]
+                        label: 'Upcoming',
+                        id: 'adobe-com-enterprise:availability/upcoming',
+                    },
+                ],
             },
             {
-                "group": "Duration",
-                "id": "adobe-com-enterprise:duration",
-                "items": [
+                group: 'Duration',
+                id: 'adobe-com-enterprise:duration',
+                items: [
                     {
-                        "label": "Long",
-                        "id": "adobe-com-enterprise:duration/long"
+                        label: 'Long',
+                        id: 'adobe-com-enterprise:duration/long',
                     },
                     {
-                        "label": "Short",
-                        "id": "adobe-com-enterprise:duration/short"
-                    }
-                ]
+                        label: 'Short',
+                        id: 'adobe-com-enterprise:duration/short',
+                    },
+                ],
             },
             {
-                "group": "Rating",
-                "id": "adobe-com-enterprise:rating",
-                "items": [
+                group: 'Rating',
+                id: 'adobe-com-enterprise:rating',
+                items: [
                     {
-                        "label": "5",
-                        "id": "adobe-com-enterprise:rating/5"
+                        label: '5',
+                        id: 'adobe-com-enterprise:rating/5',
                     },
                     {
-                        "label": "4",
-                        "id": "adobe-com-enterprise:rating/4"
-                    }
-                ]
-            }
+                        label: '4',
+                        id: 'adobe-com-enterprise:rating/4',
+                    },
+                ],
+            },
         ],
         filterLogic: 'or',
         topPanel: {
             mobile: {
                 blurFilters: true,
-            }
+            },
         },
         i18n: {
             leftPanel: {
@@ -160,8 +161,8 @@ let config = {
                         applyBtnText: 'Apply',
                         clearFilterText: 'Clear Left',
                         doneBtnText: 'Done',
-                    }
-                }
+                    },
+                },
             },
             topPanel: {
                 groupLabel: 'Filters',
@@ -173,25 +174,25 @@ let config = {
                         applyBtnText: 'Apply',
                         clearFilterText: 'Clear Top',
                         doneBtnText: 'Done',
-                    }
-                }
-            }
-        }
+                    },
+                },
+            },
+        },
     },
     hideCtaIds: [''],
     sort: {
         enabled: 'true',
         defaultSort: 'customSort',
         options: '[{"label":"Random", "sort":"random"},{"label":"Featured","sort":"featured"},{"label":"Title: (A-Z)","sort":"titleAsc"},{"label":"Title: (Z-A)","sort":"titleDesc"},{"label":"Date: (Oldest to newest)","sort":"dateAsc"},{"label":"Date: (Newest to oldest)","sort":"dateDesc"}, {"label": "Custom Sort", "sort": "customSort"}]',
-        customSort: function(card){console.log("customSort: ", card); return card;}
+        customSort(card) { console.log('customSort: ', card); return card; },
     },
     pagination: {
         animationStyle: 'paged',
         enabled: 'true',
         type: 'loadMore',
         loadMoreButton: {
-            style: "primary", // Can be "primary", "over-background";
-            useThemeThree: "true", // Can be "true" or "false";
+            style: 'primary', // Can be "primary", "over-background";
+            useThemeThree: 'true', // Can be "true" or "false";
         },
         i18n: {
             loadMore: {
@@ -202,8 +203,8 @@ let config = {
                 resultsQuantityText: '{start}-{end} of {total} results',
                 prevLabel: 'Prev',
                 nextLabel: 'Next',
-            }
-        }
+            },
+        },
     },
     bookmarks: {
         showOnCards: 'true',
@@ -216,8 +217,8 @@ let config = {
         i18n: {
             leftFilterPanel: {
                 filterTitle: 'My Favorites',
-            }
-        }
+            },
+        },
     },
     search: {
         enabled: 'true',
@@ -234,28 +235,29 @@ let config = {
             },
             filterInfo: {
                 searchPlaceholderText: 'i18n.filterInfo.searchPlaceholderText',
-            }
-        }
+            },
+        },
     },
     language: 'en-US',
     analytics: {
         trackImpressions: 'true',
         collectionIdentifier: 'Some Identifier',
     },
-    customCard: ["data", "return `<div class=customCard><div class=backgroundImg></div> <section><label>PHOTO EDITING</label><p><b>Transform a landscape with Sky Replacement.</b></p></div></section> </div>`"],
-    onCardSaved: function(){},
-    onCardUnsaved: function(){}
+    customCard: ['data', 'return `<div class=customCard><div class=backgroundImg></div> <section><label>PHOTO EDITING</label><p><b>Transform a landscape with Sky Replacement.</b></p></div></section> </div>`'],
+    onCardSaved() {},
+    onCardUnsaved() {},
 };
 
-let serverPath = "https://adobecom.github.io/caas";
-let args = process.argv.slice(2);
-if(args.includes("env=LOCAL")){
-    serverPath = "http://localhost:8000";
+let serverPath = 'https://adobecom.github.io/caas';
+const args = process.argv.slice(2);
+if (args.includes('env=LOCAL')) {
+    serverPath = `http://localhost:${PORT}`;
+    config.collection.endpoint = '../../mock-json/smoke.json';
 }
 
 describe('MWPW-126169: Hide CTAs', async () => {
     it('CTA should exist', async () => {
-        let state = btoa(JSON.stringify(config));
+        const state = btoa(JSON.stringify(config));
         const url = `${serverPath}/html/e2e/MWPW-126169.html?state=${state}`;
         await browser.url(url);
         await browser.setTimeout({ script: 50000 });
@@ -263,9 +265,9 @@ describe('MWPW-126169: Hide CTAs', async () => {
         await expect(buttonText).toEqual('Read More');
     });
     it('CTA should not exist', async () => {
-        let cloneConfig = {...config};
+        const cloneConfig = { ...config };
         cloneConfig.hideCtaIds = ['ac578dee-f01b-3ea0-a282-2116619e4251'];
-        let state = btoa(JSON.stringify(cloneConfig));
+        const state = btoa(JSON.stringify(cloneConfig));
         const url = `${serverPath}/html/e2e/MWPW-126169.html?state=${state}`;
         await browser.url(url);
         await browser.setTimeout({ script: 50000 });
@@ -273,12 +275,12 @@ describe('MWPW-126169: Hide CTAs', async () => {
         const exists = await $('#ac578dee-f01b-3ea0-a282-2116619e4251 .consonant-BtnInfobit--cta').isDisplayed();
         expect(exists).toEqual(false);
     });
-})
+});
 describe('Carousel', async () => {
-    let cloneConfig = {...config};
-    cloneConfig.collection.layout.container = "carousel";
+    const cloneConfig = { ...config };
+    cloneConfig.collection.layout.container = 'carousel';
 
-    let state = btoa(JSON.stringify(config));
+    const state = btoa(JSON.stringify(config));
     const url = `${serverPath}/html/e2e/carousel.html?state=${state}`;
 
     it('Carousel Title should exist', async () => {
