@@ -77,22 +77,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          token: ${{ SECRETS.CAAS_TOKEN }}
+          token: "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"
       - name: Setup Pages
         uses: actions/configure-pages@v2
         with:
-          token: ${{ SECRETS.CAAS_TOKEN }}
+          token: "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"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Uploads entire repository
           path: '.'
-          token: ${{ SECRETS.CAAS_TOKEN }}
+          token: "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"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
         with:
-          token: ${{ SECRETS.CAAS_TOKEN }}
+          token: "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"
   run-e2e-tests:
     runs-on: ubuntu-latest
     needs: deployment
