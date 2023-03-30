@@ -70,7 +70,7 @@ jobs:
   deployment:
     needs: check-build
     with:
-      ACCESS_TOKEN: ${{ secrets.CAAS_TOKEN }
+      ACCESS_TOKEN: ${{ secrets.CAAS_TOKEN }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
