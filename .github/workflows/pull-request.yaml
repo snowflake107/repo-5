@@ -69,8 +69,6 @@ jobs:
       run: npm run test:coverage
   deployment:
     needs: check-build
-    with:
-      ACCESS_TOKEN: ${{ secrets.CAAS_TOKEN }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -85,6 +83,7 @@ jobs:
         with:
           # Uploads entire repository
           path: '.'
+          ACCESS_TOKEN: ${{ secrets.CAAS_TOKEN }}
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
