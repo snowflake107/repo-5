@@ -4,7 +4,9 @@
   "private": false,
   "description": "",
   "scripts": {
-    "build": "",
+    "prebuild": "webpack --config sourcemaps.config.js",
+    "build": "webpack",
+    "postbuild": "minify dist/main.js > dist/main.min.js",
     "lint": "eslint react/src/js/components/Consonant --fix",
     "release": "HUSKY_SKIP_HOOKS=1 release-it --ci",
     "test:coverage": "jest --coverage",
