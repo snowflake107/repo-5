@@ -1,5 +1,14 @@
 
 
+## [0.6.14](https://github.com/adobecom/caas/compare/0.6.13...0.6.14) (2023-03-31)
+
+
+### Bug Fixes
+
+* **mwpw-129085:** fixes search issue for certain substrings for gated content for Trust Center ([95ea0ed](https://github.com/adobecom/caas/commit/95ea0edc82a9ad2dd25f063841c7dc106684f05e))
+* **mwpw-129085:** removing accidental eslint-disable ([5717238](https://github.com/adobecom/caas/commit/5717238c4e836db3f7781d1bb62bf81de9a2dac7))
+* **mwpw-129085:** removing all unintentionally committed code ([0921783](https://github.com/adobecom/caas/commit/092178337fa451599e1443b02445e32a25afff04))
+
 ## [0.6.13](https://github.com/adobecom/caas/compare/0.6.12...0.6.13) (2023-03-30)
 
 ## [0.6.12](https://github.com/adobecom/caas/compare/0.6.11...0.6.12) (2023-03-30)
