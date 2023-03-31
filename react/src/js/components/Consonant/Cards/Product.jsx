@@ -7,7 +7,6 @@ import {
     arrayOf,
     func,
 } from 'prop-types';
-import parseHTML from 'html-react-parser';
 import cuid from 'cuid';
 
 import { INFOBIT_TYPE } from '../Helpers/constants';
@@ -151,25 +150,28 @@ const ProductCard = (props) => {
         if (!data) return [];
 
         return data.map((infobit) => {
-            if (infobit.type === INFOBIT_TYPE.BOOKMARK) {
+            // MWPW-129085: Compiler wrongly compiles this object to private, read-only,
+            // Created copy so object instance has public methods and properties.
+            const copy = { ...infobit };
+            if (copy.type === INFOBIT_TYPE.BOOKMARK) {
                 return {
-                    ...infobit,
+                    ...copy,
                     cardId: id,
                     disableBookmarkIco,
                     isBookmarked,
                     onClick,
                     isProductCard: true,
                 };
-            } else if (infobit.type === INFOBIT_TYPE.DATE) {
+            } else if (copy.type === INFOBIT_TYPE.DATE) {
                 return {
-                    ...infobit,
+                    ...copy,
                     dateFormat,
                     locale,
                 };
             } else if (cardButtonStyle === 'link') {
-                infobit.type = INFOBIT_TYPE.LINK;
+                copy.type = INFOBIT_TYPE.LINK;
             }
-            return infobit;
+            return copy;
         });
     }
 
@@ -211,7 +213,7 @@ const ProductCard = (props) => {
                     description &&
                     <p
                         className="consonant-ProductCard-text">
-                        {parseHTML(description)}
+                        {description}
                     </p>
                 }
                 {!hideCTA && footer.map(footerItem => (
