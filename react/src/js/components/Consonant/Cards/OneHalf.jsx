@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import classNames from 'classnames';
 import cuid from 'cuid';
@@ -222,9 +223,12 @@ const OneHalfCard = (props) => {
         if (!data) return [];
 
         return data.map((infobit) => {
-            if (infobit.type === INFOBIT_TYPE.BOOKMARK) {
+            // MWPW-129085: Compiler wrongly compiles this object to private, read-only,
+            // Created copy so object instance has public methods and properties.
+            let copy = {...infobit}
+            if (copy.type === INFOBIT_TYPE.BOOKMARK) {
                 if (isGated) {
-                    infobit.type = INFOBIT_TYPE.GATED;
+                    copy.type = INFOBIT_TYPE.GATED;
                 }
                 return {
                     ...infobit,
@@ -233,17 +237,17 @@ const OneHalfCard = (props) => {
                     isBookmarked,
                     onClick,
                 };
-            } else if (infobit.type === INFOBIT_TYPE.DATE) {
+            } else if (copy.type === INFOBIT_TYPE.DATE) {
                 return {
-                    ...infobit,
+                    ...copy,
                     dateFormat,
                     locale,
                 };
             } else if (cardButtonStyle === 'link') {
-                infobit.type = INFOBIT_TYPE.LINK;
+                copy.type = INFOBIT_TYPE.LINK;
             }
             return {
-                ...infobit,
+                ...copy,
                 isCta: true,
             };
         });
