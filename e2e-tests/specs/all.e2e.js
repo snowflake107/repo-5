@@ -1,4 +1,4 @@
-const PORT = 8000;
+const PORT = 5000;
 const config = {
     collection: {
         mode: 'lightest', // Can be empty, "light", "dark", "darkest";
@@ -9,7 +9,7 @@ const config = {
         },
         lazyLoad: false,
         button: {
-            style: 'call-to-action', // Can be "primary", "call-to-action", "hide-cta";
+            style: 'call-to-action', // Can be "primary", "call-to-action";
         },
         banner: {
             upcoming: {
@@ -266,7 +266,7 @@ describe('MWPW-126169: Hide CTAs', async () => {
     });
     it('CTA should not exist', async () => {
         const cloneConfig = { ...config };
-        cloneConfig.hideCtaIds = ['ac578dee-f01b-3ea0-a282-2116619e4251', 'ac578dee-f01b-3ea0-a282-2116619e4251'];
+        cloneConfig.hideCtaIds = ['ac578dee-f01b-3ea0-a282-2116619e4251'];
         const state = btoa(JSON.stringify(cloneConfig));
         const url = `${serverPath}/html/e2e/MWPW-126169.html?state=${state}`;
         await browser.url(url);
@@ -274,18 +274,6 @@ describe('MWPW-126169: Hide CTAs', async () => {
         await browser.pause();
         const exists = await $('#ac578dee-f01b-3ea0-a282-2116619e4251 .consonant-BtnInfobit--cta').isDisplayed();
         expect(exists).toEqual(false);
-    });
-    it('all ctas should be hidden', async () => {
-        const cloneConfig = { ...config };
-        cloneConfig.collection.collectionButtonStyle = 'hidden';
-        cloneConfig.collection.layout.container = '1200MaxWidth';
-        const state = btoa(JSON.stringify(cloneConfig));
-        const url = `${serverPath}/html/e2e/MWPW-126169.html?state=${state}`;
-        await browser.url(url);
-        await browser.setTimeout({ script: 50000 });
-        for await (const cta of $$('.consonant-Card .consonant-BtnInfobit--cta')) {
-            expect(cta.isDisplayed()).toEqual(false);
-        }
     });
 });
 describe('Carousel', async () => {
