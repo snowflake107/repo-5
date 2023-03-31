@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import classNames from 'classnames';
 import cuid from 'cuid';
@@ -225,7 +224,7 @@ const OneHalfCard = (props) => {
         return data.map((infobit) => {
             // MWPW-129085: Compiler wrongly compiles this object to private, read-only,
             // Created copy so object instance has public methods and properties.
-            let copy = {...infobit}
+            const copy = { ...infobit };
             if (copy.type === INFOBIT_TYPE.BOOKMARK) {
                 if (isGated) {
                     copy.type = INFOBIT_TYPE.GATED;
