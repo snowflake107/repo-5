@@ -671,8 +671,7 @@ const Container = (props) => {
      * @returns {Void} - an updated url page
      */
     useEffect(() => {
-        if (currentPage === 1) return;
-        setUrlState('page', currentPage);
+        setUrlState('page', currentPage === 1 ? '' : currentPage);
     }, [currentPage]);
 
     const removeEmptyFilters = (allFilters, cardsFromJson) => {

@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 3/31/2023, 16:07:02
+ * Chimera UI Libraries - Build 4/3/2023, 09:09:22
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -7118,8 +7118,7 @@ var Container = function Container(props) {
      * @returns {Void} - an updated url page
      */
     (0, _react.useEffect)(function () {
-        if (currentPage === 1) return;
-        setUrlState('page', currentPage);
+        setUrlState('page', currentPage === 1 ? '' : currentPage);
     }, [currentPage]);
 
     var removeEmptyFilters = function removeEmptyFilters(allFilters, cardsFromJson) {
