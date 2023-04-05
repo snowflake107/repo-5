@@ -1,5 +1,12 @@
 
 
+## [0.6.15](https://github.com/adobecom/caas/compare/0.6.14...0.6.15) (2023-04-05)
+
+
+### Bug Fixes
+
+* removes page urlparam when page 1 is selected in the paginator (MWPW-128865) ([eff4774](https://github.com/adobecom/caas/commit/eff47743e2b048968ed501c79e8adc52b7513e36))
+
 ## [0.6.14](https://github.com/adobecom/caas/compare/0.6.13...0.6.14) (2023-03-31)
 
 
