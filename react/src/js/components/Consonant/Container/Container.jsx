@@ -661,7 +661,6 @@ const Container = (props) => {
             };
         }));
         const urlSearchValue = urlState[searchPrefix];
-        console.log(urlSearchValue[0]);
         if (urlSearchValue) {
             setSearchQuery(urlSearchValue[0]);
         }
