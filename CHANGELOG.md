@@ -1,5 +1,12 @@
 
 
+## [0.6.17](https://github.com/adobecom/caas/compare/0.6.16...0.6.17) (2023-04-14)
+
+
+### Bug Fixes
+
+* prevents paginator to scroll if not needed (MWPW-129225) ([d707d6d](https://github.com/adobecom/caas/commit/d707d6d4cb608d7ddc4836723b9cd1e90125b9e3))
+
 ## [0.6.16](https://github.com/adobecom/caas/compare/0.6.15...0.6.16) (2023-04-10)
 
 ## [0.6.15](https://github.com/adobecom/caas/compare/0.6.14...0.6.15) (2023-04-05)
