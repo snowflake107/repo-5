@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 4/5/2023, 10:43:35
+ * Chimera UI Libraries - Build 4/14/2023, 12:56:23
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -6887,6 +6887,7 @@ var Container = function Container(props) {
      */
     var handleSearchInputChange = function handleSearchInputChange(val) {
         setSearchQuery(val);
+        setCurrentPage(1);
         setUrlState(searchPrefix, val);
     };
 
