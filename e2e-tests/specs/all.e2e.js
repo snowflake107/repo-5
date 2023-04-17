@@ -1,4 +1,4 @@
-const PORT = 8001;
+const PORT = 5000;
 const config = {
     collection: {
         mode: 'lightest', // Can be empty, "light", "dark", "darkest";
