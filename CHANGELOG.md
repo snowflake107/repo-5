@@ -1,5 +1,12 @@
 
 
+## [0.6.20](https://github.com/adobecom/caas/compare/0.6.19...0.6.20) (2023-04-18)
+
+
+### Bug Fixes
+
+* resets current page state when searching - MWPW-129459 ([83462bc](https://github.com/adobecom/caas/commit/83462bc21341292d27eab8bc4517192acbc2024d))
+
 ## [0.6.19](https://github.com/adobecom/caas/compare/0.6.18...0.6.19) (2023-04-17)
 
 ## [0.6.18](https://github.com/adobecom/caas/compare/0.6.17...0.6.18) (2023-04-17)
