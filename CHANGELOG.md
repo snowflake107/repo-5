@@ -1,5 +1,12 @@
 
 
+## [0.6.21](https://github.com/adobecom/caas/compare/0.6.20...0.6.21) (2023-04-24)
+
+
+### Bug Fixes
+
+* **paginator:** paginator support for sticky headers [MWPW-129766] ([51678ac](https://github.com/adobecom/caas/commit/51678ac38149365241583e6d17298f2356ed214c))
+
 ## [0.6.20](https://github.com/adobecom/caas/compare/0.6.19...0.6.20) (2023-04-18)
 
 
