@@ -10,6 +10,7 @@ import {
     generateRange,
     getStartNumber,
     getPageStartEnd,
+    getGlobalNavHeight,
 } from '../Helpers/general';
 
 const paginatorType = {
@@ -84,6 +85,11 @@ const Paginator = (props) => {
     const nextPageNotOutOfBounds = currentPageNumber + 1 < totalPages;
 
     /**
+     * GlobalNab height needed for scrolling
+     */
+    const globalNavHeight = getGlobalNavHeight();
+
+    /**
      * Handles click of prev, next or number button
      *
      * @param {ClickEvent} e
@@ -109,7 +115,7 @@ const Paginator = (props) => {
         if (caasWrapper
             && caasWrapper.getBoundingClientRect().y < 0
             && typeof caasWrapper.scrollIntoView === 'function') {
-            caasWrapper.scrollIntoView({ behavior: 'smooth' });
+            window.scrollTo({ left: 0, top: caasWrapper.offsetTop - globalNavHeight, behavior: 'smooth' });
         }
         onClick(nextPage);
     };
