@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 4/17/2023, 16:04:31
+ * Chimera UI Libraries - Build 4/24/2023, 07:22:01
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -242,7 +242,7 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.getLinkTarget = exports.getEventBanner = exports.getCurrentDate = exports.isDateBeforeInterval = exports.isDateWithinInterval = exports.qs = exports.mergeDeep = exports.setByPath = exports.debounce = exports.getSelectedItemsCount = exports.getByPath = exports.template = exports.getEndNumber = exports.getStartNumber = exports.getPageStartEnd = exports.generateRange = exports.stopPropagation = exports.isAtleastOneFilterSelected = exports.isNullish = exports.parseToPrimitive = exports.isObject = exports.mapObject = exports.sanitizeText = exports.sortByKey = exports.intersection = exports.isSuperset = exports.chainFromIterable = exports.chain = exports.removeDuplicatesByKey = exports.truncateList = exports.truncateString = exports.readInclusionsFromLocalStorage = exports.readBookmarksFromLocalStorage = exports.saveBookmarksToLocalStorage = undefined;
+exports.getGlobalNavHeight = exports.getLinkTarget = exports.getEventBanner = exports.getCurrentDate = exports.isDateBeforeInterval = exports.isDateWithinInterval = exports.qs = exports.mergeDeep = exports.setByPath = exports.debounce = exports.getSelectedItemsCount = exports.getByPath = exports.template = exports.getEndNumber = exports.getStartNumber = exports.getPageStartEnd = exports.generateRange = exports.stopPropagation = exports.isAtleastOneFilterSelected = exports.isNullish = exports.parseToPrimitive = exports.isObject = exports.mapObject = exports.sanitizeText = exports.sortByKey = exports.intersection = exports.isSuperset = exports.chainFromIterable = exports.chain = exports.removeDuplicatesByKey = exports.truncateList = exports.truncateString = exports.readInclusionsFromLocalStorage = exports.readBookmarksFromLocalStorage = exports.saveBookmarksToLocalStorage = undefined;
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -867,6 +867,15 @@ var getLinkTarget = exports.getLinkTarget = function getLinkTarget(link) {
         /* eslint-disable-line no-empty */
     }
     return target;
+};
+
+var getGlobalNavHeight = exports.getGlobalNavHeight = function getGlobalNavHeight() {
+    var header = document.querySelector('header');
+    var offSet = 20; // margin above card collection
+    if (!header) return offSet;
+
+    var isBacom = header.getAttribute('daa-lh') && header.getAttribute('daa-lh').includes('bacom');
+    return isBacom || header.classList.contains('feds-header-wrapper--sticky') ? header.offsetHeight + offSet : offSet;
 };
 
 /***/ }),
@@ -53564,6 +53573,11 @@ var Paginator = function Paginator(props) {
     var nextPageNotOutOfBounds = currentPageNumber + 1 < totalPages;
 
     /**
+     * GlobalNab height needed for scrolling
+     */
+    var globalNavHeight = (0, _general.getGlobalNavHeight)();
+
+    /**
      * Handles click of prev, next or number button
      *
      * @param {ClickEvent} e
@@ -53588,7 +53602,7 @@ var Paginator = function Paginator(props) {
         }
         var caasWrapper = target.closest('.consonant-Wrapper');
         if (caasWrapper && caasWrapper.getBoundingClientRect().y < 0 && typeof caasWrapper.scrollIntoView === 'function') {
-            caasWrapper.scrollIntoView({ behavior: 'smooth' });
+            window.scrollTo({ left: 0, top: caasWrapper.offsetTop - globalNavHeight, behavior: 'smooth' });
         }
         onClick(nextPage);
     };
