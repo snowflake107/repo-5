@@ -531,7 +531,9 @@ export const getGlobalNavHeight = () => {
     if (!header) return offSet;
 
     const isBacom = header.getAttribute('daa-lh') && header.getAttribute('daa-lh').includes('bacom');
-    return isBacom || header.classList.contains('feds-header-wrapper--sticky')
+    const headerWrapper = isBacom ? header : document.querySelector('.feds-header-wrapper');
+
+    return isBacom || headerWrapper.classList.contains('feds-header-wrapper--sticky')
         ? header.offsetHeight + offSet
         : offSet;
 };
