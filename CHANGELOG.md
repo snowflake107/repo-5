@@ -1,5 +1,12 @@
 
 
+## [0.6.22](https://github.com/adobecom/caas/compare/0.6.21...0.6.22) (2023-04-27)
+
+
+### Bug Fixes
+
+* **paginator:** handles AEM and Milo markup discrepancies [MWPW-129766] ([85ccbec](https://github.com/adobecom/caas/commit/85ccbec95fb96dbfd2ad77105400508c6bcf0b12))
+
 ## [0.6.21](https://github.com/adobecom/caas/compare/0.6.20...0.6.21) (2023-04-24)
 
 
