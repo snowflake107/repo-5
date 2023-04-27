@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 4/24/2023, 07:22:01
+ * Chimera UI Libraries - Build 4/26/2023, 18:21:30
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -875,7 +875,9 @@ var getGlobalNavHeight = exports.getGlobalNavHeight = function getGlobalNavHeigh
     if (!header) return offSet;
 
     var isBacom = header.getAttribute('daa-lh') && header.getAttribute('daa-lh').includes('bacom');
-    return isBacom || header.classList.contains('feds-header-wrapper--sticky') ? header.offsetHeight + offSet : offSet;
+    var headerWrapper = isBacom ? header : document.querySelector('.feds-header-wrapper');
+
+    return isBacom || headerWrapper.classList.contains('feds-header-wrapper--sticky') ? header.offsetHeight + offSet : offSet;
 };
 
 /***/ }),
@@ -53600,7 +53602,7 @@ var Paginator = function Paginator(props) {
         } else {
             nextPage = parseInt(target.firstChild.nodeValue, BASE_10);
         }
-        var caasWrapper = target.closest('.consonant-Wrapper');
+        var caasWrapper = target.closest('.section') || target.closest('.consonant-Wrapper');
         if (caasWrapper && caasWrapper.getBoundingClientRect().y < 0 && typeof caasWrapper.scrollIntoView === 'function') {
             window.scrollTo({ left: 0, top: caasWrapper.offsetTop - globalNavHeight, behavior: 'smooth' });
         }
