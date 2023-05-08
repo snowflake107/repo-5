@@ -1,5 +1,13 @@
 
 
+## [0.6.25](https://github.com/adobecom/caas/compare/0.6.24...0.6.25) (2023-05-08)
+
+
+### Bug Fixes
+
+* **paginator:** handles pages without a globalnav ([fa142eb](https://github.com/adobecom/caas/commit/fa142ebe999176e0119c5319ea35a96e9133296e))
+* **paginator:** handles pages without a globalnav ([7631ce8](https://github.com/adobecom/caas/commit/7631ce87158ce6c544c9a3f33006e52c0ed47282))
+
 ## [0.6.24](https://github.com/adobecom/caas/compare/0.6.23...0.6.24) (2023-05-03)
 
 ## [0.6.23](https://github.com/adobecom/caas/compare/0.6.22...0.6.23) (2023-05-03)
