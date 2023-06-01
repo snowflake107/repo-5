@@ -184,7 +184,6 @@ const config = {
         enabled: 'true',
         defaultSort: 'customSort',
         options: '[{"label":"Random", "sort":"random"},{"label":"Featured","sort":"featured"},{"label":"Title: (A-Z)","sort":"titleAsc"},{"label":"Title: (Z-A)","sort":"titleDesc"},{"label":"Date: (Oldest to newest)","sort":"dateAsc"},{"label":"Date: (Newest to oldest)","sort":"dateDesc"}, {"label": "Custom Sort", "sort": "customSort"}]',
-        // customSort(card) { console.log('customSort: ', card); return card; },
     },
     pagination: {
         animationStyle: 'paged',
@@ -273,7 +272,6 @@ describe('Hide CTA(s):', async () => {
         expect(exists).toEqual(false); 
     });
     it('MWPW-130075: Card with hidden CTA should be clickable', async () => {
-       // const cloneConfig = { ...config };
         const cloneConfig = structuredClone(config);
         cloneConfig.hideCtaIds = ['ac578dee-f01b-3ea0-a282-2116619e4251'];
         const state = btoa(JSON.stringify(cloneConfig));
@@ -284,7 +282,6 @@ describe('Hide CTA(s):', async () => {
         expect(hiddenCTA).toEqual(true); 
     });
     it('MWPW-128711: ALL CTAs should be hidden', async () => {
-        //const cloneConfig = { ...config };
         const cloneConfig = structuredClone(config);
         cloneConfig.collection.collectionButtonStyle = 'hidden';
         const state = btoa(JSON.stringify(cloneConfig));
