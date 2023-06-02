@@ -1,3 +1,4 @@
+var structuredClone = require("@ungap/structured-clone").default;
 const PORT = 5000;
 const config = {
     collection: {
