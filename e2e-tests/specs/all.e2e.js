@@ -289,7 +289,6 @@ describe('Hide CTA(s):', async () => {
         const url = `${serverPath}/html/e2e/MWPW-126169.html?state=${state}`;
         await browser.url(url);
         await browser.setTimeout({ script: 50000 });
-        await browser.pause(5000);
         for await (const oneCTA of $$('.consonant-Card .consonant-BtnInfobit--cta')) {
             expect(await oneCTA.isDisplayed()).toEqual(false);
           }
