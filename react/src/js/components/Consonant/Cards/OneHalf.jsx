@@ -14,10 +14,7 @@ import prettyFormatDate from '../Helpers/prettyFormat';
 import { INFOBIT_TYPE } from '../Helpers/constants';
 import { hasTag } from '../Helpers/Helpers';
 import { getEventBanner, getLinkTarget } from '../Helpers/general';
-import {
-    useConfig,
-    useLazyLoading,
-} from '../Helpers/hooks';
+import { useConfig } from '../Helpers/hooks';
 import {
     stylesType,
     contentAreaType,
@@ -175,23 +172,6 @@ const OneHalfCard = (props) => {
     });
 
     /**
-     * Creates a card image DOM reference
-     * @returns {Object} - card image DOM reference
-     */
-    const imageRef = React.useRef();
-
-    /**
-     * @typedef {Image} LazyLoadedImageState
-     * @description — Has image as state after image is lazy loaded
-     *
-     * @typedef {Function} LazyLoadedImageStateSetter
-     * @description - Sets state once image is lazy loaded
-     *
-     * @type {[Image]} lazyLoadedImage
-     */
-    const [lazyLoadedImage] = useLazyLoading(imageRef, image);
-
-    /**
      * Formatted date string
      * @type {String}
      */
@@ -281,11 +261,8 @@ const OneHalfCard = (props) => {
             id={id}>
             <div
                 data-testid="consonant-OneHalfCard-img"
-                className="consonant-OneHalfCard-img"
-                ref={imageRef}
-                style={{ backgroundImage: lazyLoadedImage && `url("${lazyLoadedImage}")` }}
-                role={altText && 'img'}
-                aria-label={altText}>
+                className="consonant-OneHalfCard-img">
+                <img src={image} alt={altText} aria-label={altText} loading="lazy" />
                 {hasBanner && !disableBanners &&
                 <span
                     data-testid="consonant-OneHalfCard-banner"
