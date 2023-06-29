@@ -1,5 +1,12 @@
 
 
+## [0.6.31](https://github.com/adobecom/caas/compare/0.6.30...0.6.31) (2023-06-29)
+
+
+### Bug Fixes
+
+* changes card backgroundImage to mg tag [MWPW-129969] ([957cee8](https://github.com/adobecom/caas/commit/957cee8f623cadcfadcdb76d9b4349eb1cdb522f))
+
 ## [0.6.30](https://github.com/adobecom/caas/compare/0.6.29...0.6.30) (2023-06-13)
 
 ## [0.6.29](https://github.com/adobecom/caas/compare/0.6.28...0.6.29) (2023-06-02)
