@@ -47,27 +47,14 @@ function debounce(fn, wait) {
 
 /**
  * @typedef {function(): {Int, Int}} WindowDimensionsState - Current Window Dimensions
- * @description — Handles debouncing when window is re-sized
+ * @description — Returns Current Window Dimensions
  *
  * @type {function(): {Int, Int}} WindowDimensions
  */
-export const useWindowDimensions = () => {
-    const getWindowDimensions = () => ({
-        width: window.innerWidth,
-        height: window.innerHeight,
-    });
-
-    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-
-    useEffect(() => {
-        const handleResize = debounce(() => setWindowDimensions(getWindowDimensions()));
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
-    return windowDimensions;
-};
+export const useWindowDimensions = () => ({
+    width: window.innerWidth,
+    height: window.innerHeight,
+});
 
 /**
  * @typedef {String} OpenDropdownState - Id of a selected dropdown

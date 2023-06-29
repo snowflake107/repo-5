@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 6/27/2023, 19:25:19
+ * Chimera UI Libraries - Build 6/28/2023, 21:25:24
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -942,35 +942,15 @@ function debounce(fn, wait) {
 
 /**
  * @typedef {function(): {Int, Int}} WindowDimensionsState - Current Window Dimensions
- * @description — Handles debouncing when window is re-sized
+ * @description — Returns Current Window Dimensions
  *
  * @type {function(): {Int, Int}} WindowDimensions
  */
 var useWindowDimensions = exports.useWindowDimensions = function useWindowDimensions() {
-    var getWindowDimensions = function getWindowDimensions() {
-        return {
-            width: window.innerWidth,
-            height: window.innerHeight
-        };
+    return {
+        width: window.innerWidth,
+        height: window.innerHeight
     };
-
-    var _useState = (0, _react.useState)(getWindowDimensions()),
-        _useState2 = _slicedToArray(_useState, 2),
-        windowDimensions = _useState2[0],
-        setWindowDimensions = _useState2[1];
-
-    (0, _react.useEffect)(function () {
-        var handleResize = debounce(function () {
-            return setWindowDimensions(getWindowDimensions());
-        });
-
-        window.addEventListener('resize', handleResize);
-        return function () {
-            return window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-    return windowDimensions;
 };
 
 /**
@@ -1024,15 +1004,15 @@ var useLazyLoading = exports.useLazyLoading = function useLazyLoading(imageRef, 
         rootMargin: _constants.ROOT_MARGIN_DEFAULT
     };
 
+    var _useState = (0, _react.useState)(''),
+        _useState2 = _slicedToArray(_useState, 2),
+        lazyLoadImage = _useState2[0],
+        setLazyLoadImage = _useState2[1];
+
     var _useState3 = (0, _react.useState)(''),
         _useState4 = _slicedToArray(_useState3, 2),
-        lazyLoadImage = _useState4[0],
-        setLazyLoadImage = _useState4[1];
-
-    var _useState5 = (0, _react.useState)(''),
-        _useState6 = _slicedToArray(_useState5, 2),
-        intersectionImage = _useState6[0],
-        setIntersectionImage = _useState6[1];
+        intersectionImage = _useState4[0],
+        setIntersectionImage = _useState4[1];
 
     var imageObserver = new IntersectionObserver(function (elements) {
         if (elements[0].intersectionRatio !== 0) {
@@ -1080,10 +1060,10 @@ var useURLState = exports.useURLState = function useURLState() {
         search = _window$location.search,
         pathname = _window$location.pathname;
 
-    var _useState7 = (0, _react.useState)(_general.qs.parse(search)),
-        _useState8 = _slicedToArray(_useState7, 2),
-        urlState = _useState8[0],
-        setUrlState = _useState8[1];
+    var _useState5 = (0, _react.useState)(_general.qs.parse(search)),
+        _useState6 = _slicedToArray(_useState5, 2),
+        urlState = _useState6[0],
+        setUrlState = _useState6[1];
 
     var handleSetQuery = (0, _react.useCallback)(function (key, value) {
         setUrlState(function (origin) {
@@ -1113,10 +1093,10 @@ var useURLState = exports.useURLState = function useURLState() {
 };
 
 var useRegistered = exports.useRegistered = function useRegistered() {
-    var _useState9 = (0, _react.useState)(false),
-        _useState10 = _slicedToArray(_useState9, 2),
-        registered = _useState10[0],
-        setRegistered = _useState10[1];
+    var _useState7 = (0, _react.useState)(false),
+        _useState8 = _slicedToArray(_useState7, 2),
+        registered = _useState8[0],
+        setRegistered = _useState8[1];
 
     function isRegisteredForEvent() {
         var fedsData = (0, _general.getByPath)(window, 'feds.data', null);
