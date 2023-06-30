@@ -377,7 +377,7 @@ const Container = (props) => {
             hash = (hash + (s.charCodeAt(i) - 97 + 1) * basePower) % MOD;
             basePower = (basePower * BASE) % MOD;
         }
-        return btoa((hash + MOD) % MOD);
+        return ((hash + MOD) % MOD).toString(36);
     }
 
     /**
