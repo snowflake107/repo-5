@@ -1,5 +1,12 @@
 
 
+## [0.6.32](https://github.com/adobecom/caas/compare/0.6.31...0.6.32) (2023-06-30)
+
+
+### Bug Fixes
+
+* removes flickering on resizing [MWPW-133260] ([a186ddd](https://github.com/adobecom/caas/commit/a186dddc18c0c1c06fa9dadfa6f607ebe9582dbb))
+
 ## [0.6.31](https://github.com/adobecom/caas/compare/0.6.30...0.6.31) (2023-06-29)
 
 
