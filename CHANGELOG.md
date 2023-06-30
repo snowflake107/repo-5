@@ -1,5 +1,12 @@
 
 
+## [0.6.35](https://github.com/adobecom/caas/compare/0.6.34...0.6.35) (2023-06-30)
+
+
+### Bug Fixes
+
+* Changes image stretch from height to width [MWPW-133260] ([f3ca1c1](https://github.com/adobecom/caas/commit/f3ca1c14c65e98c407a05647fe09e04b32d2a99b))
+
 ## [0.6.34](https://github.com/adobecom/caas/compare/0.6.33...0.6.34) (2023-06-30)
 
 ## [0.6.33](https://github.com/adobecom/caas/compare/0.6.32...0.6.33) (2023-06-30)
