@@ -15,10 +15,10 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ethereumjs/eth-query.git"
+    "url": "https://github.com/MetaMask/eth-query.git"
   },
   "bugs": {
-    "url": "https://github.com/ethereumjs/eth-query/issues"
+    "url": "https://github.com/MetaMask/eth-query/issues"
   },
-  "homepage": "https://github.com/ethereumjs/eth-query#readme"
+  "homepage": "https://github.com/MetaMask/eth-query#readme"
 }
