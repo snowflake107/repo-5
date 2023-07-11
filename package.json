@@ -12,7 +12,10 @@
     "json-rpc-random-id": "^1.0.0",
     "xtend": "^4.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@lavamoat/allow-scripts": "^2.3.1",
+    "@lavamoat/preinstall-always-fail": "^1.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/MetaMask/eth-query.git"
@@ -23,5 +26,10 @@
   "homepage": "https://github.com/MetaMask/eth-query#readme",
   "engines": {
     "node": ">=16.0.0"
+  },
+  "lavamoat": {
+    "allowScripts": {
+      "@lavamoat/preinstall-always-fail": false
+    }
   }
 }
