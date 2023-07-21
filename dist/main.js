@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 6/30/2023, 14:16:26
+ * Chimera UI Libraries - Build 7/21/2023, 14:41:31
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -50184,8 +50184,10 @@ var OneHalfCard = function OneHalfCard(props) {
             'div',
             {
                 'data-testid': 'consonant-OneHalfCard-img',
-                className: 'consonant-OneHalfCard-img' },
-            _react2.default.createElement('img', { src: image, alt: altText, 'aria-label': altText, loading: 'lazy' }),
+                className: 'consonant-OneHalfCard-img',
+                style: { backgroundImage: 'url("' + image + '")' },
+                role: altText && 'img',
+                'aria-label': altText },
             hasBanner && !disableBanners && _react2.default.createElement(
                 'span',
                 {
