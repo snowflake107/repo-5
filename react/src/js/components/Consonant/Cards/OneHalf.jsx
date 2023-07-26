@@ -261,8 +261,10 @@ const OneHalfCard = (props) => {
             id={id}>
             <div
                 data-testid="consonant-OneHalfCard-img"
-                className="consonant-OneHalfCard-img">
-                <img src={image} alt={altText} aria-label={altText} loading="lazy" />
+                className="consonant-OneHalfCard-img"
+                style={{ backgroundImage: `url("${image}")` }}
+                role={altText && 'img'}
+                aria-label={altText}>
                 {hasBanner && !disableBanners &&
                 <span
                     data-testid="consonant-OneHalfCard-banner"
