@@ -1,9 +1,5 @@
 /*!
-<<<<<<< HEAD
- * Chimera UI Libraries - Build 7/26/2023, 13:19:14
-=======
- * Chimera UI Libraries - Build 7/21/2023, 14:41:31
->>>>>>> main
+ * Chimera UI Libraries - Build 7/26/2023, 13:28:03
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -56387,7 +56383,6 @@ var JsonProcessor = function () {
                         return (0, _Helpers.hasTag)(re, card.tags);
                     })
                 } : { hideCtaTags: false }, {
-                    hideCtaTagLength: hideCtaTags.length,
                     initial: {
                         title: (0, _general.getByPath)(card, 'contentArea.title', ''),
                         description: (0, _general.getByPath)(card, 'contentArea.description', ''),
