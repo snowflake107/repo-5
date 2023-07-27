@@ -146,6 +146,7 @@ const Container = (props) => {
     const sortEnabled = getConfig('sort', 'enabled');
     const cardStyle = getConfig('collection', 'cardStyle');
     const title = getConfig('collection', 'i18n.title');
+    const headers = getConfig('headers', '');
 
     /**
      **** Constants ****
@@ -756,6 +757,7 @@ const Container = (props) => {
         function getCards(endPoint = collectionEndpoint) {
             return window.fetch(endPoint, {
                 credentials: 'include',
+                headers,
             })
                 .then((resp) => {
                     const {
