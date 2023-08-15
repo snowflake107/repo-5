@@ -146,6 +146,7 @@ export const DEFAULT_CONFIG = {
     },
     featuredCards: [],
     hideCtaIds: [],
+    hideCtaTags: [],
     header: {
         enabled: false,
     },
@@ -208,6 +209,7 @@ export const DEFAULT_CONFIG = {
         },
     },
     language: 'en',
+    headers: [],
 };
 
 /**

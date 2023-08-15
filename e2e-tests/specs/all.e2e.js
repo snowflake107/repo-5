@@ -1,9 +1,10 @@
+var structuredClone = require("@ungap/structured-clone").default;
 const PORT = 5000;
 const config = {
     collection: {
         mode: 'lightest', // Can be empty, "light", "dark", "darkest";
         layout: {
-            type: '3up', // Can be "2up", "3up", "4up", "5up";
+            type: '4up', // Can be "2up", "3up", "4up", "5up";
             gutter: '4x', // Can be "2x", "3x", "4x";
             container: '1200MaxWidth', // Can be "83Percent", "1200MaxWidth", "32Margin";
         },
@@ -184,7 +185,6 @@ const config = {
         enabled: 'true',
         defaultSort: 'customSort',
         options: '[{"label":"Random", "sort":"random"},{"label":"Featured","sort":"featured"},{"label":"Title: (A-Z)","sort":"titleAsc"},{"label":"Title: (Z-A)","sort":"titleDesc"},{"label":"Date: (Oldest to newest)","sort":"dateAsc"},{"label":"Date: (Newest to oldest)","sort":"dateDesc"}, {"label": "Custom Sort", "sort": "customSort"}]',
-        customSort(card) { console.log('customSort: ', card); return card; },
     },
     pagination: {
         animationStyle: 'paged',
@@ -242,10 +242,7 @@ const config = {
     analytics: {
         trackImpressions: 'true',
         collectionIdentifier: 'Some Identifier',
-    },
-    customCard: ['data', 'return `<div class=customCard><div class=backgroundImg></div> <section><label>PHOTO EDITING</label><p><b>Transform a landscape with Sky Replacement.</b></p></div></section> </div>`'],
-    onCardSaved() {},
-    onCardUnsaved() {},
+    }
 };
 
 let serverPath = 'https://adobecom.github.io/caas';
@@ -255,32 +252,66 @@ if (args.includes('env=LOCAL')) {
     config.collection.endpoint = '../../mock-json/smoke.json';
 }
 
-describe('MWPW-126169: Hide CTAs', async () => {
+describe('Hide CTA(s):', async () => {
     it('CTA should exist', async () => {
-        const state = btoa(JSON.stringify(config));
+        const cloneConfig = structuredClone(config);
+        const state = btoa(JSON.stringify(cloneConfig));
         const url = `${serverPath}/html/e2e/MWPW-126169.html?state=${state}`;
         await browser.url(url);
         await browser.setTimeout({ script: 50000 });
         const buttonText = await $('#ac578dee-f01b-3ea0-a282-2116619e4251 .consonant-BtnInfobit--cta').getText();
-        await expect(buttonText).toEqual('Read More');
+        expect(buttonText).toEqual('Read More');
     });
-    it('CTA should not exist', async () => {
-        const cloneConfig = { ...config };
+    it('MWPW-130075: Individual CTA should be hidden', async () => {
+        const cloneConfig = structuredClone(config);
         cloneConfig.hideCtaIds = ['ac578dee-f01b-3ea0-a282-2116619e4251'];
         const state = btoa(JSON.stringify(cloneConfig));
         const url = `${serverPath}/html/e2e/MWPW-126169.html?state=${state}`;
         await browser.url(url);
         await browser.setTimeout({ script: 50000 });
-        await browser.pause();
         const exists = await $('#ac578dee-f01b-3ea0-a282-2116619e4251 .consonant-BtnInfobit--cta').isDisplayed();
-        expect(exists).toEqual(false);
+        expect(exists).toEqual(false); 
+    });
+    it('MWPW-130075: Card with hidden CTA should be clickable', async () => {
+        const cloneConfig = structuredClone(config);
+        cloneConfig.hideCtaIds = ['ac578dee-f01b-3ea0-a282-2116619e4251'];
+        const state = btoa(JSON.stringify(cloneConfig));
+        const url = `${serverPath}/html/e2e/MWPW-126169.html?state=${state}`;
+        await browser.url(url);
+        await browser.setTimeout({ script: 50000 });
+        const hiddenCTA = await $('#ac578dee-f01b-3ea0-a282-2116619e4251 .consonant-LinkBlocker').isDisplayed();
+        expect(hiddenCTA).toEqual(true); 
+    });
+    it('MWPW-128711: ALL CTAs should be hidden', async () => {
+        const cloneConfig = structuredClone(config);
+        cloneConfig.collection.collectionButtonStyle = 'hidden';
+        const state = btoa(JSON.stringify(cloneConfig));
+        const url = `${serverPath}/html/e2e/MWPW-126169.html?state=${state}`;
+        await browser.url(url);
+        await browser.setTimeout({ script: 50000 });
+        for await (const oneCTA of $$('.consonant-Card .consonant-BtnInfobit--cta')) {
+            expect(await oneCTA.isDisplayed()).toEqual(false);
+        }
+    });
+    it('MWPW-134272: Cards with "hide CTA tags" should be hidden while others are still visible', async () => {
+        const cloneConfig = structuredClone(config);
+        cloneConfig.hideCtaTags = ['adobe-com-enterprise:topic/digital-foundation'];
+        const state = btoa(JSON.stringify(cloneConfig));
+        const url = `${serverPath}/html/e2e/MWPW-126169.html?state=${state}`;
+        await browser.url(url);
+        await browser.setTimeout({ script: 50000 });
+        const taggedCta = await $('#ad83970f-c987-3c86-846f-4edaec827fb1 .consonant-BtnInfobit--cta').isDisplayed();
+        const untaggedCta = await $('#ac578dee-f01b-3ea0-a282-2116619e4251 .consonant-BtnInfobit--cta').isDisplayed();
+        expect(taggedCta).toEqual(false);
+        expect(untaggedCta).toEqual(true);
     });
 });
+
 describe('Carousel', async () => {
-    const cloneConfig = { ...config };
+    const cloneConfig = structuredClone(config);
     cloneConfig.collection.layout.container = 'carousel';
 
-    const state = btoa(JSON.stringify(config));
+    const state = btoa(JSON.stringify(cloneConfig));
     const url = `${serverPath}/html/e2e/carousel.html?state=${state}`;
 
     it('Carousel Title should exist', async () => {

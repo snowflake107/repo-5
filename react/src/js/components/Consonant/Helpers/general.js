@@ -523,3 +523,17 @@ export const getLinkTarget = (link, ctaAction = '', domain = window.location.hos
     }
     return target;
 };
+
+
+export const getGlobalNavHeight = () => {
+    const header = document.querySelector('header');
+    const offSet = 20; // margin above card collection
+    if (!header) return offSet;
+
+    const isBacom = header.getAttribute('daa-lh') && header.getAttribute('daa-lh').includes('bacom');
+    const headerWrapper = isBacom ? header : document.querySelector('.feds-header-wrapper');
+
+    return isBacom || (headerWrapper && headerWrapper.classList.contains('feds-header-wrapper--sticky'))
+        ? header.offsetHeight + offSet
+        : offSet;
+};

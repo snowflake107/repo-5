@@ -1,5 +1,99 @@
 
 
+## [0.6.39](https://github.com/adobecom/caas/compare/0.6.38...0.6.39) (2023-08-09)
+
+## [0.6.38](https://github.com/adobecom/caas/compare/0.6.37...0.6.38) (2023-07-27)
+
+## [0.6.37](https://github.com/adobecom/caas/compare/0.6.36...0.6.37) (2023-07-27)
+
+## [0.6.36](https://github.com/adobecom/caas/compare/0.6.35...0.6.36) (2023-07-24)
+
+
+### Bug Fixes
+
+* Sets cards images as background images (MWPW-133908) ([d303afe](https://github.com/adobecom/caas/commit/d303afe1950b2767b9f30dd4273fc889704ce716))
+
+## [0.6.35](https://github.com/adobecom/caas/compare/0.6.34...0.6.35) (2023-06-30)
+
+
+### Bug Fixes
+
+* Changes image stretch from height to width [MWPW-133260] ([f3ca1c1](https://github.com/adobecom/caas/commit/f3ca1c14c65e98c407a05647fe09e04b32d2a99b))
+
+## [0.6.34](https://github.com/adobecom/caas/compare/0.6.33...0.6.34) (2023-06-30)
+
+## [0.6.33](https://github.com/adobecom/caas/compare/0.6.32...0.6.33) (2023-06-30)
+
+## [0.6.32](https://github.com/adobecom/caas/compare/0.6.31...0.6.32) (2023-06-30)
+
+
+### Bug Fixes
+
+* removes flickering on resizing [MWPW-133260] ([a186ddd](https://github.com/adobecom/caas/commit/a186dddc18c0c1c06fa9dadfa6f607ebe9582dbb))
+
+## [0.6.31](https://github.com/adobecom/caas/compare/0.6.30...0.6.31) (2023-06-29)
+
+
+### Bug Fixes
+
+* changes card backgroundImage to mg tag [MWPW-129969] ([957cee8](https://github.com/adobecom/caas/commit/957cee8f623cadcfadcdb76d9b4349eb1cdb522f))
+
+## [0.6.30](https://github.com/adobecom/caas/compare/0.6.29...0.6.30) (2023-06-13)
+
+## [0.6.29](https://github.com/adobecom/caas/compare/0.6.28...0.6.29) (2023-06-02)
+
+## [0.6.28](https://github.com/adobecom/caas/compare/0.6.27...0.6.28) (2023-05-11)
+
+## [0.6.27](https://github.com/adobecom/caas/compare/0.6.26...0.6.27) (2023-05-09)
+
+## [0.6.26](https://github.com/adobecom/caas/compare/0.6.25...0.6.26) (2023-05-08)
+
+## [0.6.25](https://github.com/adobecom/caas/compare/0.6.24...0.6.25) (2023-05-08)
+
+
+### Bug Fixes
+
+* **paginator:** handles pages without a globalnav ([fa142eb](https://github.com/adobecom/caas/commit/fa142ebe999176e0119c5319ea35a96e9133296e))
+* **paginator:** handles pages without a globalnav ([7631ce8](https://github.com/adobecom/caas/commit/7631ce87158ce6c544c9a3f33006e52c0ed47282))
+
+## [0.6.24](https://github.com/adobecom/caas/compare/0.6.23...0.6.24) (2023-05-03)
+
+## [0.6.23](https://github.com/adobecom/caas/compare/0.6.22...0.6.23) (2023-05-03)
+
+## [0.6.22](https://github.com/adobecom/caas/compare/0.6.21...0.6.22) (2023-04-27)
+
+
+### Bug Fixes
+
+* **paginator:** handles AEM and Milo markup discrepancies [MWPW-129766] ([85ccbec](https://github.com/adobecom/caas/commit/85ccbec95fb96dbfd2ad77105400508c6bcf0b12))
+
+## [0.6.21](https://github.com/adobecom/caas/compare/0.6.20...0.6.21) (2023-04-24)
+
+
+### Bug Fixes
+
+* **paginator:** paginator support for sticky headers [MWPW-129766] ([51678ac](https://github.com/adobecom/caas/commit/51678ac38149365241583e6d17298f2356ed214c))
+
+## [0.6.20](https://github.com/adobecom/caas/compare/0.6.19...0.6.20) (2023-04-18)
+
+
+### Bug Fixes
+
+* resets current page state when searching - MWPW-129459 ([83462bc](https://github.com/adobecom/caas/commit/83462bc21341292d27eab8bc4517192acbc2024d))
+
+## [0.6.19](https://github.com/adobecom/caas/compare/0.6.18...0.6.19) (2023-04-17)
+
+## [0.6.18](https://github.com/adobecom/caas/compare/0.6.17...0.6.18) (2023-04-17)
+
+## [0.6.17](https://github.com/adobecom/caas/compare/0.6.16...0.6.17) (2023-04-14)
+
+
+### Bug Fixes
+
+* prevents paginator to scroll if not needed (MWPW-129225) ([d707d6d](https://github.com/adobecom/caas/commit/d707d6d4cb608d7ddc4836723b9cd1e90125b9e3))
+
+## [0.6.16](https://github.com/adobecom/caas/compare/0.6.15...0.6.16) (2023-04-10)
+
 ## [0.6.15](https://github.com/adobecom/caas/compare/0.6.14...0.6.15) (2023-04-05)
 
 

@@ -76,6 +76,7 @@ import {
     featuredCards: [{}],
     filterPanel: {},
     hideCtaIds: [{}],
+    hideCtaTags: [{}],
     sort: {},
     pagination: {},
     bookmarks: {},
@@ -120,6 +121,11 @@ const Container = (props) => {
         .replace(/\[|\]/g, '')
         .replace(/`/g, '')
         .split(',');
+    const hideCtaTags = getConfig('hideCtaTags', '')
+        .toString()
+        .replace(/\[|\]/g, '')
+        .replace(/`/g, '')
+        .split(',');
     const leftPanelSearchPlaceholder = getConfig('search', 'i18n.leftFilterPanel.searchPlaceholderText');
     const topPanelSearchPlaceholder = getConfig('search', 'i18n.topFilterPanel.searchPlaceholderText');
     const searchPlaceholderText = getConfig('search', 'i18n.filterInfo.searchPlaceholderText');
@@ -140,6 +146,7 @@ const Container = (props) => {
     const sortEnabled = getConfig('sort', 'enabled');
     const cardStyle = getConfig('collection', 'cardStyle');
     const title = getConfig('collection', 'i18n.title');
+    const headers = getConfig('headers', '');
 
     /**
      **** Constants ****
@@ -357,6 +364,29 @@ const Container = (props) => {
      **** Helper Methods ****
      */
 
+    function getParentChild(id) {
+        let i = id.length;
+        while (id[i] !== '/' && i >= 0) {
+            i--;
+        }
+        return [id.substring(0, i), id.substring(i + 1)];
+    }
+
+    function rollingHash(s, l) {
+        if (!s) {
+            return '';
+        }
+        const BASE = 53;
+        const MOD = 10 ** l + 7;
+        let hash = 0;
+        let basePower = 1;
+        for (let i = 0; i < s.length; i++) {
+            hash = (hash + (s.charCodeAt(i) - 97 + 1) * basePower) % MOD;
+            basePower = (basePower * BASE) % MOD;
+        }
+        return ((hash + MOD) % MOD).toString(36);
+    }
+
     /**
      * For a given group of filters, it will unselect all of them
      * @param {Array} filterGroups - a group of filters
@@ -474,6 +504,7 @@ const Container = (props) => {
      */
     const handleSearchInputChange = (val) => {
         setSearchQuery(val);
+        setCurrentPage(1);
         setUrlState(searchPrefix, val);
     };
 
@@ -730,6 +761,7 @@ const Container = (props) => {
         function getCards(endPoint = collectionEndpoint) {
             return window.fetch(endPoint, {
                 credentials: 'include',
+                headers,
             })
                 .then((resp) => {
                     const {
@@ -763,7 +795,19 @@ const Container = (props) => {
                             onlyShowBookmarks,
                             bookmarkedCardIds,
                             hideCtaIds,
+                            hideCtaTags,
                         );
+                    if (payload.isHashed) {
+                        const TAG_HASH_LENGTH = 6;
+                        for (const group of authoredFilters) {
+                            group.id = rollingHash(group.id, TAG_HASH_LENGTH);
+                            for (const filterItem of group.items) {
+                                const [parent, child] = getParentChild(filterItem.id);
+                                filterItem.id = `${rollingHash(parent, TAG_HASH_LENGTH)}/${rollingHash(child, TAG_HASH_LENGTH)}`;
+                            }
+                        }
+                    }
+                    setFilters(() => authoredFilters);
 
                     const transitions = getTransitions(processedCards);
                     if (sortOption.sort.toLowerCase() === 'eventsort') {
