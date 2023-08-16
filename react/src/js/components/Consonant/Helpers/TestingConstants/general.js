@@ -134,6 +134,10 @@ const sanitizeText = [
         text: ' teXT TExt ',
         expectedValue: 'text text',
     },
+    {
+        text: 'text javascript:alert(966)',
+        expectedValue: 'text javascriptalert966',
+    },
 ];
 
 const mapObject = [
