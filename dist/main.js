@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 7/27/2023, 15:21:30
+ * Chimera UI Libraries - Build 8/16/2023, 20:57:56
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -437,13 +437,21 @@ var sortByKey = exports.sortByKey = function sortByKey(iterable, keyFunc) {
     });
 };
 
+var allowedChars = /[a-zA-Z0-9\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF\s.]/g;
+
 /**
  * Returns cleaned up text
+ * don't allow urls
  * @param {String} text - The text so sanitize
  * @return {String} - The cleaned up text
  */
 var sanitizeText = exports.sanitizeText = function sanitizeText(text) {
-    return text.toLowerCase().trim();
+    if (!text) return '';
+    var sanitized = text.toLowerCase().trim();
+    // remove any invalid chars
+    var matchedAllowedChars = sanitized.match(allowedChars);
+    sanitized = matchedAllowedChars ? matchedAllowedChars.join('') : '';
+    return sanitized;
 };
 
 /**
@@ -7127,6 +7135,10 @@ var Container = function Container(props) {
                 });
             });
         });
+        var urlSearchValue = urlState[searchPrefix];
+        if (urlSearchValue) {
+            setSearchQuery(urlSearchValue[0]);
+        }
     }, []);
 
     (0, _react.useEffect)(function () {
