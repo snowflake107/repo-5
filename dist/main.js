@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 8/16/2023, 20:57:56
+ * Chimera UI Libraries - Build 8/25/2023, 11:52:19
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -6859,20 +6859,31 @@ var Container = function Container(props) {
         });
 
         var urlParams = new URLSearchParams(window.location.search);
+        console.log(urlParams.toString());
 
         clearUrlState();
         urlParams.forEach(function (value, key) {
+            console.log(key);
+            console.log(value);
             if (key.indexOf(filterGroupPrefix) !== 0) setUrlState(key, value);
+            var urlParams2 = new URLSearchParams(window.location.search);
+            console.log(urlParams2.toString());
         });
     };
+
+    /**
+     * Will remove search terms from urlParams
+     */
 
     /**
      * Resets filters, and search to empty. Hides bookmark filter
      * @returns {Void} - an updated state
      */
     var resetFiltersSearchAndBookmarks = function resetFiltersSearchAndBookmarks() {
+        console.log('first');
         clearAllFilters();
         setSearchQuery('');
+        clearUrlState();
         setShowBookmarks(false);
     };
 

@@ -465,6 +465,7 @@ const Container = (props) => {
     const resetFiltersSearchAndBookmarks = () => {
         clearAllFilters();
         setSearchQuery('');
+        clearUrlState();
         setShowBookmarks(false);
     };
 
