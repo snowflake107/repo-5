@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.7.2 (8/30/2023, 15:32:09)
+ * Chimera UI Libraries - Build 0.7.2 (8/30/2023, 15:35:26)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -6990,7 +6990,6 @@ var Container = function Container(props) {
 
         setFilters(function (prevFilters) {
             return prevFilters.map(function (filter) {
-                console.log(filter);
                 if (filter.id !== filterId) return filter;
 
                 return _extends({}, filter, {
