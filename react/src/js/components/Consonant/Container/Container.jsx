@@ -569,7 +569,6 @@ const Container = (props) => {
         }
 
         setFilters(prevFilters => prevFilters.map((filter) => {
-            console.log(filter);
             if (filter.id !== filterId) return filter;
 
             return {
@@ -789,8 +788,6 @@ const Container = (props) => {
                     setLoading(false);
                     setIsFirstLoad(true);
                     if (!getByPath(payload, 'cards.length')) return;
-                    console.log('hello');
-                    console.log(authoredFilters);
                     if (payload.isHashed) {
                         const TAG_HASH_LENGTH = 6;
                         for (const group of authoredFilters) {
@@ -819,8 +816,7 @@ const Container = (props) => {
                             hideCtaIds,
                             hideCtaTags,
                         );
-                    setFilters(authoredFilters);
-                    /* setFilters(() => authoredFilters.map((filter) => {
+                    setFilters(() => authoredFilters.map((filter) => {
                         const { group, items } = filter;
                         const urlStateValue = urlState[filterGroupPrefix + group];
                         if (!urlStateValue) return filter;
@@ -833,7 +829,7 @@ const Container = (props) => {
                                 selected: urlStateArray.includes(String(item.label)),
                             })),
                         };
-                    })); */
+                    }));
 
                     const transitions = getTransitions(processedCards);
                     if (sortOption.sort.toLowerCase() === 'eventsort') {

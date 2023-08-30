@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.7.2 (8/30/2023, 15:16:20)
+ * Chimera UI Libraries - Build 0.7.2 (8/30/2023, 15:32:09)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -7245,8 +7245,6 @@ var Container = function Container(props) {
                 setLoading(false);
                 setIsFirstLoad(true);
                 if (!(0, _general.getByPath)(payload, 'cards.length')) return;
-                console.log('hello');
-                console.log(authoredFilters);
                 if (payload.isHashed) {
                     var TAG_HASH_LENGTH = 6;
                     var _iteratorNormalCompletion = true;
