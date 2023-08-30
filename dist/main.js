@@ -1,9 +1,5 @@
 /*!
-<<<<<<< HEAD
- * Chimera UI Libraries - Build 8/25/2023, 11:52:19
-=======
- * Chimera UI Libraries - Build 8/29/2023, 14:47:37
->>>>>>> main
+ * Chimera UI Libraries - Build 0.7.2 (8/30/2023, 15:16:20)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -6864,28 +6860,18 @@ var Container = function Container(props) {
         });
 
         var urlParams = new URLSearchParams(window.location.search);
-        console.log(urlParams.toString());
 
         clearUrlState();
         urlParams.forEach(function (value, key) {
-            console.log(key);
-            console.log(value);
             if (key.indexOf(filterGroupPrefix) !== 0) setUrlState(key, value);
-            var urlParams2 = new URLSearchParams(window.location.search);
-            console.log(urlParams2.toString());
         });
     };
-
-    /**
-     * Will remove search terms from urlParams
-     */
 
     /**
      * Resets filters, and search to empty. Hides bookmark filter
      * @returns {Void} - an updated state
      */
     var resetFiltersSearchAndBookmarks = function resetFiltersSearchAndBookmarks() {
-        console.log('first');
         clearAllFilters();
         setSearchQuery('');
         clearUrlState();
@@ -7004,6 +6990,7 @@ var Container = function Container(props) {
 
         setFilters(function (prevFilters) {
             return prevFilters.map(function (filter) {
+                console.log(filter);
                 if (filter.id !== filterId) return filter;
 
                 return _extends({}, filter, {
@@ -7126,10 +7113,9 @@ var Container = function Container(props) {
     }, []);
 
     /**
-     * Sets filters from url as tate
+     * Sets filters from url as state
      * @returns {Void} - an updated state
      */
-
     (0, _react.useEffect)(function () {
         setFilters(function (origin) {
             return origin.map(function (filter) {
@@ -7259,6 +7245,8 @@ var Container = function Container(props) {
                 setLoading(false);
                 setIsFirstLoad(true);
                 if (!(0, _general.getByPath)(payload, 'cards.length')) return;
+                console.log('hello');
+                console.log(authoredFilters);
                 if (payload.isHashed) {
                     var TAG_HASH_LENGTH = 6;
                     var _iteratorNormalCompletion = true;
@@ -7360,7 +7348,22 @@ var Container = function Container(props) {
                     processedCards = _removeDuplicateCards2 === undefined ? [] : _removeDuplicateCards2;
 
                 setFilters(function () {
-                    return authoredFilters;
+                    return authoredFilters.map(function (filter) {
+                        var group = filter.group,
+                            items = filter.items;
+
+                        var urlStateValue = urlState[filterGroupPrefix + group];
+                        if (!urlStateValue) return filter;
+                        var urlStateArray = urlStateValue.split(',');
+                        return _extends({}, filter, {
+                            opened: true,
+                            items: items.map(function (item) {
+                                return _extends({}, item, {
+                                    selected: urlStateArray.includes(String(item.label))
+                                });
+                            })
+                        });
+                    });
                 });
 
                 var transitions = (0, _general.getTransitions)(processedCards);
