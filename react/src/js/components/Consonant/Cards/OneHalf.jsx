@@ -191,7 +191,7 @@ const OneHalfCard = (props) => {
      * isGated
      * @type {Boolean}
      */
-    const isGated = hasTag(/caas:gated/, tags);
+    const isGated = hasTag(/caas:gated/, tags) || hasTag(/7ed3/, tags);
 
     /**
      * Extends infobits with the configuration data
@@ -210,7 +210,7 @@ const OneHalfCard = (props) => {
                     copy.type = INFOBIT_TYPE.GATED;
                 }
                 return {
-                    ...infobit,
+                    ...copy,
                     cardId: id,
                     disableBookmarkIco,
                     isBookmarked,

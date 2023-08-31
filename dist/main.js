@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 8/29/2023, 14:47:37
+ * Chimera UI Libraries - Build 0.7.2 (8/31/2023, 24:59:12)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -7320,7 +7320,9 @@ var Container = function Container(props) {
                                 parent = _getParentChild4[0],
                                 child = _getParentChild4[1];
 
-                            temp.push(rollingHash(parent, TAG_HASH_LENGTH) + '/' + rollingHash(child, TAG_HASH_LENGTH));
+                            if (parent !== '' && child !== '') {
+                                temp.push(rollingHash(parent, TAG_HASH_LENGTH) + '/' + rollingHash(child, TAG_HASH_LENGTH));
+                            }
                         }
                     } catch (err) {
                         _didIteratorError2 = true;
@@ -50248,7 +50250,7 @@ var OneHalfCard = function OneHalfCard(props) {
      * isGated
      * @type {Boolean}
      */
-    var isGated = (0, _Helpers.hasTag)(/caas:gated/, tags);
+    var isGated = (0, _Helpers.hasTag)(/caas:gated/, tags) || (0, _Helpers.hasTag)(/7ed3/, tags);
 
     /**
      * Extends infobits with the configuration data
@@ -50266,7 +50268,7 @@ var OneHalfCard = function OneHalfCard(props) {
                 if (isGated) {
                     copy.type = _constants.INFOBIT_TYPE.GATED;
                 }
-                return _extends({}, infobit, {
+                return _extends({}, copy, {
                     cardId: id,
                     disableBookmarkIco: disableBookmarkIco,
                     isBookmarked: isBookmarked,
@@ -52249,7 +52251,9 @@ var HalfHeightCard = function HalfHeightCard(props) {
         lazyLoadedImage = _useLazyLoading2[0];
 
     var isRegistered = (0, _hooks.useRegistered)(false);
-    var isGated = (0, _Helpers.hasTag)(/caas:gated/, tags) || (0, _Helpers.hasTag)(/caas:card-style\/half-height-featured/, tags);
+    var isGated = (0, _Helpers.hasTag)(/caas:gated/, tags) || (0, _Helpers.hasTag)(/caas:card-style\/half-height-featured/, tags) || (0, _Helpers.hasTag)(/7ed3/, tags) || (0, _Helpers.hasTag)(/1j6zgcx\/3bhv/, tags);
+
+    window.isGated = isGated;
 
     if (isGated && !isRegistered) {
         bannerDescriptionToUse = bannerMap.register.description;
@@ -53138,7 +53142,7 @@ var TextCard = function TextCard(props) {
      * isGated
      * @type {Boolean}
      */
-    var isGated = (0, _Helpers.hasTag)(/caas:gated/, tags);
+    var isGated = (0, _Helpers.hasTag)(/caas:gated/, tags) || (0, _Helpers.hasTag)(/7ed3/, tags);
 
     /**
      * Extends infobits with the configuration data
