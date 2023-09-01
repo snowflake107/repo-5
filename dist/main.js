@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.7.2 (8/31/2023, 13:59:43)
+ * Chimera UI Libraries - Build 0.7.3 (9/1/2023, 13:59:06)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -6874,6 +6874,7 @@ var Container = function Container(props) {
     var resetFiltersSearchAndBookmarks = function resetFiltersSearchAndBookmarks() {
         clearAllFilters();
         setSearchQuery('');
+        clearUrlState();
         setShowBookmarks(false);
     };
 
@@ -7111,10 +7112,9 @@ var Container = function Container(props) {
     }, []);
 
     /**
-     * Sets filters from url as tate
+     * Sets filters from url as state
      * @returns {Void} - an updated state
      */
-
     (0, _react.useEffect)(function () {
         setFilters(function (origin) {
             return origin.map(function (filter) {
@@ -7347,7 +7347,22 @@ var Container = function Container(props) {
                     processedCards = _removeDuplicateCards2 === undefined ? [] : _removeDuplicateCards2;
 
                 setFilters(function () {
-                    return authoredFilters;
+                    return authoredFilters.map(function (filter) {
+                        var group = filter.group,
+                            items = filter.items;
+
+                        var urlStateValue = urlState[filterGroupPrefix + group];
+                        if (!urlStateValue) return filter;
+                        var urlStateArray = urlStateValue.split(',');
+                        return _extends({}, filter, {
+                            opened: true,
+                            items: items.map(function (item) {
+                                return _extends({}, item, {
+                                    selected: urlStateArray.includes(String(item.label))
+                                });
+                            })
+                        });
+                    });
                 });
 
                 var transitions = (0, _general.getTransitions)(processedCards);
