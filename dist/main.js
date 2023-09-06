@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.7.3 (9/1/2023, 13:59:06)
+ * Chimera UI Libraries - Build 0.8.0 (9/5/2023, 17:01:41)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -6420,7 +6420,15 @@ var Container = function Container(props) {
     var defaultSort = getConfig('sort', 'defaultSort');
     var defaultSortOption = (0, _consonant.getDefaultSortOption)(config, defaultSort);
     var featuredCards = getConfig('featuredCards', '').toString().replace(/\[|\]/g, '').replace(/`/g, '').split(',');
+    // eslint-disable-next-line no-use-before-define,max-len
+    featuredCards = featuredCards.concat(featuredCards.map(function (id) {
+        return rollingHash(id, CARD_HASH_LENGTH);
+    }));
     var hideCtaIds = getConfig('hideCtaIds', '').toString().replace(/\[|\]/g, '').replace(/`/g, '').split(',');
+    // eslint-disable-next-line no-use-before-define
+    hideCtaIds = hideCtaIds.concat(hideCtaIds.map(function (id) {
+        return rollingHash(id, CARD_HASH_LENGTH);
+    }));
     var hideCtaTags = getConfig('hideCtaTags', '').toString().replace(/\[|\]/g, '').replace(/`/g, '').split(',');
     var leftPanelSearchPlaceholder = getConfig('search', 'i18n.leftFilterPanel.searchPlaceholderText');
     var topPanelSearchPlaceholder = getConfig('search', 'i18n.topFilterPanel.searchPlaceholderText');
@@ -7300,12 +7308,6 @@ var Container = function Container(props) {
                         }
                     }
 
-                    featuredCards = featuredCards.map(function (id) {
-                        return rollingHash(id, CARD_HASH_LENGTH);
-                    });
-                    hideCtaIds = hideCtaIds.map(function (id) {
-                        return rollingHash(id, CARD_HASH_LENGTH);
-                    });
                     var temp = [];
                     var _iteratorNormalCompletion2 = true;
                     var _didIteratorError2 = false;
