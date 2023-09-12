@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.8.1 (9/8/2023, 01:47:03)
+ * Chimera UI Libraries - Build 0.8.2 (9/12/2023, 16:49:56)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -94,7 +94,7 @@ if (process.env.NODE_ENV === 'production') {
  */
 
 if (process.env.NODE_ENV !== 'production') {
-  var ReactIs = __webpack_require__(112);
+  var ReactIs = __webpack_require__(114);
 
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
@@ -898,7 +898,7 @@ var getGlobalNavHeight = exports.getGlobalNavHeight = function getGlobalNavHeigh
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.useRegistered = exports.useURLState = exports.useLazyLoading = exports.useConfig = exports.useExpandable = exports.useWindowDimensions = undefined;
+exports.loadLana = exports.useRegistered = exports.useURLState = exports.useLazyLoading = exports.useConfig = exports.useExpandable = exports.useWindowDimensions = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -908,11 +908,13 @@ var _react = __webpack_require__(0);
 
 var _general = __webpack_require__(5);
 
-var _consonant = __webpack_require__(113);
+var _consonant = __webpack_require__(111);
 
-var _contexts = __webpack_require__(114);
+var _contexts = __webpack_require__(112);
 
 var _constants = __webpack_require__(15);
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -1140,6 +1142,48 @@ var useRegistered = exports.useRegistered = function useRegistered() {
     }, [registered]);
 
     return registered;
+};
+
+var loadLana = exports.loadLana = function loadLana() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    if (window.lana) return;
+
+    var lanaError = function lanaError(e) {
+        window.lana.log(e.reason || e.error || e.message, { errorType: 'i' });
+    };
+
+    window.lana = {
+        log: function () {
+            var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+                var _window$lana;
+
+                var _args = arguments;
+                return regeneratorRuntime.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                window.removeEventListener('error', lanaError);
+                                window.removeEventListener('unhandledrejection', lanaError);
+                                return _context.abrupt('return', (_window$lana = window.lana).log.apply(_window$lana, _args));
+
+                            case 3:
+                            case 'end':
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, undefined);
+            }));
+
+            function log() {
+                return _ref.apply(this, arguments);
+            }
+
+            return log;
+        }(),
+        debug: false,
+        options: options
+    };
 };
 
 /***/ }),
@@ -6282,6 +6326,110 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.makeConfigGetter = exports.getNumSelectedFilterItems = undefined;
+exports.getDefaultSortOption = getDefaultSortOption;
+
+var _general = __webpack_require__(5);
+
+var _constants = __webpack_require__(15);
+
+/**
+ * Gets the number of selected filter items
+ * @param {Array} filters - filters array
+ * @returns {Number} - the number of selected filter items
+ */
+var getNumSelectedFilterItems = exports.getNumSelectedFilterItems = function getNumSelectedFilterItems(filters) {
+    var filterItems = (0, _general.chainFromIterable)(filters.map(function (filter) {
+        return filter.items;
+    }));
+    return (0, _general.getSelectedItemsCount)(filterItems);
+};
+
+/**
+ * Returns the authored or default configuration value
+ * @param {Object} config - main configuration object
+ * @returns {Object} - authored or default configuration value
+ */
+var makeConfigGetter = exports.makeConfigGetter = function makeConfigGetter(config) {
+    return function (object, key) {
+        var objectPath = key ? object + '.' + key : object;
+        var defaultValue = (0, _general.getByPath)(_constants.DEFAULT_CONFIG, objectPath);
+
+        var value = (0, _general.getByPath)(config, objectPath);
+
+        if ((0, _general.isNullish)(value)) {
+            return defaultValue;
+        }
+        return value;
+    };
+};
+
+/**
+ * Gets the sorting option to use
+ * @param {Object} config - configuration object
+ * @param {String} query - title of a sort option
+ * @returns {Object} - Sort Option or default if none is found
+ */
+function getDefaultSortOption(config, query) {
+    var getConfig = makeConfigGetter(config);
+    var sortOptions = getConfig('sort', 'options');
+    var sortConstant = _constants.SORT_TYPES[query.toUpperCase()];
+
+    return sortOptions.find(function (option) {
+        return option.sort === query;
+    }) || {
+        label: sortConstant || 'Featured',
+        sort: sortConstant || 'featured'
+    };
+}
+
+/***/ }),
+/* 112 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ConfigContext = exports.ExpandableContext = exports.noOp = undefined;
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * A funtion-placeholder, used to handle cleanups
+ * Defined explicitly so react doesn't re-create during re-renders
+ * @returns {undefined} - returns undefined
+ */
+var noOp = exports.noOp = function noOp() {};
+
+/**
+ * Creates context for expandable components
+ * @returns {Object} - ExpandableContext context object
+ */
+var ExpandableContext = exports.ExpandableContext = _react2.default.createContext({ value: null, setValue: noOp });
+
+/**
+ * Creates configuration context
+ * @returns {Object} - ConfigContext context object
+ */
+var ConfigContext = exports.ConfigContext = _react2.default.createContext({});
+
+/***/ }),
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -6361,9 +6509,9 @@ var _Info = __webpack_require__(315);
 
 var _constants = __webpack_require__(15);
 
-var _contexts = __webpack_require__(114);
+var _contexts = __webpack_require__(112);
 
-var _consonant = __webpack_require__(113);
+var _consonant = __webpack_require__(111);
 
 var _Helpers = __webpack_require__(28);
 
@@ -7880,7 +8028,7 @@ Container.defaultProps = {
 exports.default = Container;
 
 /***/ }),
-/* 112 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7893,110 +8041,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
-
-/***/ }),
-/* 113 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.makeConfigGetter = exports.getNumSelectedFilterItems = undefined;
-exports.getDefaultSortOption = getDefaultSortOption;
-
-var _general = __webpack_require__(5);
-
-var _constants = __webpack_require__(15);
-
-/**
- * Gets the number of selected filter items
- * @param {Array} filters - filters array
- * @returns {Number} - the number of selected filter items
- */
-var getNumSelectedFilterItems = exports.getNumSelectedFilterItems = function getNumSelectedFilterItems(filters) {
-    var filterItems = (0, _general.chainFromIterable)(filters.map(function (filter) {
-        return filter.items;
-    }));
-    return (0, _general.getSelectedItemsCount)(filterItems);
-};
-
-/**
- * Returns the authored or default configuration value
- * @param {Object} config - main configuration object
- * @returns {Object} - authored or default configuration value
- */
-var makeConfigGetter = exports.makeConfigGetter = function makeConfigGetter(config) {
-    return function (object, key) {
-        var objectPath = key ? object + '.' + key : object;
-        var defaultValue = (0, _general.getByPath)(_constants.DEFAULT_CONFIG, objectPath);
-
-        var value = (0, _general.getByPath)(config, objectPath);
-
-        if ((0, _general.isNullish)(value)) {
-            return defaultValue;
-        }
-        return value;
-    };
-};
-
-/**
- * Gets the sorting option to use
- * @param {Object} config - configuration object
- * @param {String} query - title of a sort option
- * @returns {Object} - Sort Option or default if none is found
- */
-function getDefaultSortOption(config, query) {
-    var getConfig = makeConfigGetter(config);
-    var sortOptions = getConfig('sort', 'options');
-    var sortConstant = _constants.SORT_TYPES[query.toUpperCase()];
-
-    return sortOptions.find(function (option) {
-        return option.sort === query;
-    }) || {
-        label: sortConstant || 'Featured',
-        sort: sortConstant || 'featured'
-    };
-}
-
-/***/ }),
-/* 114 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.ConfigContext = exports.ExpandableContext = exports.noOp = undefined;
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * A funtion-placeholder, used to handle cleanups
- * Defined explicitly so react doesn't re-create during re-renders
- * @returns {undefined} - returns undefined
- */
-var noOp = exports.noOp = function noOp() {};
-
-/**
- * Creates context for expandable components
- * @returns {Object} - ExpandableContext context object
- */
-var ExpandableContext = exports.ExpandableContext = _react2.default.createContext({ value: null, setValue: noOp });
-
-/**
- * Creates configuration context
- * @returns {Object} - ConfigContext context object
- */
-var ConfigContext = exports.ConfigContext = _react2.default.createContext({});
 
 /***/ }),
 /* 115 */
@@ -9229,7 +9273,9 @@ var _reactDomComponents = __webpack_require__(110);
 
 var _general = __webpack_require__(5);
 
-var _Container = __webpack_require__(111);
+var _hooks = __webpack_require__(6);
+
+var _Container = __webpack_require__(113);
 
 var _Container2 = _interopRequireDefault(_Container);
 
@@ -9276,6 +9322,8 @@ try {
 } catch (e) {
     /* eslint-disable no-empty */
 }
+
+(0, _hooks.loadLana)({ clientId: 'chimera' });
 
 var ConsonantCardCollecton = exports.ConsonantCardCollecton = function ConsonantCardCollecton(config, element) {
     _classCallCheck(this, ConsonantCardCollecton);
@@ -42387,7 +42435,7 @@ exports.typeOf = typeOf;
 
 
 
-var ReactIs = __webpack_require__(112);
+var ReactIs = __webpack_require__(114);
 var assign = __webpack_require__(40);
 
 var ReactPropTypesSecret = __webpack_require__(68);
@@ -56805,7 +56853,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _reactDomComponents = __webpack_require__(110);
 
-var _Container = __webpack_require__(111);
+var _Container = __webpack_require__(113);
 
 var _Container2 = _interopRequireDefault(_Container);
 

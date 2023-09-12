@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM, { render } from 'react-dom';
 import { DOMRegistry } from 'react-dom-components';
 import { parseToPrimitive } from './components/Consonant/Helpers/general';
+import { loadLana } from './components/Consonant/Helpers/hooks';
 import Container from './components/Consonant/Container/Container';
 import consonantPageRDC from './components/Consonant/Page/ConsonantPageDOM';
 
@@ -43,6 +44,8 @@ try {
 } catch (e) {
     /* eslint-disable no-empty */
 }
+
+loadLana({clientId: 'chimera' });
 
 export class ConsonantCardCollecton {
     constructor(config, element) {
