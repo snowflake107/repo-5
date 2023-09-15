@@ -219,20 +219,3 @@ export const useRegistered = () => {
     return registered;
 };
 
-export const loadLana = (options = {}) => {
-    if (window.lana) return;
-
-    const lanaError = (e) => {
-        window.lana.log(e.reason || e.error || e.message, { errorType: 'i' });
-    };
-
-    window.lana = {
-        log: async (...args) => {
-            window.removeEventListener('error', lanaError);
-            window.removeEventListener('unhandledrejection', lanaError);
-            return window.lana.log(...args);
-        },
-        debug: false,
-        options,
-    };
-};
