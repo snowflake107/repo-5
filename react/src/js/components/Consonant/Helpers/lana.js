@@ -22,4 +22,13 @@ export const loadLana = (options = {}) => {
     window.addEventListener('unhandledrejection', lanaError);
 };
 
-export const logLana = ({ message, errorMessage, sampleRate } = {}) => `${message} | ${errorMessage} | ${sampleRate}`;
+export const logLana = ({
+    message, tags, e = '', sampleRate = 1,
+} = {}) => {
+    const msg = `${message} | href: ${window.location.href} | ${e.reason || e.error || e.message || e}`;
+    window.lana.log(msg, {
+        clientId: 'chimera',
+        sampleRate,
+        tags,
+    });
+};
