@@ -874,6 +874,7 @@ const Container = (props) => {
                         getCards(fallbackEndpoint);
                         return;
                     }
+                    logLana({ message: 'failed to return processed cards', tags: 'collection' });
                     setLoading(false);
                     setApiFailure(true);
                 });
