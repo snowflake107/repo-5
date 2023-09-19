@@ -9,6 +9,7 @@ import {
 
 import Container from '../Container';
 import setupIntersectionObserverMock from '../../Testing/Mocks/intersectionObserver';
+import jestMocks from '../../Testing/Utils/JestMocks';
 import config from '../../Testing/Mocks/config.json';
 import cards from '../../Testing/Mocks/cards.json';
 
@@ -22,6 +23,7 @@ global.fetch = jest.fn(() =>
     }));
 
 setupIntersectionObserverMock();
+jestMocks.lana();
 
 describe('Consonant/Container/Results Per Page', () => {
     test('should render default count of cards if incorrectly authored', async () => {

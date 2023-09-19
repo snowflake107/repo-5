@@ -12,6 +12,7 @@ import Container from '../Container';
 import config from '../../Testing/Mocks/config.json';
 import cards from '../../Testing/Mocks/cards.json';
 import setupIntersectionObserverMock from '../../Testing/Mocks/intersectionObserver';
+import jestMocks from '../../Testing/Utils/JestMocks';
 
 global.fetch = jest.fn(() =>
     Promise.resolve({
@@ -27,6 +28,7 @@ beforeEach(() => {
 });
 
 setupIntersectionObserverMock();
+jestMocks.lana();
 
 describe('Consonant/Container/Bookmarks', () => {
     test('should be able to save cards to bookmarks', async () => {

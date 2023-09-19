@@ -11,10 +11,12 @@ import {
 
 import Container from '../Container';
 import setupIntersectionObserverMock from '../../Testing/Mocks/intersectionObserver';
+import jestMocks from '../../Testing/Utils/JestMocks';
 import config from '../../Testing/Mocks/config.json';
 import cards from '../../Testing/Mocks/cards.json';
 
 setupIntersectionObserverMock();
+jestMocks.lana();
 
 global.fetch = jest.fn(() =>
     Promise.resolve({
@@ -102,7 +104,7 @@ describe('Consonant/Container/Search', () => {
         await act(async () => render(<Container config={configToUse} />));
 
         const searchInput = screen.getByTestId('consonant-Search-input');
-        
+
         fireEvent.change(searchInput, { target: { value: '' } });
 
         await waitFor(() => screen.getByTestId('consonant-CardsGrid'));

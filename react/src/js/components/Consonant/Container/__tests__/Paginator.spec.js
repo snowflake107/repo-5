@@ -12,8 +12,10 @@ import Container from '../Container';
 import config from '../../Testing/Mocks/config.json';
 import cards from '../../Testing/Mocks/cards.json';
 import setupIntersectionObserverMock from '../../Testing/Mocks/intersectionObserver';
+import jestMocks from '../../Testing/Utils/JestMocks';
 
 setupIntersectionObserverMock();
+jestMocks.lana();
 
 const filteredCards = cards.filter(({ appliesTo }) => Boolean(appliesTo));
 

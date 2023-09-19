@@ -14,11 +14,13 @@ import {
 
 import Container from '../Container';
 import setupIntersectionObserverMock from '../../Testing/Mocks/intersectionObserver';
+import jestMocks from '../../Testing/Utils/JestMocks';
 import config from '../../Testing/Mocks/config.json';
 import cards from '../../Testing/Mocks/cards.json';
 
 
 setupIntersectionObserverMock();
+jestMocks.lana();
 
 const MOBILE_WIDTH = 384;
 const DESKTOP_WIDTH = 1800;
