@@ -429,7 +429,7 @@ const Container = (props) => {
      * @param {Number} id - the id of an individual filter item
      * @returns {Void} - an updated state
      */
-    const clearFilterItem = (id) => {
+    const clearFilterItem = (id, group = '') => {
         setFilters((prevFilters) => {
             const filterClearedState = getFilterItemClearedState(id, prevFilters);
             return filterClearedState;
@@ -437,9 +437,11 @@ const Container = (props) => {
 
         const urlParams = new URLSearchParams(window.location.search);
         clearUrlState();
+        // actually clear the url state
         urlParams.forEach((value, key) => {
             const chFilter = key.toLowerCase().replace('ch_', '').replace(' ', '-');
-            if (key.indexOf(filterGroupPrefix) !== 0 || !id.includes(chFilter)) {
+            if (key.indexOf(filterGroupPrefix) !== 0 || !id.toLowerCase().includes(chFilter) ||
+                !group.toLowerCase().includes(chFilter)) {
                 setUrlState(key, value.replace('%20', ' '));
             }
         });

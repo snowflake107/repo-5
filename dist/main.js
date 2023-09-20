@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.8.1 (9/8/2023, 01:47:03)
+ * Chimera UI Libraries - Build 0.8.2 (9/20/2023, 15:07:31)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -6842,6 +6842,8 @@ var Container = function Container(props) {
      * @returns {Void} - an updated state
      */
     var clearFilterItem = function clearFilterItem(id) {
+        var group = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
         setFilters(function (prevFilters) {
             var filterClearedState = getFilterItemClearedState(id, prevFilters);
             return filterClearedState;
@@ -6849,9 +6851,10 @@ var Container = function Container(props) {
 
         var urlParams = new URLSearchParams(window.location.search);
         clearUrlState();
+        // actually clear the url state
         urlParams.forEach(function (value, key) {
             var chFilter = key.toLowerCase().replace('ch_', '').replace(' ', '-');
-            if (key.indexOf(filterGroupPrefix) !== 0 || !id.includes(chFilter)) {
+            if (key.indexOf(filterGroupPrefix) !== 0 || !id.toLowerCase().includes(chFilter) || !group.toLowerCase().includes(chFilter)) {
                 setUrlState(key, value.replace('%20', ' '));
             }
         });
@@ -55551,7 +55554,7 @@ var Item = function Item(props) {
      * @listens ClickEvent
      */
     var handleClear = function handleClear() {
-        return onClearAll(id);
+        onClearAll(id, name);
     };
 
     /**
@@ -55624,6 +55627,7 @@ var Item = function Item(props) {
             ),
             shouldRenderSelectedBadge && _react2.default.createElement(_SelectedItem.SelectedItem, {
                 handleClear: handleClear,
+                id: id + '-clear',
                 numItemsSelected: numItemsSelected }),
             _react2.default.createElement(
                 'section',
