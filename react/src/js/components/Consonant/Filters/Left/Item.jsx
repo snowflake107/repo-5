@@ -207,7 +207,6 @@ const Item = (props) => {
                     shouldRenderSelectedBadge &&
                     <DesktopSelectedItem
                         handleClear={handleClear}
-                        id={`${id}-clear`}
                         numItemsSelected={numItemsSelected} />
                 }
                 <section

@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.8.2 (9/20/2023, 15:07:31)
+ * Chimera UI Libraries - Build 0.8.2 (9/20/2023, 15:10:44)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -55627,7 +55627,6 @@ var Item = function Item(props) {
             ),
             shouldRenderSelectedBadge && _react2.default.createElement(_SelectedItem.SelectedItem, {
                 handleClear: handleClear,
-                id: id + '-clear',
                 numItemsSelected: numItemsSelected }),
             _react2.default.createElement(
                 'section',
