@@ -13,7 +13,13 @@ domRegistry.register({
     consonantPageRDC,
 });
 
-loadLana();
+try {
+    loadLana();
+} catch (e) {
+    window.lana = {
+        log: () => {},
+    }
+}
 
 const initReact = (element) => {
     domRegistry.init(element);

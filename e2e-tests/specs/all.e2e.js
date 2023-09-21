@@ -252,7 +252,7 @@ if (args.includes('env=LOCAL')) {
     config.collection.endpoint = '../../mock-json/smoke.json';
 }
 
-describe('Hide CTA(s):', async () => {
+describe('CTAs:', async () => {
     it('CTA should exist', async () => {
         const cloneConfig = structuredClone(config);
         const state = btoa(JSON.stringify(cloneConfig));
@@ -307,7 +307,7 @@ describe('Hide CTA(s):', async () => {
     });
 });
 
-describe('Carousel', async () => {
+describe('Carousel:', async () => {
     const cloneConfig = structuredClone(config);
     cloneConfig.collection.layout.container = 'carousel';
 
@@ -337,4 +337,3 @@ describe('Carousel', async () => {
         await expect(prevButton).toBeDisplayed();
     });
 });
-
