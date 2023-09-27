@@ -339,7 +339,7 @@ describe('Carousel', async () => {
 });
 
 describe('Filter and Search Behaviors', async () => {
-    it('Can filter results using search terms in the url', async () => {
+    it('MWPW-137132: Can filter results using search terms in the url', async () => {
         const cloneConfig = structuredClone(config);
         const state = btoa(JSON.stringify(cloneConfig));
         const url = `${serverPath}/html/e2e/e2e-grid.html?state=${state}&sh_=featured`;
@@ -347,6 +347,15 @@ describe('Filter and Search Behaviors', async () => {
         await browser.setTimeout({ script: 50000 });
         const cardRes = await $('.consonant-LoadMore-text').getText();
         expect(cardRes).toEqual('Showing 2 of 2 cards');
+    });
+    it('MWPW-137132: Can filter results using filters in the url', async () => {
+        const cloneConfig = structuredClone(config);
+        const state = btoa(JSON.stringify(cloneConfig));
+        const url = `${serverPath}/html/e2e/e2e-grid.html?state=${state}&&ch_Topic=Creativity%2520and%2520Design`;
+        await browser.url(url);
+        await browser.setTimeout({ script: 50000 });
+        const cardRes = await $('.consonant-LoadMore-text').getText();
+        expect(cardRes).toEqual('Showing 3 of 3 cards');
     });
     it('MWPW-136333: can use "clear all" to clear terms from url and grid', async () => {
         const cloneConfig = structuredClone(config);
