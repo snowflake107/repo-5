@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.8.3 (9/26/2023, 22:28:09)
+ * Chimera UI Libraries - Build 0.8.4 (9/28/2023, 21:17:46)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -46417,7 +46417,7 @@ var Card = function Card(props) {
     // Card elements to show
     var showHeader = !isProduct;
     var showBadge = isOneHalf || isThreeFourths || isFull;
-    var showLogo = !isHalfHeight;
+    var showLogo = isOneHalf || isThreeFourths || isFull || isText;
     var showLabel = !isProduct && !isText;
     var showVideoButton = !isProduct && !isText;
     var showText = !isHalfHeight && !isFull;
@@ -46736,7 +46736,8 @@ var CardFooter = function CardFooter(props) {
     return _react2.default.createElement(
         'div',
         {
-            className: footerClassName },
+            className: footerClassName,
+            'data-testid': 'consonant-Card-footer' },
         _react2.default.createElement(
             'div',
             {
@@ -47797,6 +47798,7 @@ var DateInterval = function DateInterval(_ref) {
         'span',
         {
             title: prettyDateInterval,
+            'data-testid': 'consonant-DateIntervalInfobit',
             className: 'consonant-DateIntervalInfobit' },
         prettyDateInterval
     );
@@ -48006,7 +48008,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Gated = function Gated() {
     return _react2.default.createElement(
         "span",
-        { className: "consonant-GatedInfobit" },
+        { className: "consonant-GatedInfobit", "data-testid": "consonant-GatedInfobit" },
         _react2.default.createElement(
             "svg",
             { xmlns: "http://www.w3.org/2000/svg", height: "20", viewBox: "0 0 15 20", width: "15" },
@@ -48517,7 +48519,8 @@ var VideoButton = function VideoButton(_ref) {
         _react2.default.createElement(
             'button',
             {
-                className: 'consonant-Card-videoButton-wrapper',
+                className: 'consonant-videoButton-wrapper',
+                'data-testid': 'consonant-videoButton-wrapper',
                 'daa-ll': 'play',
                 'aria-label': 'Play',
                 onClick: handleShowModal },
