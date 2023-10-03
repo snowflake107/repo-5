@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.8.3 (9/26/2023, 14:25:38)
+ * Chimera UI Libraries - Build 0.8.5 (10/3/2023, 14:07:07)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -46420,11 +46420,13 @@ var Card = function Card(props) {
     // Card elements to show
     var showHeader = !isProduct;
     var showBadge = isOneHalf || isThreeFourths || isFull;
-    var showLogo = !isHalfHeight;
+    var showLogo = isOneHalf || isThreeFourths || isFull || isText;
     var showLabel = !isProduct && !isText;
     var showVideoButton = !isProduct && !isText;
     var showText = !isHalfHeight && !isFull;
     var showFooter = isOneHalf || isProduct || isText;
+    var showFooterLeft = !isProduct;
+    var showFooterCenter = !isProduct;
 
     if (isHalfHeight && isGated && !isRegistered) {
         bannerDescriptionToUse = bannerMap.register.description;
@@ -46504,7 +46506,7 @@ var Card = function Card(props) {
                     className: 'consonant-Card-badge' },
                 badgeText
             ),
-            showVideoButton && videoURL && _react2.default.createElement(_videoButton2.default, {
+            showVideoButton && videoURL && !isHalfHeight && _react2.default.createElement(_videoButton2.default, {
                 videoURL: videoURLToUse,
                 gateVideo: gateVideo,
                 onFocus: onFocus,
@@ -46530,6 +46532,11 @@ var Card = function Card(props) {
             'div',
             {
                 className: 'consonant-Card-content' },
+            showVideoButton && videoURL && isHalfHeight && _react2.default.createElement(_videoButton2.default, {
+                videoURL: videoURLToUse,
+                gateVideo: gateVideo,
+                onFocus: onFocus,
+                className: 'consonant-Card-videoIco' }),
             showLabel && detailText && _react2.default.createElement(
                 'span',
                 {
@@ -46561,9 +46568,10 @@ var Card = function Card(props) {
                     divider: footerItem.divider,
                     isFluid: footerItem.isFluid,
                     key: (0, _cuid2.default)(),
-                    left: extendFooterData(footerItem.left),
-                    center: extendFooterData(footerItem.center),
+                    left: showFooterLeft ? extendFooterData(footerItem.left) : [],
+                    center: showFooterCenter ? extendFooterData(footerItem.center) : [],
                     right: extendFooterData(footerItem.right),
+                    cardStyle: cardStyle,
                     onFocus: onFocus });
             }),
             (isThreeFourths || isDoubleWide || isFull) && !renderOverlay && _react2.default.createElement(_LinkBlocker2.default, { target: linkBlockerTarget, link: overlay })
@@ -46731,7 +46739,8 @@ var CardFooter = function CardFooter(props) {
     return _react2.default.createElement(
         'div',
         {
-            className: footerClassName },
+            className: footerClassName,
+            'data-testid': 'consonant-Card-footer' },
         _react2.default.createElement(
             'div',
             {
@@ -47792,6 +47801,7 @@ var DateInterval = function DateInterval(_ref) {
         'span',
         {
             title: prettyDateInterval,
+            'data-testid': 'consonant-DateIntervalInfobit',
             className: 'consonant-DateIntervalInfobit' },
         prettyDateInterval
     );
@@ -48001,7 +48011,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Gated = function Gated() {
     return _react2.default.createElement(
         "span",
-        { className: "consonant-GatedInfobit" },
+        { className: "consonant-GatedInfobit", "data-testid": "consonant-GatedInfobit" },
         _react2.default.createElement(
             "svg",
             { xmlns: "http://www.w3.org/2000/svg", height: "20", viewBox: "0 0 15 20", width: "15" },
@@ -48513,6 +48523,7 @@ var VideoButton = function VideoButton(_ref) {
             'button',
             {
                 className: 'consonant-videoButton-wrapper',
+                'data-testid': 'consonant-videoButton-wrapper',
                 'daa-ll': 'play',
                 'aria-label': 'Play',
                 onClick: handleShowModal },
