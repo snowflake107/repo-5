@@ -1,5 +1,16 @@
 
 
+## [0.8.5](https://github.com/adobecom/caas/compare/0.8.4...0.8.5) (2023-09-29)
+
+## [0.8.4](https://github.com/adobecom/caas/compare/0.8.3...0.8.4) (2023-09-28)
+
+
+### Bug Fixes
+
+* fixes css inconsistencies after master-card merge [MWPW-134627] ([#102](https://github.com/adobecom/caas/issues/102)) ([f9ebeeb](https://github.com/adobecom/caas/commit/f9ebeeb54cc362737a4bac9a73de61bba99048eb))
+
+## [0.8.3](https://github.com/adobecom/caas/compare/0.8.2...0.8.3) (2023-09-25)
+
 ## [0.8.2](https://github.com/adobecom/caas/compare/0.8.1...0.8.2) (2023-09-08)
 
 

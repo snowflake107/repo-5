@@ -33,7 +33,7 @@ describe('Consonant/Container/Results Per Page', () => {
         await act(async () => render(<Container config={configToUse} />));
         await waitFor(() => screen.getByTestId('consonant-CardsGrid'));
 
-        expect(screen.queryAllByTestId('consonant-OneHalfCard')).toHaveLength(9);
+        expect(screen.queryAllByTestId('consonant-Card')).toHaveLength(9);
     });
 
     test('should render 1 card if authored to do so', async () => {
@@ -43,7 +43,7 @@ describe('Consonant/Container/Results Per Page', () => {
         await act(async () => render(<Container config={configToUse} />));
         await waitFor(() => screen.getByTestId('consonant-CardsGrid'));
 
-        expect(screen.queryAllByTestId('consonant-OneHalfCard')).toHaveLength(1);
+        expect(screen.queryAllByTestId('consonant-Card')).toHaveLength(1);
     });
 
     test('should render all cards if limit > total cards count', async () => {
@@ -54,6 +54,6 @@ describe('Consonant/Container/Results Per Page', () => {
         await waitFor(() => screen.getByTestId('consonant-CardsGrid'));
 
         const allCards = cards.length;
-        expect(screen.queryAllByTestId('consonant-OneHalfCard')).toHaveLength(allCards);
+        expect(screen.queryAllByTestId('consonant-Card')).toHaveLength(allCards);
     });
 });
