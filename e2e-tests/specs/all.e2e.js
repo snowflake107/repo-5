@@ -252,7 +252,7 @@ if (args.includes('env=LOCAL')) {
     config.collection.endpoint = '../../mock-json/smoke.json';
 }
 
-describe('Hide CTA(s):', async () => {
+describe('CTA Behaviors', async () => {
     it('CTA should exist', async () => {
         const cloneConfig = structuredClone(config);
         const state = btoa(JSON.stringify(cloneConfig));
