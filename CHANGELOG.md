@@ -1,5 +1,20 @@
 
 
+# [0.9.0](https://github.com/adobecom/caas/compare/0.8.5...0.9.0) (2023-10-03)
+
+
+### Bug Fixes
+
+* change allignment ([5cdc7e5](https://github.com/adobecom/caas/commit/5cdc7e552e1606eaca00104afc45ec427f3cc698))
+* forgot the build files ([0b40ded](https://github.com/adobecom/caas/commit/0b40ded83599294e8717c8ea888fea0d9f9ec79b))
+* left a thing behind ([fba10af](https://github.com/adobecom/caas/commit/fba10afc8c6d03748da0a77b54542409220d51f7))
+* **mwpw-136323:** when you clear a filter group it now updates the url ([45a94f3](https://github.com/adobecom/caas/commit/45a94f3f86ce3caaab1163c9b15f12d3f6ee5426))
+
+
+### Features
+
+* update build ([f22625b](https://github.com/adobecom/caas/commit/f22625b313022161c4df639234b68873c7958f9b))
+
 ## [0.8.5](https://github.com/adobecom/caas/compare/0.8.4...0.8.5) (2023-09-29)
 
 ## [0.8.4](https://github.com/adobecom/caas/compare/0.8.3...0.8.4) (2023-09-28)
