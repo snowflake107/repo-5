@@ -307,37 +307,6 @@ describe('Hide CTA(s):', async () => {
     });
 });
 
-describe('Carousel', async () => {
-    const cloneConfig = structuredClone(config);
-    cloneConfig.collection.layout.container = 'carousel';
-
-    const state = btoa(JSON.stringify(cloneConfig));
-    const url = `${serverPath}/html/e2e/carousel.html?state=${state}`;
-
-    it('Carousel Title should exist', async () => {
-        await browser.url(url);
-        await browser.setTimeout({ script: 50000 });
-        const title = await $('.consonant-CarouselInfo-collectionTitle').getText();
-        await expect(title).toEqual('Lorem Ipsum');
-    });
-
-    it('All cards should appear', async () => {
-        await browser.url(url);
-        await browser.setTimeout({ script: 50000 });
-        const grid = await $('.consonant-CardsGrid');
-        await expect(grid).toHaveChildren(8);
-    });
-
-    it('You should be able to click to the next page', async () => {
-        await browser.url(url);
-        await browser.setTimeout({ script: 50000 });
-        const nextButton = await $('.consonant-Button--next');
-        await nextButton.click();
-        const prevButton = await $('.consonant-Button--previous');
-        await expect(prevButton).toBeDisplayed();
-    });
-});
-
 describe('Filter and Search Behaviors', async () => {
     it('MWPW-137132: Can filter results using search terms in the url', async () => {
         const cloneConfig = structuredClone(config);
@@ -409,6 +378,37 @@ describe('Filter and Search Behaviors', async () => {
         await clearFilters.click();
         const cardRes = await $('.consonant-LoadMore-text').getText();
         expect(cardRes).toEqual('Showing 3 of 3 cards');
+    });
+});
+
+describe('Carousel Behaviors', async () => {
+    const cloneConfig = structuredClone(config);
+    cloneConfig.collection.layout.container = 'carousel';
+
+    const state = btoa(JSON.stringify(cloneConfig));
+    const url = `${serverPath}/html/e2e/carousel.html?state=${state}`;
+
+    it('Carousel Title should exist', async () => {
+        await browser.url(url);
+        await browser.setTimeout({ script: 50000 });
+        const title = await $('.consonant-CarouselInfo-collectionTitle').getText();
+        await expect(title).toEqual('Lorem Ipsum');
+    });
+
+    it('All cards should appear', async () => {
+        await browser.url(url);
+        await browser.setTimeout({ script: 50000 });
+        const grid = await $('.consonant-CardsGrid');
+        await expect(grid).toHaveChildren(8);
+    });
+
+    it('You should be able to click to the next page', async () => {
+        await browser.url(url);
+        await browser.setTimeout({ script: 50000 });
+        const nextButton = await $('.consonant-Button--next');
+        await nextButton.click();
+        const prevButton = await $('.consonant-Button--previous');
+        await expect(prevButton).toBeDisplayed();
     });
 });
 
