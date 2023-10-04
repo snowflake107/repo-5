@@ -348,24 +348,6 @@ describe('CTA Behaviors', async () => {
 
 // contains good examples of clicking behaviors
 describe('Filter and Search Behaviors', async () => {
-    it('MWPW-137132: can filter results using search terms in the url', async () => {
-        const cloneConfig = structuredClone(config);
-        const state = btoa(JSON.stringify(cloneConfig));
-        const url = `${serverPath}/html/e2e/e2e-grid.html?state=${state}&sh_=featured`;
-        await browser.url(url);
-        await browser.setTimeout({ script: 50000 });
-        const cardRes = await $('.consonant-LoadMore-text').getText();
-        expect(cardRes).toEqual('Showing 2 of 2 cards');
-    });
-    it('MWPW-137132: can filter results using filters in the url', async () => {
-        const cloneConfig = structuredClone(config);
-        const state = btoa(JSON.stringify(cloneConfig));
-        const url = `${serverPath}/html/e2e/e2e-grid.html?state=${state}&&ch_Topic=Creativity%2520and%2520Design`;
-        await browser.url(url);
-        await browser.setTimeout({ script: 50000 });
-        const cardRes = await $('.consonant-LoadMore-text').getText();
-        expect(cardRes).toEqual('Showing 3 of 3 cards');
-    });
     it('MWPW-137132: can filter results using both search terms and filters by url', async () => {
         const cloneConfig = structuredClone(config);
         const state = btoa(JSON.stringify(cloneConfig));
@@ -385,6 +367,8 @@ describe('Filter and Search Behaviors', async () => {
         await clearAll.click();
         const cardRes = await $('.consonant-LoadMore-text').getText();
         expect(cardRes).toEqual('Showing 5 of 8 cards');
+        const newUrl = await browser.getUrl();
+        expect(newUrl).toEqual(`${serverPath}/html/e2e/e2e-grid.html?state=${state}`);
     });
     it('MWPW-137140: can clear search and still have filters selected', async () => {
         const cloneConfig = structuredClone(config);
@@ -396,6 +380,8 @@ describe('Filter and Search Behaviors', async () => {
         await clearSearch.click();
         const cardRes = await $('.consonant-LoadMore-text').getText();
         expect(cardRes).toEqual('Showing 5 of 6 cards');
+        const newUrl = await browser.getUrl();
+        expect(newUrl).toEqual(`${serverPath}/html/e2e/e2e-grid.html?state=${state}&ch_Topic=Stock%252CPersonalization`);
     });
     it('MWPW-137141: can clear a singluar selected filter from checkbox and see the updated results', async () => {
         const cloneConfig = structuredClone(config);
@@ -420,6 +406,8 @@ describe('Filter and Search Behaviors', async () => {
         await clearFilters.click();
         const cardRes = await $('.consonant-LoadMore-text').getText();
         expect(cardRes).toEqual('Showing 3 of 3 cards');
+        const newUrl = await browser.getUrl();
+        expect(newUrl).toEqual(`${serverPath}/html/e2e/e2e-grid.html?state=${state}&sh_=Ze`);
     });
     // if you are on page 20 and then you set a new filter it should reset to page one
 });
