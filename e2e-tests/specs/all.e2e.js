@@ -388,7 +388,7 @@ describe('Filter and Search Behaviors', async () => {
         const state = btoa(JSON.stringify(cloneConfig));
         const url = `${serverPath}/html/e2e/e2e-grid.html?state=${state}&sh_=Ze&ch_Topic=Stock%252CPersonalization`;
         await browser.url(url);
-        await browser.setTimeout({ script: 500000000 });
+        await browser.setTimeout({ script: 50000 });
         const clearCheckbox = await $('.consonant-LeftFilter-itemsItemLabel=Stock');
         await clearCheckbox.click();
         const cardRes = await $('.consonant-LoadMore-text').getText();
