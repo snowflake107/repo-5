@@ -381,7 +381,7 @@ describe('Filter and Search Behaviors', async () => {
         const cardRes = await $('.consonant-LoadMore-text').getText();
         expect(cardRes).toEqual('Showing 5 of 6 cards');
         const newUrl = await browser.getUrl();
-        expect(newUrl).toEqual(`${serverPath}/html/e2e/e2e-grid.html?state=${state}&ch_Topic=Stock%252CPersonalization`);
+        expect(newUrl.replaceAll('%3D', '=')).toEqual(`${serverPath}/html/e2e/e2e-grid.html?state=${state}&ch_Topic=Stock%252CPersonalization`);
     });
     it('MWPW-137141: can clear a singluar selected filter from checkbox and see the updated results', async () => {
         const cloneConfig = structuredClone(config);
@@ -394,7 +394,7 @@ describe('Filter and Search Behaviors', async () => {
         const cardRes = await $('.consonant-LoadMore-text').getText();
         expect(cardRes).toEqual('Showing 1 of 1 cards');
         const newUrl = await browser.getUrl();
-        expect(newUrl).toEqual(`${serverPath}/html/e2e/e2e-grid.html?state=${state}&sh_=Ze&ch_Topic=Personalization`);
+        expect(newUrl.replaceAll('%3D', '=')).toEqual(`${serverPath}/html/e2e/e2e-grid.html?state=${state}&sh_=Ze&ch_Topic=Personalization`);
     });
     it('MWPW-137142 can clear all topics while preserving search terms', async () => {
         const cloneConfig = structuredClone(config);
@@ -407,7 +407,7 @@ describe('Filter and Search Behaviors', async () => {
         const cardRes = await $('.consonant-LoadMore-text').getText();
         expect(cardRes).toEqual('Showing 3 of 3 cards');
         const newUrl = await browser.getUrl();
-        expect(newUrl).toEqual(`${serverPath}/html/e2e/e2e-grid.html?state=${state}&sh_=Ze`);
+        expect(newUrl.replaceAll('%3D', '=')).toEqual(`${serverPath}/html/e2e/e2e-grid.html?state=${state}&sh_=Ze`);
     });
     // if you are on page 20 and then you set a new filter it should reset to page one
 });
