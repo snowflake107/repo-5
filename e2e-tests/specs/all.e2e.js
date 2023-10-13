@@ -43,7 +43,7 @@ const config = {
     },
     featuredCards: ['c7d34f39-397c-3727-9dff-5d0d9d8cf731'],
     filterPanel: {
-        enabled: 'true',
+        enabled: 'false',
         type: 'left',
         eventFilter: 'all',
         showEmptyFilters: true,
@@ -299,6 +299,7 @@ describe('CTA Behaviors', async () => {
         await browser.setTimeout({ script: 50000 });
         const buttonText=await $('#ac578dee-f01b-3ea0-a282-2116619e4251 .consonant-BtnInfobit--cta')
             .getText();
+        expect(buttonText).toEqual('Read More');
     } */
 
     it('MWPW-130075: Individual CTA should be hidden', async () => {
@@ -348,8 +349,9 @@ describe('CTA Behaviors', async () => {
 
 // contains good examples of clicking behaviors
 describe('Filter and Search Behaviors', async () => {
+    const cloneConfig = structuredClone(config);
+    cloneConfig.filterPanel.enabled = true;
     it('MWPW-137132: can filter results using both search terms and filters by url', async () => {
-        const cloneConfig = structuredClone(config);
         const state = btoa(JSON.stringify(cloneConfig));
         const url = `${serverPath}/html/e2e/e2e-grid.html?state=${state}&&ch_Topic=Creativity%2520and%2520Design`;
         await browser.url(url);
@@ -358,7 +360,6 @@ describe('Filter and Search Behaviors', async () => {
         expect(cardRes).toEqual('Showing 3 of 3 cards');
     });
     it('MWPW-136333: can use "clear all" to clear terms from url and grid', async () => {
-        const cloneConfig = structuredClone(config);
         const state = btoa(JSON.stringify(cloneConfig));
         const url = `${serverPath}/html/e2e/e2e-grid.html?state=${state}&sh_=Ze&ch_Topic=Stock%252CPersonalization`;
         await browser.url(url);
@@ -371,7 +372,6 @@ describe('Filter and Search Behaviors', async () => {
         // expect(newUrl).toEqual(`${serverPath}/html/e2e/e2e-grid.html?state=${state}`);
     });
     it('MWPW-137140: can clear search and still have filters selected', async () => {
-        const cloneConfig = structuredClone(config);
         const state = btoa(JSON.stringify(cloneConfig));
         const url = `${serverPath}/html/e2e/e2e-grid.html?state=${state}&sh_=Ze&ch_Topic=Stock%252CPersonalization`;
         await browser.url(url);
@@ -384,7 +384,6 @@ describe('Filter and Search Behaviors', async () => {
         expect(newUrl.replaceAll('%3D', '=')).toEqual(`${serverPath}/html/e2e/e2e-grid.html?state=${state}&ch_Topic=Stock%252CPersonalization`);
     });
     it('MWPW-137141: can clear a singluar selected filter from checkbox and see the updated results', async () => {
-        const cloneConfig = structuredClone(config);
         const state = btoa(JSON.stringify(cloneConfig));
         const url = `${serverPath}/html/e2e/e2e-grid.html?state=${state}&sh_=Ze&ch_Topic=Stock%252CPersonalization`;
         await browser.url(url);
@@ -397,7 +396,6 @@ describe('Filter and Search Behaviors', async () => {
         expect(newUrl.replaceAll('%3D', '=')).toEqual(`${serverPath}/html/e2e/e2e-grid.html?state=${state}&sh_=Ze&ch_Topic=Personalization`);
     });
     it('MWPW-137142 can clear all topics while preserving search terms', async () => {
-        const cloneConfig = structuredClone(config);
         const state = btoa(JSON.stringify(cloneConfig));
         const url = `${serverPath}/html/e2e/e2e-grid.html?state=${state}&sh_=Ze&ch_Topic=Stock%252CPersonalization`;
         await browser.url(url);
