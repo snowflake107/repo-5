@@ -476,8 +476,8 @@ const Container = (props) => {
         const urlParams = new URLSearchParams(window.location.search);
         clearUrlState();
         urlParams.forEach((value, key) => {
-            if (key.indexOf(filterGroupPrefix) === -1 &&
-                key.indexOf(searchPrefix) === -1) setUrlState(key, value);
+            if (key.indexOf(filterGroupPrefix) === -1
+                && key.indexOf(searchPrefix) === -1) setUrlState(key, value);
         });
         setShowBookmarks(false);
     };
