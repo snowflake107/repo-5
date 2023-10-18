@@ -1,5 +1,13 @@
 
 
+## [0.9.3](https://github.com/adobecom/caas/compare/0.9.2...0.9.3) (2023-10-18)
+
+
+### Bug Fixes
+
+* Fixes 3--up cards stretching wide (release 0.8.4.1) ([371c6c1](https://github.com/adobecom/caas/commit/371c6c1baeb36156b0337d1fef0fb44a383a94db))
+* Fixes 3--up cards stretching wide (release 0.8.4.1) ([30b05a4](https://github.com/adobecom/caas/commit/30b05a4796e293915ccd3098cd3cfe5de499513c))
+
 ## [0.9.2](https://github.com/adobecom/caas/compare/0.9.1...0.9.2) (2023-10-17)
 
 
