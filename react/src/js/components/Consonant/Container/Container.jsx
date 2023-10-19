@@ -442,7 +442,7 @@ const Container = (props) => {
             const chFilter = key.toLowerCase().replace('ch_', '').replace(' ', '-');
             if (key.indexOf(filterGroupPrefix) !== 0
                 && !id.toLowerCase().includes(chFilter)
-                && !group.toLowerCase().includes(chFilter)) {
+                || !group.toLowerCase().includes(chFilter)) {
                 setUrlState(key, value.replace('%20', ' '));
             }
         });
