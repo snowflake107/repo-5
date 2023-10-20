@@ -1,5 +1,13 @@
 
 
+## [0.9.6](https://github.com/adobecom/caas/compare/0.9.5...0.9.6) (2023-10-20)
+
+
+### Bug Fixes
+
+* fixes spacing issue between cards (MWPW-138169) ([930544d](https://github.com/adobecom/caas/commit/930544d53b5d098c676e3ee7d098d170faf86ade))
+* fixes spacing issue between cards (MWPW-138169) ([3a9b9ab](https://github.com/adobecom/caas/commit/3a9b9aba04330911198ee61143f581825355ec06))
+
 ## [0.9.5](https://github.com/adobecom/caas/compare/0.9.4...0.9.5) (2023-10-19)
 
 
