@@ -1,5 +1,12 @@
 
 
+## [0.9.7](https://github.com/adobecom/caas/compare/0.9.6...0.9.7) (2023-10-24)
+
+
+### Bug Fixes
+
+* Sets fixed card height to one-half 2up and 3up layouts [MWPW-138200] ([#111](https://github.com/adobecom/caas/issues/111)) ([cf7350c](https://github.com/adobecom/caas/commit/cf7350c6cfb91ee6173ac8109a28434937af8973))
+
 ## [0.9.6](https://github.com/adobecom/caas/compare/0.9.5...0.9.6) (2023-10-20)
 
 
