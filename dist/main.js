@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.8.5 (10/26/2023, 11:54:01)
+ * Chimera UI Libraries - Build 0.9.7 (10/26/2023, 11:58:17)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -6515,6 +6515,8 @@ var Container = function Container(props) {
      * @returns {Void} - an updated state
      */
     var clearFilterItem = function clearFilterItem(id) {
+        var group = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
         setFilters(function (prevFilters) {
             var filterClearedState = getFilterItemClearedState(id, prevFilters);
             return filterClearedState;
@@ -6522,9 +6524,10 @@ var Container = function Container(props) {
 
         var urlParams = new URLSearchParams(window.location.search);
         clearUrlState();
+        // actually clear the url state
         urlParams.forEach(function (value, key) {
             var chFilter = key.toLowerCase().replace('ch_', '').replace(' ', '-');
-            if (key.indexOf(filterGroupPrefix) !== 0 || !id.includes(chFilter)) {
+            if (key.indexOf(filterGroupPrefix) !== 0 && !id.toLowerCase().includes(chFilter) || !group.toLowerCase().includes(chFilter)) {
                 setUrlState(key, value.replace('%20', ' '));
             }
         });
@@ -6558,7 +6561,7 @@ var Container = function Container(props) {
         var urlParams = new URLSearchParams(window.location.search);
         clearUrlState();
         urlParams.forEach(function (value, key) {
-            if (key.indexOf(filterGroupPrefix) === -1) setUrlState(key, value);
+            if (key.indexOf(filterGroupPrefix) === -1 && key.indexOf(searchPrefix) === -1) setUrlState(key, value);
         });
         setShowBookmarks(false);
     };
@@ -53754,7 +53757,7 @@ var Item = function Item(props) {
      * @listens ClickEvent
      */
     var handleClear = function handleClear() {
-        return onClearAll(id);
+        onClearAll(id, name);
     };
 
     /**
