@@ -25,7 +25,7 @@ export const loadLana = (options = {}) => {
 export const logLana = ({
     message, tags, e = '', sampleRate = 1,
 } = {}) => {
-    const msg = `${message} | href: ${window.location.href} | ${e.reason || e.error || e.message || e}`;
+    const msg = `${message} | referer: ${window.location.href} | ${e.reason || e.error || e.message || e}`;
     window.lana.log(msg, {
         clientId: 'chimera',
         sampleRate,

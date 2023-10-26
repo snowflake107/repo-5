@@ -796,7 +796,7 @@ const Container = (props) => {
                     return Promise.reject(new Error(`${status}: ${statusText}, failure for call to ${url}`));
                 })
                 .then((payload) => {
-                    logLana({ message: `response took ${Date.now() - start / 1000}s`, tags: 'collection' });
+                    logLana({ message: `response took ${(Date.now() - start) / 1000}s`, tags: 'collection' });
                     setLoading(false);
                     setIsFirstLoad(true);
                     if (!getByPath(payload, 'cards.length')) {

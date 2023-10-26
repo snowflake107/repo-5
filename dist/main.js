@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.8.5 (10/3/2023, 13:51:55)
+ * Chimera UI Libraries - Build 0.8.5 (10/26/2023, 11:54:01)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -4392,7 +4392,7 @@ var logLana = exports.logLana = function logLana() {
         _ref2$sampleRate = _ref2.sampleRate,
         sampleRate = _ref2$sampleRate === undefined ? 1 : _ref2$sampleRate;
 
-    var msg = message + ' | href: ' + window.location.href + ' | ' + (e.reason || e.error || e.message || e);
+    var msg = message + ' | referer: ' + window.location.href + ' | ' + (e.reason || e.error || e.message || e);
     window.lana.log(msg, {
         clientId: 'chimera',
         sampleRate: sampleRate,
@@ -6928,7 +6928,7 @@ var Container = function Container(props) {
                 (0, _lana.logLana)({ message: 'failure for call to ' + url, tags: 'collection', errorMessage: status + ': ' + statusText });
                 return Promise.reject(new Error(status + ': ' + statusText + ', failure for call to ' + url));
             }).then(function (payload) {
-                (0, _lana.logLana)({ message: 'response took ' + (Date.now() - start / 1000) + 's', tags: 'collection' });
+                (0, _lana.logLana)({ message: 'response took ' + (Date.now() - start) / 1000 + 's', tags: 'collection' });
                 setLoading(false);
                 setIsFirstLoad(true);
                 if (!(0, _general.getByPath)(payload, 'cards.length')) {
