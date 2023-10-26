@@ -1,5 +1,22 @@
 
 
+# [0.10.0](https://github.com/adobecom/caas/compare/0.9.8...0.10.0) (2023-10-26)
+
+
+### Features
+
+* hopefully fixing the unit tests ([6ee732b](https://github.com/adobecom/caas/commit/6ee732b2d3c36a155588898e8ce766802f6885f5))
+* **mwpw-125698:** accidental extra line ([52d81ca](https://github.com/adobecom/caas/commit/52d81ca5372a5aa4de69fd68f5f5d8870137fe1c))
+* **mwpw-125698:** added lana to the window - not connected yet ([e8802eb](https://github.com/adobecom/caas/commit/e8802ebe3a45cd8fee70e1d8f62d72c14e067fb7))
+* **mwpw-125698:** added logging related to endpoint collection ([8d4eece](https://github.com/adobecom/caas/commit/8d4eece2e69ea20eaaeaa8c6f19d573d2d73dda0))
+* **mwpw-125698:** added some lana logs for catch blocks where it made sense ([8e5667d](https://github.com/adobecom/caas/commit/8e5667d7d184cd32a7956e4ce01b836948f16a6d))
+* **mwpw-125698:** change lana endpoint ([9eeacdd](https://github.com/adobecom/caas/commit/9eeacdd2f537792403e0e64e25532b5b1ab46d81))
+* **mwpw-125698:** changed mind about sample rate ([c00f03a](https://github.com/adobecom/caas/commit/c00f03a4c21625ff41a9b03187998cdc6d5a0349))
+* **mwpw-125698:** forgot to run build on my changes ([3538d78](https://github.com/adobecom/caas/commit/3538d78d25377bd63916e97192c7925402f822b7))
+* **mwpw-125698:** importing lana instead of rewriting lana ([5da7910](https://github.com/adobecom/caas/commit/5da7910c418cc8ba96a15772b9c1e0f202e60692))
+* **mwpw-125698:** updating sample rate and log message ([d775041](https://github.com/adobecom/caas/commit/d775041097d1817a67b9c014685940c54525bd43))
+* repair e2e tests for lana ([d8edca5](https://github.com/adobecom/caas/commit/d8edca53005143fa122cea5ab203c2819cea41db))
+
 ## [0.9.8](https://github.com/adobecom/caas/compare/0.9.7...0.9.8) (2023-10-26)
 
 
