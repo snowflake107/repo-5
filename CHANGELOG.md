@@ -1,5 +1,12 @@
 
 
+## [0.9.8](https://github.com/adobecom/caas/compare/0.9.7...0.9.8) (2023-10-26)
+
+
+### Bug Fixes
+
+* fixes spacing issues in JA text (MWPW-138338) ([4b655c4](https://github.com/adobecom/caas/commit/4b655c4565ff3844af4996a765a14179d688d233))
+
 ## [0.9.7](https://github.com/adobecom/caas/compare/0.9.6...0.9.7) (2023-10-24)
 
 
