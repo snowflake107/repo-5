@@ -12,7 +12,7 @@ export const loadLana = (options = {}) => {
             window.removeEventListener('error', lanaError);
             window.removeEventListener('unhandledrejection', lanaError);
             // eslint-disable-next-line import/no-unresolved, import/extensions
-            await fetch('https://milo.adobe.com/libs/utils/lana.js');
+            await fetch('www.adobe.com/libs/utils/lana.js');
             return window.lana.log(...args);
         },
         debug: false,

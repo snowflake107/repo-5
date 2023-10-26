@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.9.7 (10/26/2023, 12:46:34)
+ * Chimera UI Libraries - Build 0.9.7 (10/26/2023, 13:47:00)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -4357,7 +4357,7 @@ var loadLana = exports.loadLana = function loadLana() {
                                 window.removeEventListener('unhandledrejection', lanaError);
                                 // eslint-disable-next-line import/no-unresolved, import/extensions
                                 _context.next = 4;
-                                return fetch('https://milo.adobe.com/libs/utils/lana.js');
+                                return fetch('www.adobe.com/libs/utils/lana.js');
 
                             case 4:
                                 return _context.abrupt('return', (_window$lana = window.lana).log.apply(_window$lana, _args));
