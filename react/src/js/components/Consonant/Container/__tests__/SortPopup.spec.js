@@ -12,6 +12,7 @@ import {
 
 import Container from '../Container';
 import setupIntersectionObserverMock from '../../Testing/Mocks/intersectionObserver';
+import jestMocks from '../../Testing/Utils/JestMocks';
 import config from '../../Testing/Mocks/config.json';
 import cards from '../../Testing/Mocks/cards.json';
 
@@ -29,6 +30,7 @@ beforeEach(() => {
 });
 
 setupIntersectionObserverMock();
+jestMocks.lana();
 
 describe('Consonant/Container/Sort Popup', () => {
     test('should be able to open the sort popup', async () => {

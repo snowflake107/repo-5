@@ -3,6 +3,7 @@ import Debug from './@dexter/debug';
 import isVisible from './@dexter/isVisible';
 import breakpoints from './@dexter/breakpoints';
 import throttle from './throttle';
+import { logLana } from '../Helpers/lana';
 
 const THROTTLE_TIME = 300;
 const VIDEO_VIEW_SELECTOR = '.video-Wrapper.has-playOnView video';
@@ -25,6 +26,7 @@ const playVideo = (video) => {
     return promise && promise.then(() => {
         debug.log('Video starts playing successfully');
     }).catch(() => {
+        logLana({ message: 'error while playing a video', tags: 'backgroundVideo' });
         debug.log('Error while playing video');
     });
 };

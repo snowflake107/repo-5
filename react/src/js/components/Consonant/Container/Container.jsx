@@ -8,6 +8,7 @@ import React, {
 import classNames from 'classnames';
 import { shape } from 'prop-types';
 import 'whatwg-fetch';
+import { logLana } from '../Helpers/lana';
 import Popup from '../Sort/Popup';
 import Search from '../Search/Search';
 import Loader from '../Loader/Loader';
@@ -772,6 +773,7 @@ const Container = (props) => {
          * @returns {Void} - an updated state
          */
         function getCards(endPoint = collectionEndpoint) {
+            const start = Date.now();
             return window.fetch(endPoint, {
                 credentials: 'include',
                 headers,
@@ -790,16 +792,21 @@ const Container = (props) => {
 
                             if (validData) return json;
 
+                            logLana({ message: `no valid response data from ${endPoint}`, tags: 'collection' });
                             return Promise.reject(new Error('no valid reponse data'));
                         });
                     }
-
+                    logLana({ message: `failure for call to ${url}`, tags: 'collection', errorMessage: `${status}: ${statusText}` });
                     return Promise.reject(new Error(`${status}: ${statusText}, failure for call to ${url}`));
                 })
                 .then((payload) => {
+                    logLana({ message: `response took ${(Date.now() - start) / 1000}s`, tags: 'collection' });
                     setLoading(false);
                     setIsFirstLoad(true);
-                    if (!getByPath(payload, 'cards.length')) return;
+                    if (!getByPath(payload, 'cards.length')) {
+                        logLana({ message: `no cards return by query to this endpoint: ${endPoint}`, tags: 'collection' });
+                        return;
+                    }
                     if (payload.isHashed) {
                         const TAG_HASH_LENGTH = 6;
                         for (const group of authoredFilters) {
@@ -871,6 +878,7 @@ const Container = (props) => {
                         getCards(fallbackEndpoint);
                         return;
                     }
+                    logLana({ message: 'failed to return processed cards', tags: 'collection' });
                     setLoading(false);
                     setApiFailure(true);
                 });

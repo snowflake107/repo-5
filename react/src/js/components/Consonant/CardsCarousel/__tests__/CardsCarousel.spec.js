@@ -11,6 +11,7 @@ import Container from '../../Container/Container';
 import config from '../../Testing/Mocks/config.json';
 import cards from '../../Testing/Mocks/cards.json';
 import setupIntersectionObserverMock from '../../Testing/Mocks/intersectionObserver';
+import jestMocks from '../../Testing/Utils/JestMocks';
 
 
 global.fetch = jest.fn(() =>
@@ -23,6 +24,7 @@ global.fetch = jest.fn(() =>
     }));
 
 setupIntersectionObserverMock();
+jestMocks.lana();
 
 let configToUse;
 let inner;

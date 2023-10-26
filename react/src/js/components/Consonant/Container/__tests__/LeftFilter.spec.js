@@ -11,6 +11,7 @@ import {
 
 import Container from '../Container';
 import setupIntersectionObserverMock from '../../Testing/Mocks/intersectionObserver';
+import jestMocks from '../../Testing/Utils/JestMocks';
 import config from '../../Testing/Mocks/config.json';
 import cards from '../../Testing/Mocks/cards.json';
 
@@ -36,6 +37,7 @@ jest.setTimeout(30000);
 
 
 setupIntersectionObserverMock();
+jestMocks.lana();
 
 beforeEach(() => {
     window.history.replaceState(null, '', window.location.pathname);

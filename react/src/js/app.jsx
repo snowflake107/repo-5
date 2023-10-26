@@ -4,6 +4,7 @@ import React from 'react';
 import ReactDOM, { render } from 'react-dom';
 import { DOMRegistry } from 'react-dom-components';
 import { parseToPrimitive } from './components/Consonant/Helpers/general';
+import { loadLana } from './components/Consonant/Helpers/lana';
 import Container from './components/Consonant/Container/Container';
 import consonantPageRDC from './components/Consonant/Page/ConsonantPageDOM';
 
@@ -11,6 +12,14 @@ const domRegistry = new DOMRegistry(React, render);
 domRegistry.register({
     consonantPageRDC,
 });
+
+try {
+    loadLana();
+} catch (e) {
+    window.lana = {
+        log: () => {},
+    }
+}
 
 const initReact = (element) => {
     domRegistry.init(element);
