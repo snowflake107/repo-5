@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.10.0 (10/30/2023, 13:50:49)
+ * Chimera UI Libraries - Build 0.11.0 (11/2/2023, 14:45:22)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -7903,7 +7903,7 @@ var Grid = function Grid(props) {
             ref: forwardedRef,
             'data-card-style': collectionStyleOverride,
             'data-testid': 'consonant-CardsGrid',
-            className: collectionStyleOverride + ' ' + gridClass,
+            className: gridClass,
             'aria-live': isAriaLiveActive ? 'polite' : 'off' },
         cardsToshow.map(function (card, index) {
             var cardStyleOverride = (0, _general.getByPath)(card, 'styles.typeOverride');
@@ -46563,7 +46563,7 @@ var Card = function Card(props) {
         'div',
         {
             'daa-lh': lh,
-            className: cardClassName,
+            className: cardStyle + ' ' + cardClassName,
             'aria-label': ariaText,
             'data-testid': 'consonant-Card',
             id: id },
@@ -48622,8 +48622,8 @@ var VideoButton = function VideoButton(_ref) {
         _react2.default.createElement(
             'button',
             {
-                className: 'consonant-videoButton-wrapper',
-                'data-testid': 'consonant-videoButton-wrapper',
+                className: 'consonant-Card-videoButton-wrapper',
+                'data-testid': 'consonant-Card-videoButton-wrapper',
                 'daa-ll': 'play',
                 'aria-label': 'Play',
                 onClick: handleShowModal },
