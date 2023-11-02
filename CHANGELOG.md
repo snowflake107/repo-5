@@ -1,5 +1,12 @@
 
 
+## [0.11.1](https://github.com/adobecom/caas/compare/0.11.0...0.11.1) (2023-11-02)
+
+
+### Bug Fixes
+
+* **MWPW-138354:** adds support for custom cards and fixes CSS ([#115](https://github.com/adobecom/caas/issues/115)) ([e626487](https://github.com/adobecom/caas/commit/e6264876adfaff2188a28a1de11a128d95139c7f))
+
 # [0.11.0](https://github.com/adobecom/caas/compare/0.10.0...0.11.0) (2023-10-30)
 
 
