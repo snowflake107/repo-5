@@ -1,5 +1,12 @@
 
 
+## [0.11.3](https://github.com/adobecom/caas/compare/0.11.2...0.11.3) (2023-11-29)
+
+
+### Bug Fixes
+
+* **MWPW-139225:** fixes card width issues ([#118](https://github.com/adobecom/caas/issues/118)) ([6a27b6e](https://github.com/adobecom/caas/commit/6a27b6e653561353e44c0e4c54b93c2cbb8ee5b7))
+
 ## [0.11.2](https://github.com/adobecom/caas/compare/0.11.1...0.11.2) (2023-11-29)
 
 
