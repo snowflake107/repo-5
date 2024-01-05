@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.11.4 (1/4/2024, 18:29:25)
+ * Chimera UI Libraries - Build 0.11.5 (1/5/2024, 14:43:14)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -7262,7 +7262,7 @@ var Container = function Container(props) {
      * @returns {Object}
      * */
     var getFilteredCollection = function getFilteredCollection() {
-        return cardFilterer.sortCards(sortOption, eventFilter, featuredCards, hideCtaIds, isFirstLoad).keepBookmarkedCardsOnly(onlyShowBookmarks, bookmarkedCardIds, showBookmarks).keepCardsWithinDateRange().filterCards(activeFilterIds, activePanels, filterLogic, _constants.FILTER_TYPES).truncateList(totalCardLimit).searchCards(searchQuery, searchFields).removeCards(inclusionIds);
+        return cardFilterer.sortCards(sortOption, eventFilter, featuredCards, hideCtaIds, isFirstLoad).keepBookmarkedCardsOnly(onlyShowBookmarks, bookmarkedCardIds, showBookmarks).keepCardsWithinDateRange().filterCards(activeFilterIds, activePanels, filterLogic, _constants.FILTER_TYPES).truncateList(totalCardLimit).searchCards(searchQuery, searchFields, cardStyle).removeCards(inclusionIds);
     };
 
     /**
@@ -52413,11 +52413,11 @@ var CardFilterer = function () {
 
     }, {
         key: 'searchCards',
-        value: function searchCards(searchQuery, searchFields) {
+        value: function searchCards(searchQuery, searchFields, cardStyle) {
             var query = searchQuery.trim().toLowerCase();
             var cardsMatchingSearch = (0, _Helpers.getCardsMatchingSearch)(searchQuery, this.filteredCards, searchFields);
 
-            if (query.length >= 3) {
+            if (query.length >= 3 && cardStyle !== 'custom-card') {
                 this.filteredCards = cardsMatchingSearch.map(function (card) {
                     return searchFields.reduce(function (baseCard, searchField) {
                         return (0, _Helpers.highlightCard)(baseCard, searchField, query);
