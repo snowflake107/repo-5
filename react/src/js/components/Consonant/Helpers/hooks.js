@@ -148,7 +148,7 @@ export const useLazyLoading = (imageRef, image) => {
  */
 export const useURLState = () => {
     const {
-        location: { search, pathname },
+        location: { search, pathname, hash },
     } = window;
 
     const [urlState, setUrlState] = useState(qs.parse(search));
@@ -172,7 +172,7 @@ export const useURLState = () => {
 
     useEffect(() => {
         const searchString = qs.stringify(urlState, { array: 'comma' });
-        const urlString = `${pathname}${searchString ? '?' : ''}${searchString}`;
+        const urlString = `${pathname}${searchString ? '?' : ''}${searchString}${hash}`;
 
         window.history.replaceState(null, '', urlString);
     }, [urlState]);
