@@ -17,9 +17,6 @@ class NovaPageBuilderServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('nova-page-builder')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_nova-page-builder_table')
-            ->hasCommand(NovaPageBuilderCommand::class);
+            ->hasConfigFile();
     }
 }

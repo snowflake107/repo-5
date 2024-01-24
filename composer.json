@@ -30,8 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Creode\\NovaPageBuilder\\": "src/",
-            "Creode\\NovaPageBuilder\\Database\\Factories\\": "database/factories/"
+            "Creode\\NovaPageBuilder\\": "src/"
         }
     },
     "autoload-dev": {
