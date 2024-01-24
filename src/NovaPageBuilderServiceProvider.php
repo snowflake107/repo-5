@@ -16,6 +16,6 @@ class NovaPageBuilderServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('nova-page-builder')
-            ->hasConfigFile();
+            ->hasViews('page-builder');
     }
 }
