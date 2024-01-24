@@ -4,7 +4,6 @@ namespace Creode\NovaPageBuilder;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Creode\NovaPageBuilder\Commands\NovaPageBuilderCommand;
 
 class NovaPageBuilderServiceProvider extends PackageServiceProvider
 {
