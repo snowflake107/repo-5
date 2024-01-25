@@ -22,6 +22,10 @@ class BlockRenderer
 
         return $content->map(
             function (Layout $layout) use ($pageContentBlockViewsEvent) {
+                if (!isset($pageContentBlockViewsEvent->views[$layout->name()])) {
+                    return null;
+                }
+
                 return new PageContentBlock(
                     $pageContentBlockViewsEvent->views[$layout->name()],
                     json_decode(json_encode($layout->getAttributes()), true)

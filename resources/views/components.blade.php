@@ -1,3 +1,5 @@
 @foreach($components as $component)
-    @include($component->view(), $component->attributes())
+    @if ($component)
+        @include($component->view(), $component->attributes())
+    @endif
 @endforeach
