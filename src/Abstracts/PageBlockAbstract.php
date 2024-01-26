@@ -59,13 +59,13 @@ abstract class PageBlockAbstract
     abstract protected function fields();
 
     /**
-     * Gets an array of attributes to be passed to the view.
+     * Allows you to set additional view attributes prior to rendering the block.
      *
      * @param array $attributes
      *
      * @return array
      */
-    protected function getViewAttributes($attributes)
+    protected function setViewAttributes($attributes)
     {
         return $attributes;
     }
