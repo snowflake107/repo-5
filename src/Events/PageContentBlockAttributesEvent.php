@@ -11,20 +11,20 @@ class PageContentBlockAttributesEvent
     /**
      * Constructor for class.
      *
-     * @param string $view
+     * @param string $name
      * @param array $attributes
      */
-    public function __construct(protected string $view, public array $attributes)
+    public function __construct(protected string $name, public array $attributes)
     {
     }
 
     /**
-     * Returns the view.
+     * Returns the name of the component.
      *
      * @return string
      */
-    public function getView(): string
+    public function getName(): string
     {
-        return $this->view;
+        return $this->name;
     }
 }

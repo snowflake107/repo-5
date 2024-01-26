@@ -121,7 +121,7 @@ abstract class PageBlockAbstract
     {
         Event::listen(
             function (PageContentBlockAttributesEvent $pageContentBlockAttributesEvent) {
-                if ($this->view !== $pageContentBlockAttributesEvent->getView()) {
+                if ($this->name !== $pageContentBlockAttributesEvent->getName()) {
                     return;
                 }
 
