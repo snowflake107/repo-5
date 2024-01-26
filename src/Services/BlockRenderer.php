@@ -27,14 +27,13 @@ class BlockRenderer
                     return null;
                 }
 
-                $view = $pageContentBlockViewsEvent->views[$layout->name()];
                 $preprocessedAttributes = $this->preprocessAttributes(
                     $layout->name(),
                     json_decode(json_encode($layout->getAttributes()), true)
                 );
 
                 return new PageContentBlock(
-                    $view,
+                    $pageContentBlockViewsEvent->views[$layout->name()],
                     $preprocessedAttributes
                 );
             }
