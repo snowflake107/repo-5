@@ -14,6 +14,11 @@ class PageBuilder extends Flexible
     {
         parent::__construct($name, $attribute, $resolveCallback);
 
+        // Make flexible content look a little nicer.
+        $this->onlyOnForms();
+        $this->fullWidth();
+        $this->collapsed();
+
         // Register any existing layouts.
         $this->registerLayoutsFromEvent();
     }
