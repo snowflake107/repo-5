@@ -59,13 +59,13 @@ abstract class PageBlockAbstract
     abstract protected function fields();
 
     /**
-     * Allows you to set additional view attributes prior to rendering the block.
+     * Allows you to manipulate and set additional view attributes prior to rendering the block.
      *
      * @param array $attributes
      *
      * @return array
      */
-    protected function setViewAttributes($attributes)
+    protected function attributes($attributes)
     {
         return $attributes;
     }
@@ -125,7 +125,7 @@ abstract class PageBlockAbstract
                     return;
                 }
 
-                $pageContentBlockAttributesEvent->attributes = $this->getViewAttributes($pageContentBlockAttributesEvent->attributes);
+                $pageContentBlockAttributesEvent->attributes = $this->attributes($pageContentBlockAttributesEvent->attributes);
             }
         );
     }
