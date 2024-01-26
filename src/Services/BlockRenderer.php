@@ -27,10 +27,11 @@ class BlockRenderer
                     return null;
                 }
 
-                $layoutAttributes = json_decode(json_encode($layout->getAttributes()), true);
                 $view = $pageContentBlockViewsEvent->views[$layout->name()];
-
-                $preprocessedAttributes = $this->preprocessAttributes($layout->name(), $layoutAttributes);
+                $preprocessedAttributes = $this->preprocessAttributes(
+                    $layout->name(),
+                    json_decode(json_encode($layout->getAttributes()), true)
+                );
 
                 return new PageContentBlock(
                     $view,
@@ -43,11 +44,14 @@ class BlockRenderer
     /**
      * Fires off a pre-render event.
      *
+     * @param string $name
+     * @param array $attributes
+     *
      * @return array
      */
-    private function preprocessAttributes($view, $attributes)
+    private function preprocessAttributes(string $name, array $attributes)
     {
-        $pageContentBlockAttributesEvent = new PageContentBlockAttributesEvent($view, $attributes);
+        $pageContentBlockAttributesEvent = new PageContentBlockAttributesEvent($name, $attributes);
         event($pageContentBlockAttributesEvent);
 
         return $pageContentBlockAttributesEvent->attributes;
