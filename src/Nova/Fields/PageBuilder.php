@@ -38,7 +38,7 @@ class PageBuilder extends Flexible
     {
         $filter = $this->layouts->filter(function ($layout) use ($layouts) {
             return ! in_array($layout->name(), $layouts);
-        });
+        })->values();
 
         $this->layouts = $filter;
         $this->withMeta(['layouts' => $this->layouts]);
