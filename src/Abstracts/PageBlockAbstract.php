@@ -2,6 +2,7 @@
 
 namespace Creode\NovaPageBuilder\Abstracts;
 
+use Creode\NovaPageBuilder\Events\PageContentBlockAttributesEvent;
 use Illuminate\Support\Facades\Event;
 use Creode\NovaPageBuilder\Events\PageContentEvent;
 use Creode\NovaPageBuilder\Events\PageContentBlockViewsEvent;
@@ -47,6 +48,7 @@ abstract class PageBlockAbstract
         $this->setFields();
         $this->registerLayout();
         $this->registerView();
+        $this->registerPreRender();
     }
 
     /**
@@ -55,6 +57,18 @@ abstract class PageBlockAbstract
      * @return void
      */
     abstract protected function fields();
+
+    /**
+     * Allows you to manipulate and set additional view attributes prior to rendering the block.
+     *
+     * @param array $attributes
+     *
+     * @return array
+     */
+    protected function attributes($attributes)
+    {
+        return $attributes;
+    }
 
     /**
      * Sets fields for this block.
@@ -94,6 +108,24 @@ abstract class PageBlockAbstract
         Event::listen(
             function (PageContentBlockViewsEvent $PageContentBlockViewsEvent) {
                 $PageContentBlockViewsEvent->views[$this->name] = $this->view;
+            }
+        );
+    }
+
+    /**
+     * Registers functionality to amend view attributes before it renders.
+     *
+     * @return void
+     */
+    private function registerPreRender()
+    {
+        Event::listen(
+            function (PageContentBlockAttributesEvent $pageContentBlockAttributesEvent) {
+                if ($this->name !== $pageContentBlockAttributesEvent->getName()) {
+                    return;
+                }
+
+                $pageContentBlockAttributesEvent->attributes = $this->attributes($pageContentBlockAttributesEvent->attributes);
             }
         );
     }
