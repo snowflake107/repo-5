@@ -2,6 +2,7 @@
 
 namespace Creode\NovaPageBuilder\Services;
 
+use Creode\NovaPageBuilder\Events\PageContentBlockAttributesEvent;
 use Creode\NovaPageBuilder\PageContentBlock;
 use Whitecube\NovaFlexibleContent\Layouts\Layout;
 use Creode\NovaPageBuilder\Events\PageContentBlockViewsEvent;
@@ -13,7 +14,7 @@ class BlockRenderer
      *
      * @param \Whitecube\NovaFlexibleContent\Layouts\Collection|array<\Whitecube\NovaFlexibleContent\Layouts\Layout> $content
      *
-     * @return \Illuminate\Support\Collection<\Modules\Pages\app\Models\PageContentBlock>
+     * @return \Illuminate\Support\Collection<\Creode\NovaPageBuilder\PageContentBlock>
      */
     public function render($content)
     {
@@ -26,11 +27,29 @@ class BlockRenderer
                     return null;
                 }
 
+                $layoutAttributes = json_decode(json_encode($layout->getAttributes()), true);
+                $view = $pageContentBlockViewsEvent->views[$layout->name()];
+
+                $pageContentBlockAttributesEvent = $this->firePreRenderEvent($view, $layoutAttributes);
+
                 return new PageContentBlock(
-                    $pageContentBlockViewsEvent->views[$layout->name()],
-                    json_decode(json_encode($layout->getAttributes()), true)
+                    $view,
+                    array_merge($layoutAttributes, $pageContentBlockAttributesEvent->attributes),
                 );
             }
         );
+    }
+
+    /**
+     * Fires off a pre-render event.
+     *
+     * @return \Creode\NovaPageBuilder\Events\PageContentBlockAttributesEvent
+     */
+    private function firePreRenderEvent($view, $attributes)
+    {
+        $pageContentBlockAttributesEvent = new PageContentBlockAttributesEvent($view, $attributes);
+        event($pageContentBlockAttributesEvent);
+
+        return $pageContentBlockAttributesEvent;
     }
 }
