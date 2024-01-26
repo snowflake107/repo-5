@@ -30,7 +30,7 @@ class BlockRenderer
                 $layoutAttributes = json_decode(json_encode($layout->getAttributes()), true);
                 $view = $pageContentBlockViewsEvent->views[$layout->name()];
 
-                $preprocessedAttributes = $this->preprocessAttributes($view, $layoutAttributes);
+                $preprocessedAttributes = $this->preprocessAttributes($layout->name(), $layoutAttributes);
 
                 return new PageContentBlock(
                     $view,
