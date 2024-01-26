@@ -30,11 +30,11 @@ class BlockRenderer
                 $layoutAttributes = json_decode(json_encode($layout->getAttributes()), true);
                 $view = $pageContentBlockViewsEvent->views[$layout->name()];
 
-                $pageContentBlockAttributesEvent = $this->preprocessAttributes($view, $layoutAttributes);
+                $preprocessedAttributes = $this->preprocessAttributes($view, $layoutAttributes);
 
                 return new PageContentBlock(
                     $view,
-                    $pageContentBlockAttributesEvent->attributes,
+                    $preprocessedAttributes
                 );
             }
         );
@@ -43,7 +43,7 @@ class BlockRenderer
     /**
      * Fires off a pre-render event.
      *
-     * @return \Creode\NovaPageBuilder\Events\PageContentBlockAttributesEvent
+     * @return array
      */
     private function preprocessAttributes($view, $attributes)
     {
