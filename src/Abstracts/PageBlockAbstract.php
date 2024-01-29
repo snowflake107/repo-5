@@ -65,7 +65,7 @@ abstract class PageBlockAbstract
      *
      * @return array
      */
-    protected function attributes($attributes)
+    protected function attributes(array $attributes): array
     {
         return $attributes;
     }
