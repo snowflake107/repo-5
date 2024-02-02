@@ -42,12 +42,30 @@ public function fields(Request $request)
 ```
 
 ### Rendering Components
-This module exposes a blade file that can be used to render the components on the front-end of your site. The file is located at `vendor/creode/nova-page-builder/resources/views/components.blade.php`. You can include this file in your blade templates and pass it the page builder field value.
+This module exposes a blade file that can be used to render the components on the front-end of your site.
+
+We also include a trait that needs to be added to your model. This trait will allow you to access the content of the page builder field and allow you to pass the components to the blade file. The trait is `Creode\NovaPageBuilder\Traits\HasPageBuilderContent`. You can use this trait in your model like so:
+
+```php
+use Creode\NovaPageBuilder\Traits\HasComponents;
+
+class Page extends Model
+{
+    use HasPageBuilderContent;
+
+    /**
+     * The name of your page builder field.
+     */
+    protected $componentField = 'content';
+}
+```
+
+Once the above has been added to your model you can render the components of the page builder field by calling `$page->components` and passing this to the view file below:
 
 For example:
 
 ```php
-@include('page-builder::components', ['components' => $page->content])
+@include('page-builder::components', ['components' => $page->components])
 ```
 
 ### Extension
