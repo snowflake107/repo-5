@@ -12,7 +12,12 @@ import {
     removeDuplicatesByKey,
 } from './general';
 import { EVENT_TIMING_IDS } from './constants';
-import { eventTiming } from './eventSort';
+import {
+    eventTiming,
+    convertDateStrToMs,
+    defineIsOnDemand,
+    defineIsUpcoming,
+} from './eventSort';
 import { logLana } from './lana';
 
 /**
@@ -120,7 +125,7 @@ const getUsingOrFilter = (filterType, filterTypes) => (
 
 /**
  * Helper method to determine whether we are doing event filtering from the side bar tags
- * @param {*} activeFilterSet
+ * @param {Set} activeFilterSet
  * @returns {Boolean} - Whether collection has an event filter
  */
 const getUsingTimingFilter = activeFiltersSet => (
@@ -128,6 +133,38 @@ const getUsingTimingFilter = activeFiltersSet => (
     activeFiltersSet.has(EVENT_TIMING_IDS.ONDEMAND) ||
     activeFiltersSet.has(EVENT_TIMING_IDS.UPCOMING)
 );
+
+/**
+ * Helper method to determine whether the card is within event timing
+ * @param {Object} card
+ * @param {Set} timing
+ * @returns {Boolean} - whether the card falls within selected timing options
+ */
+const checkEventTiming = (card, timing) => {
+    const curMs = Date.now();
+    // Times in milliseconds
+    const startMs = convertDateStrToMs(card.startDate);
+    const endMs = convertDateStrToMs(card.endDate);
+    // Timed categories
+    const isTimed = !!(startMs && endMs);
+    const isUpComing = isTimed ?
+        defineIsUpcoming(curMs, startMs) : false;
+    const isOnDemand = isTimed && !isUpComing ?
+        defineIsOnDemand(curMs, endMs) : false;
+    const isLive = !!(isTimed && !isUpComing && !isOnDemand && startMs);
+
+    logLana({
+        message: `curDate: ${curMs}, isTimed: ${isTimed}, isUpcoming: ${isUpComing}`,
+        tags: 'debugging',
+    });
+
+    // if you have timing filters active and there is no timing on the card it should be rejected
+    if (!isTimed) return false;
+    if (timing.has(EVENT_TIMING_IDS.UPCOMING) && isUpComing) return true;
+    else if (timing.has(EVENT_TIMING_IDS.ONDEMAND) && isOnDemand) return true;
+    else if (timing.has(EVENT_TIMING_IDS.LIVE) && isLive) return true;
+    return false;
+};
 
 /**
  * Will return all cards that match a set of filters
@@ -141,33 +178,32 @@ const getUsingTimingFilter = activeFiltersSet => (
 export const getFilteredCards = (cards, activeFilters, activePanels, filterType, filterTypes) => {
     logLana({ message: `cards length ${cards.length}`, tags: 'debugging' });
     const activeFiltersSet = new Set(activeFilters);
-    const timingSet = new Set(
+    const timingSet = intersection(activeFiltersSet, new Set([
         EVENT_TIMING_IDS.LIVE,
         EVENT_TIMING_IDS.ONDEMAND,
         EVENT_TIMING_IDS.UPCOMING,
-    );
-    logLana({ message: `hello ${JSON.stringify(timingSet)}`, tags: 'debugging' });
-
+    ]));
     const usingXorAndFilter = getUsingXorAndFilter(filterType, filterTypes);
     const usingOrFilter = getUsingOrFilter(filterType, filterTypes);
     const usingTimingFilter = getUsingTimingFilter(activeFiltersSet);
+    const activeFiltersFinal = activeFiltersSet.difference(timingSet);
 
-    // const activeFiltersFinal = activeFiltersSet.filter(tag => !timingSet.has(tag));
-
-    if (activeFiltersSet.size === 0) return cards;
+    if (activeFiltersFinal.size === 0) return cards;
 
     return cards.filter((card) => {
+        logLana({ message: `timing res: ${checkEventTiming(card, timingSet)}`, tags: 'debugging' });
         if (!card.tags && !usingTimingFilter) {
+            return false;
+        } else if (usingTimingFilter && !checkEventTiming(card, timingSet)) {
             return false;
         }
         logLana({ message: `card: ${JSON.stringify(card)}`, tags: 'debugging' });
-        logLana({ message: `using timing filter: ${true}`, tags: 'debugging' });
         const tagIds = new Set(card.tags.map(tag => tag.id));
 
         if (usingXorAndFilter) {
-            return isSuperset(tagIds, activeFiltersSet);
+            return isSuperset(tagIds, activeFiltersFinal);
         } else if (usingOrFilter && activePanels.size < 2) {
-            return intersection(tagIds, activeFiltersSet).size;
+            return intersection(tagIds, activeFiltersFinal).size;
         } else if (usingOrFilter) {
             // check if card' tags panels include all panels with selected filters
             const tagPanels = new Set(card.tags.map(tag => tag.id.replace(/\/.*$/, '')));
@@ -177,7 +213,7 @@ export const getFilteredCards = (cards, activeFilters, activePanels, filterType,
             let allPanelsMatch = true;
             // eslint-disable-next-line no-restricted-syntax
             for (const panel of activePanels) {
-                const filtersCheckedInPanel = new Set([...activeFiltersSet]
+                const filtersCheckedInPanel = new Set([...activeFiltersFinal]
                     .filter(id => id.includes(panel, 0)));
                 if (!intersection(tagIds, filtersCheckedInPanel).size) {
                     allPanelsMatch = false;

@@ -1,9 +1,13 @@
 /*!
 <<<<<<< HEAD
+<<<<<<< HEAD
  * Chimera UI Libraries - Build 0.11.8 (2/23/2024, 11:39:57)
 =======
  * Chimera UI Libraries - Build 0.11.8 (2/22/2024, 12:18:40)
 >>>>>>> 4dac102 (feat(mwpw-140925): ability to filter webinars by event state)
+=======
+ * Chimera UI Libraries - Build 0.11.8 (2/22/2024, 14:59:55)
+>>>>>>> 42dc682 (feat: saving work)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -2517,11 +2521,39 @@ var getUsingOrFilter = function getUsingOrFilter(filterType, filterTypes) {
 
 /**
  * Helper method to determine whether we are doing event filtering from the side bar tags
- * @param {*} activeFilterSet
+ * @param {Set} activeFilterSet
  * @returns {Boolean} - Whether collection has an event filter
  */
 var getUsingTimingFilter = function getUsingTimingFilter(activeFiltersSet) {
     return activeFiltersSet.has(_constants.EVENT_TIMING_IDS.LIVE) || activeFiltersSet.has(_constants.EVENT_TIMING_IDS.ONDEMAND) || activeFiltersSet.has(_constants.EVENT_TIMING_IDS.UPCOMING);
+};
+
+/**
+ * Helper method to determine whether the card is within event timing
+ * @param {Object} card
+ * @param {Set} timing
+ * @returns {Boolean} - whether the card falls within selected timing options
+ */
+var checkEventTiming = function checkEventTiming(card, timing) {
+    var curMs = Date.now();
+    // Times in milliseconds
+    var startMs = (0, _eventSort.convertDateStrToMs)(card.startDate);
+    var endMs = (0, _eventSort.convertDateStrToMs)(card.endDate);
+    // Timed categories
+    var isTimed = !!(startMs && endMs);
+    var isUpComing = isTimed ? (0, _eventSort.defineIsUpcoming)(curMs, startMs) : false;
+    var isOnDemand = isTimed && !isUpComing ? (0, _eventSort.defineIsOnDemand)(curMs, endMs) : false;
+    var isLive = !!(isTimed && !isUpComing && !isOnDemand && startMs);
+
+    (0, _lana.logLana)({
+        message: 'curDate: ' + curMs + ', isTimed: ' + isTimed + ', isUpcoming: ' + isUpComing,
+        tags: 'debugging'
+    });
+
+    // if you have timing filters active and there is no timing on the card it should be rejected
+    if (!isTimed) return false;
+    if (timing.has(_constants.EVENT_TIMING_IDS.UPCOMING) && isUpComing) return true;else if (timing.has(_constants.EVENT_TIMING_IDS.ONDEMAND) && isOnDemand) return true;else if (timing.has(_constants.EVENT_TIMING_IDS.LIVE) && isLive) return true;
+    return false;
 };
 
 /**
@@ -2536,31 +2568,30 @@ var getUsingTimingFilter = function getUsingTimingFilter(activeFiltersSet) {
 var getFilteredCards = exports.getFilteredCards = function getFilteredCards(cards, activeFilters, activePanels, filterType, filterTypes) {
     (0, _lana.logLana)({ message: 'cards length ' + cards.length, tags: 'debugging' });
     var activeFiltersSet = new Set(activeFilters);
-    var timingSet = new Set(_constants.EVENT_TIMING_IDS.LIVE, _constants.EVENT_TIMING_IDS.ONDEMAND, _constants.EVENT_TIMING_IDS.UPCOMING);
-    (0, _lana.logLana)({ message: 'hello ' + JSON.stringify(timingSet), tags: 'debugging' });
-
+    var timingSet = (0, _general.intersection)(activeFiltersSet, new Set([_constants.EVENT_TIMING_IDS.LIVE, _constants.EVENT_TIMING_IDS.ONDEMAND, _constants.EVENT_TIMING_IDS.UPCOMING]));
     var usingXorAndFilter = getUsingXorAndFilter(filterType, filterTypes);
     var usingOrFilter = getUsingOrFilter(filterType, filterTypes);
     var usingTimingFilter = getUsingTimingFilter(activeFiltersSet);
+    var activeFiltersFinal = activeFiltersSet.difference(timingSet);
 
-    // const activeFiltersFinal = activeFiltersSet.filter(tag => !timingSet.has(tag));
-
-    if (activeFiltersSet.size === 0) return cards;
+    if (activeFiltersFinal.size === 0) return cards;
 
     return cards.filter(function (card) {
+        (0, _lana.logLana)({ message: 'timing res: ' + checkEventTiming(card, timingSet), tags: 'debugging' });
         if (!card.tags && !usingTimingFilter) {
+            return false;
+        } else if (usingTimingFilter && !checkEventTiming(card, timingSet)) {
             return false;
         }
         (0, _lana.logLana)({ message: 'card: ' + JSON.stringify(card), tags: 'debugging' });
-        (0, _lana.logLana)({ message: 'using timing filter: ' + true, tags: 'debugging' });
         var tagIds = new Set(card.tags.map(function (tag) {
             return tag.id;
         }));
 
         if (usingXorAndFilter) {
-            return (0, _general.isSuperset)(tagIds, activeFiltersSet);
+            return (0, _general.isSuperset)(tagIds, activeFiltersFinal);
         } else if (usingOrFilter && activePanels.size < 2) {
-            return (0, _general.intersection)(tagIds, activeFiltersSet).size;
+            return (0, _general.intersection)(tagIds, activeFiltersFinal).size;
         } else if (usingOrFilter) {
             // check if card' tags panels include all panels with selected filters
             var tagPanels = new Set(card.tags.map(function (tag) {
@@ -2573,7 +2604,7 @@ var getFilteredCards = exports.getFilteredCards = function getFilteredCards(card
             // eslint-disable-next-line no-restricted-syntax
 
             var _loop = function _loop(panel) {
-                var filtersCheckedInPanel = new Set([].concat(_toConsumableArray(activeFiltersSet)).filter(function (id) {
+                var filtersCheckedInPanel = new Set([].concat(_toConsumableArray(activeFiltersFinal)).filter(function (id) {
                     return id.includes(panel, 0);
                 }));
                 if (!(0, _general.intersection)(tagIds, filtersCheckedInPanel).size) {
