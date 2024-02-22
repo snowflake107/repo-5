@@ -1,3 +1,41 @@
+function offsetString(num) {
+    if (`${num}`.length === 1) return `0${num}`;
+
+    return `${num}`;
+}
+
+function convertTimeZoneToHrsColonMin(dateStr) {
+    const num = dateStr.getTimezoneOffset() / 60;
+
+    if (`${num}`.length === 1) return `0${num}`;
+
+    const abs = Math.abs(num);
+    const floor = Math.floor(abs);
+    const decimal = num - floor;
+    const numToMinutes = decimal && decimal > 1 ? (60 * decimal) : 0;
+    const offSetHours = `${floor}`.length === 1 ? `0${floor}` : `${floor}`;
+    const timeZoneValue = `${numToMinutes}`.length === 1 ?
+        `${offSetHours}:0${numToMinutes}` : `${offSetHours}:${numToMinutes}`;
+
+    return num && num > 0 ? `-${timeZoneValue}` : `+${timeZoneValue}`;
+}
+
+const curNewDate = new Date();
+const curDate = curNewDate.getTime();
+const getDate = (ms) => {
+    const base = new Date(ms);
+    const yr = base.getFullYear();
+    const mo = offsetString(base.getMonth() + 1);
+    const dd = offsetString(base.getDate());
+    const hh = offsetString(base.getHours());
+    const mm = offsetString(base.getMinutes());
+    const sec = offsetString(base.getSeconds());
+    const tz = convertTimeZoneToHrsColonMin(base);
+
+
+    return `${yr}-${mo}-${dd}T${hh}:${mm}:${sec}.000${tz}`;
+};
+
 const shouldDisplayPaginator = [
     // should return false && false && true
     {
@@ -118,9 +156,10 @@ const getBookmarkedCards = [
 
 const card1 = { id: 'card-id-1', tags: [{ id: 1 }, { id: 2 }] };
 const card2 = { id: 'card-id-2', tags: [{ id: 1 }, { id: 2 }, { id: 3 }] };
-const card3 = { id: 'card-id-3' };
+const card3 = { id: 'card-id-3', };
+const upcoming = { id: 'upcoming', endDate: getDate((curDate + 240000)), startDate: getDate((curDate + 120000)),}
 
-const cards = [card1, card2, card3];
+const cards = [card1, card2, card3, upcoming];
 
 const filterTypes = { OR: 'or', AND: 'and' };
 
@@ -157,6 +196,14 @@ const getFilteredCards = [
         filterTypes,
         expectedValue: [],
     },
+    {
+        cards,
+        activeFilters: [1, 2, '8as8/iabx'],
+        activePanels: new Set(),
+        filterType: 'or',
+        filterTypes,
+        expectedValue: [card1, card2, card3, upcoming],
+    }
 ];
 
 const getFilteredCardsThrowError = {

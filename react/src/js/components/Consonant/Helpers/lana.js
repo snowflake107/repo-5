@@ -23,7 +23,7 @@ export const loadLana = (options = {}) => {
 };
 
 export const logLana = ({
-    message, tags, e = '', sampleRate = 1,
+    message, tags, e = '', sampleRate = 100,
 } = {}) => {
     const msg = `${message} | referer: ${window.location.href} | ${e.reason || e.error || e.message || e}`;
     window.lana.log(msg, {

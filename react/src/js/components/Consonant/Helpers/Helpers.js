@@ -11,7 +11,9 @@ import {
     chainFromIterable,
     removeDuplicatesByKey,
 } from './general';
+import { EVENT_TIMING_IDS } from './constants';
 import { eventTiming } from './eventSort';
+import { logLana } from './lana';
 
 /**
  * Needs to be explicitly called by immer - Needed for IE 11 support
@@ -117,6 +119,17 @@ const getUsingOrFilter = (filterType, filterTypes) => (
 );
 
 /**
+ * Helper method to determine whether we are doing event filtering from the side bar tags
+ * @param {*} activeFilterSet
+ * @returns {Boolean} - Whether collection has an event filter
+ */
+const getUsingTimingFilter = activeFiltersSet => (
+    activeFiltersSet.has(EVENT_TIMING_IDS.LIVE) ||
+    activeFiltersSet.has(EVENT_TIMING_IDS.ONDEMAND) ||
+    activeFiltersSet.has(EVENT_TIMING_IDS.UPCOMING)
+);
+
+/**
  * Will return all cards that match a set of filters
  * @param {Array} cards - All cards in the collection
  * @param {Array} activeFilters - All filters selected by user
@@ -126,18 +139,29 @@ const getUsingOrFilter = (filterType, filterTypes) => (
  * @returns {Array} - All cards that match filter options
  */
 export const getFilteredCards = (cards, activeFilters, activePanels, filterType, filterTypes) => {
+    logLana({ message: `cards length ${cards.length}`, tags: 'debugging' });
     const activeFiltersSet = new Set(activeFilters);
+    const timingSet = new Set(
+        EVENT_TIMING_IDS.LIVE,
+        EVENT_TIMING_IDS.ONDEMAND,
+        EVENT_TIMING_IDS.UPCOMING,
+    );
+    logLana({ message: `hello ${JSON.stringify(timingSet)}`, tags: 'debugging' });
 
     const usingXorAndFilter = getUsingXorAndFilter(filterType, filterTypes);
     const usingOrFilter = getUsingOrFilter(filterType, filterTypes);
+    const usingTimingFilter = getUsingTimingFilter(activeFiltersSet);
+
+    // const activeFiltersFinal = activeFiltersSet.filter(tag => !timingSet.has(tag));
 
     if (activeFiltersSet.size === 0) return cards;
 
     return cards.filter((card) => {
-        if (!card.tags) {
+        if (!card.tags && !usingTimingFilter) {
             return false;
         }
-
+        logLana({ message: `card: ${JSON.stringify(card)}`, tags: 'debugging' });
+        logLana({ message: `using timing filter: ${true}`, tags: 'debugging' });
         const tagIds = new Set(card.tags.map(tag => tag.id));
 
         if (usingXorAndFilter) {

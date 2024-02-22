@@ -76,6 +76,12 @@ export const SORT_TYPES = {
     RANDOM: 'random',
 };
 
+export const EVENT_TIMING_IDS = {
+    LIVE: '8as8/hafk',
+    ONDEMAND: '8as8/hyb6',
+    UPCOMING: '8as8/iabx',
+};
+
 /**
  * Possible Locations of the Sort Popup
  * @type {String}
