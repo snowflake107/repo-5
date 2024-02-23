@@ -283,9 +283,11 @@ const Card = (props) => {
         bannerDescriptionToUse = eventBanner.description;
         bannerFontColorToUse = eventBanner.fontColor;
         bannerIconToUse = eventBanner.icon;
-        const now = getCurrentDate();
-        if (isDateBeforeInterval(now, startDate)) {
-            detailText = prettyFormatDate(startDate, endDate, locale, i18nFormat);
+        if (isHalfHeight) {
+            const now = getCurrentDate();
+            if (isDateBeforeInterval(now, startDate)) {
+                detailText = prettyFormatDate(startDate, endDate, locale, i18nFormat);
+            }
         }
     }
 
