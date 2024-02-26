@@ -18,7 +18,6 @@ import {
     defineIsOnDemand,
     defineIsUpcoming,
 } from './eventSort';
-import { logLana } from './lana';
 
 /**
  * Needs to be explicitly called by immer - Needed for IE 11 support
@@ -153,11 +152,6 @@ const checkEventTiming = (card, timing) => {
         defineIsOnDemand(curMs, endMs) : false;
     const isLive = !!(isTimed && !isUpComing && !isOnDemand && startMs);
 
-    logLana({
-        message: `curDate: ${curMs}, isTimed: ${isTimed}, isUpcoming: ${isUpComing}`,
-        tags: 'debugging',
-    });
-
     // if you have timing filters active and there is no timing on the card it should be rejected
     if (!isTimed) return false;
     if (timing.has(EVENT_TIMING_IDS.UPCOMING) && isUpComing) return true;
@@ -176,7 +170,6 @@ const checkEventTiming = (card, timing) => {
  * @returns {Array} - All cards that match filter options
  */
 export const getFilteredCards = (cards, activeFilters, activePanels, filterType, filterTypes) => {
-    logLana({ message: `cards length ${cards.length}`, tags: 'debugging' });
     const activeFiltersSet = new Set(activeFilters);
     const timingSet = intersection(activeFiltersSet, new Set([
         EVENT_TIMING_IDS.LIVE,
@@ -188,16 +181,22 @@ export const getFilteredCards = (cards, activeFilters, activePanels, filterType,
     const usingTimingFilter = getUsingTimingFilter(activeFiltersSet);
     const activeFiltersFinal = activeFiltersSet.difference(timingSet);
 
-    if (activeFiltersFinal.size === 0) return cards;
+    if (activeFiltersFinal.size === 0 && !usingTimingFilter) return cards;
 
     return cards.filter((card) => {
-        logLana({ message: `timing res: ${checkEventTiming(card, timingSet)}`, tags: 'debugging' });
         if (!card.tags && !usingTimingFilter) {
             return false;
         } else if (usingTimingFilter && !checkEventTiming(card, timingSet)) {
             return false;
+        } else if (
+            usingTimingFilter &&
+            checkEventTiming(card, timingSet) &&
+            activeFiltersFinal.size === 0
+        ) {
+            // if the only filters being performed are about event timing
+            return true;
         }
-        logLana({ message: `card: ${JSON.stringify(card)}`, tags: 'debugging' });
+        // you proceed to check the other tags in the cards after the time filter checks
         const tagIds = new Set(card.tags.map(tag => tag.id));
 
         if (usingXorAndFilter) {
