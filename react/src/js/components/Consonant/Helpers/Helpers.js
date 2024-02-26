@@ -179,9 +179,10 @@ export const getFilteredCards = (cards, activeFilters, activePanels, filterType,
     const usingXorAndFilter = getUsingXorAndFilter(filterType, filterTypes);
     const usingOrFilter = getUsingOrFilter(filterType, filterTypes);
     const usingTimingFilter = getUsingTimingFilter(activeFiltersSet);
-    const activeFiltersFinal = activeFiltersSet.difference(timingSet);
+    // remove the time elements from the active filter set before you actually filter
+    timingSet.forEach(x => activeFiltersSet.delete(x));
 
-    if (activeFiltersFinal.size === 0 && !usingTimingFilter) return cards;
+    if (activeFiltersSet.size === 0 && !usingTimingFilter) return cards;
 
     return cards.filter((card) => {
         if (!card.tags && !usingTimingFilter) {
@@ -191,7 +192,7 @@ export const getFilteredCards = (cards, activeFilters, activePanels, filterType,
         } else if (
             usingTimingFilter &&
             checkEventTiming(card, timingSet) &&
-            activeFiltersFinal.size === 0
+            activeFiltersSet.size === 0
         ) {
             // if the only filters being performed are about event timing
             return true;
@@ -200,9 +201,9 @@ export const getFilteredCards = (cards, activeFilters, activePanels, filterType,
         const tagIds = new Set(card.tags.map(tag => tag.id));
 
         if (usingXorAndFilter) {
-            return isSuperset(tagIds, activeFiltersFinal);
+            return isSuperset(tagIds, activeFiltersSet);
         } else if (usingOrFilter && activePanels.size < 2) {
-            return intersection(tagIds, activeFiltersFinal).size;
+            return intersection(tagIds, activeFiltersSet).size;
         } else if (usingOrFilter) {
             // check if card' tags panels include all panels with selected filters
             const tagPanels = new Set(card.tags.map(tag => tag.id.replace(/\/.*$/, '')));
@@ -212,7 +213,7 @@ export const getFilteredCards = (cards, activeFilters, activePanels, filterType,
             let allPanelsMatch = true;
             // eslint-disable-next-line no-restricted-syntax
             for (const panel of activePanels) {
-                const filtersCheckedInPanel = new Set([...activeFiltersFinal]
+                const filtersCheckedInPanel = new Set([...activeFiltersSet]
                     .filter(id => id.includes(panel, 0)));
                 if (!intersection(tagIds, filtersCheckedInPanel).size) {
                     allPanelsMatch = false;

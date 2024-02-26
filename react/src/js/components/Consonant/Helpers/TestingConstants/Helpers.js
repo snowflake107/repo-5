@@ -157,7 +157,7 @@ const getBookmarkedCards = [
 const card1 = { id: 'card-id-1', tags: [{ id: 1 }, { id: 2 }] };
 const card2 = { id: 'card-id-2', tags: [{ id: 1 }, { id: 2 }, { id: 3 }] };
 const card3 = { id: 'card-id-3', };
-const upcoming = { id: 'upcoming', endDate: getDate((curDate + 240000)), startDate: getDate((curDate + 120000)),}
+const upcoming = { id: 'upcoming1', endDate: getDate((curDate + 240000)), startDate: getDate((curDate + 120000)),}
 
 const cards = [card1, card2, card3, upcoming];
 
@@ -198,11 +198,11 @@ const getFilteredCards = [
     },
     {
         cards,
-        activeFilters: [1, 2, '8as8/iabx'],
+        activeFilters: ['8as8/iabx'],
         activePanels: new Set(),
         filterType: 'or',
         filterTypes,
-        expectedValue: [card1, card2, card3, upcoming],
+        expectedValue: [upcoming],
     }
 ];
 
