@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.11.8 (2/23/2024, 11:39:57)
+ * Chimera UI Libraries - Build 0.11.9 (2/26/2024, 15:19:10)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -197,41 +197,58 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	'use strict';
 
 	var hasOwn = {}.hasOwnProperty;
-	var nativeCodeString = '[native code]';
 
-	function classNames() {
-		var classes = [];
+	function classNames () {
+		var classes = '';
 
 		for (var i = 0; i < arguments.length; i++) {
 			var arg = arguments[i];
-			if (!arg) continue;
-
-			var argType = typeof arg;
-
-			if (argType === 'string' || argType === 'number') {
-				classes.push(arg);
-			} else if (Array.isArray(arg)) {
-				if (arg.length) {
-					var inner = classNames.apply(null, arg);
-					if (inner) {
-						classes.push(inner);
-					}
-				}
-			} else if (argType === 'object') {
-				if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
-					classes.push(arg.toString());
-					continue;
-				}
-
-				for (var key in arg) {
-					if (hasOwn.call(arg, key) && arg[key]) {
-						classes.push(key);
-					}
-				}
+			if (arg) {
+				classes = appendClass(classes, parseValue(arg));
 			}
 		}
 
-		return classes.join(' ');
+		return classes;
+	}
+
+	function parseValue (arg) {
+		if (typeof arg === 'string' || typeof arg === 'number') {
+			return arg;
+		}
+
+		if (typeof arg !== 'object') {
+			return '';
+		}
+
+		if (Array.isArray(arg)) {
+			return classNames.apply(null, arg);
+		}
+
+		if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
+			return arg.toString();
+		}
+
+		var classes = '';
+
+		for (var key in arg) {
+			if (hasOwn.call(arg, key) && arg[key]) {
+				classes = appendClass(classes, key);
+			}
+		}
+
+		return classes;
+	}
+
+	function appendClass (value, newClass) {
+		if (!newClass) {
+			return value;
+		}
+	
+		if (value) {
+			return value + ' ' + newClass;
+		}
+	
+		return value + newClass;
 	}
 
 	if (typeof module !== 'undefined' && module.exports) {
@@ -929,7 +946,7 @@ var _consonant = __webpack_require__(110);
 
 var _contexts = __webpack_require__(111);
 
-var _constants = __webpack_require__(17);
+var _constants = __webpack_require__(15);
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -1186,7 +1203,7 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(15)(function () {
+module.exports = !__webpack_require__(16)(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -1427,35 +1444,6 @@ module.exports = function (it) {
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports) {
-
-module.exports = function (exec) {
-  try {
-    return !!exec();
-  } catch (e) {
-    return true;
-  }
-};
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// most Object methods by ES6 should accept primitives
-var $export = __webpack_require__(2);
-var core = __webpack_require__(3);
-var fails = __webpack_require__(15);
-module.exports = function (KEY, exec) {
-  var fn = (core.Object || {})[KEY] || Object[KEY];
-  var exp = {};
-  exp[KEY] = exec(fn);
-  $export($export.S + $export.F * fails(function () { fn(1); }), 'Object', exp);
-};
-
-
-/***/ }),
-/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1540,6 +1528,12 @@ var SORT_TYPES = exports.SORT_TYPES = {
     TITLEASC: 'titleasc',
     TITLEDESC: 'titledesc',
     RANDOM: 'random'
+};
+
+var EVENT_TIMING_IDS = exports.EVENT_TIMING_IDS = {
+    LIVE: '8as8/hafk',
+    ONDEMAND: '8as8/hyb6',
+    UPCOMING: '8as8/iabx'
 };
 
 /**
@@ -1739,6 +1733,35 @@ var LOADER_SIZE = exports.LOADER_SIZE = {
  */
 var ROOT_MARGIN_DEFAULT = exports.ROOT_MARGIN_DEFAULT = '500px';
 var ONE_SECOND_DELAY = exports.ONE_SECOND_DELAY = 1000;
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+module.exports = function (exec) {
+  try {
+    return !!exec();
+  } catch (e) {
+    return true;
+  }
+};
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// most Object methods by ES6 should accept primitives
+var $export = __webpack_require__(2);
+var core = __webpack_require__(3);
+var fails = __webpack_require__(16);
+module.exports = function (KEY, exec) {
+  var fn = (core.Object || {})[KEY] || Object[KEY];
+  var exp = {};
+  exp[KEY] = exec(fn);
+  $export($export.S + $export.F * fails(function () { fn(1); }), 'Object', exp);
+};
+
 
 /***/ }),
 /* 18 */
@@ -2382,6 +2405,8 @@ var _rendering = __webpack_require__(40);
 
 var _general = __webpack_require__(6);
 
+var _constants = __webpack_require__(15);
+
 var _eventSort = __webpack_require__(271);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -2502,6 +2527,38 @@ var getUsingOrFilter = function getUsingOrFilter(filterType, filterTypes) {
 };
 
 /**
+ * Helper method to determine whether we are doing event filtering from the side bar tags
+ * @param {Set} activeFilterSet
+ * @returns {Boolean} - Whether collection has an event filter
+ */
+var getUsingTimingFilter = function getUsingTimingFilter(activeFiltersSet) {
+    return activeFiltersSet.has(_constants.EVENT_TIMING_IDS.LIVE) || activeFiltersSet.has(_constants.EVENT_TIMING_IDS.ONDEMAND) || activeFiltersSet.has(_constants.EVENT_TIMING_IDS.UPCOMING);
+};
+
+/**
+ * Helper method to determine whether the card is within event timing
+ * @param {Object} card
+ * @param {Set} timing
+ * @returns {Boolean} - whether the card falls within selected timing options
+ */
+var checkEventTiming = function checkEventTiming(card, timing) {
+    var curMs = Date.now();
+    // Times in milliseconds
+    var startMs = (0, _eventSort.convertDateStrToMs)(card.startDate);
+    var endMs = (0, _eventSort.convertDateStrToMs)(card.endDate);
+    // Timed categories
+    var isTimed = !!(startMs && endMs);
+    var isUpComing = isTimed ? (0, _eventSort.defineIsUpcoming)(curMs, startMs) : false;
+    var isOnDemand = isTimed && !isUpComing ? (0, _eventSort.defineIsOnDemand)(curMs, endMs) : false;
+    var isLive = !!(isTimed && !isUpComing && !isOnDemand && startMs);
+
+    // if you have timing filters active and there is no timing on the card it should be rejected
+    if (!isTimed) return false;
+    if (timing.has(_constants.EVENT_TIMING_IDS.UPCOMING) && isUpComing) return true;else if (timing.has(_constants.EVENT_TIMING_IDS.ONDEMAND) && isOnDemand) return true;else if (timing.has(_constants.EVENT_TIMING_IDS.LIVE) && isLive) return true;
+    return false;
+};
+
+/**
  * Will return all cards that match a set of filters
  * @param {Array} cards - All cards in the collection
  * @param {Array} activeFilters - All filters selected by user
@@ -2512,17 +2569,27 @@ var getUsingOrFilter = function getUsingOrFilter(filterType, filterTypes) {
  */
 var getFilteredCards = exports.getFilteredCards = function getFilteredCards(cards, activeFilters, activePanels, filterType, filterTypes) {
     var activeFiltersSet = new Set(activeFilters);
-
+    var timingSet = (0, _general.intersection)(activeFiltersSet, new Set([_constants.EVENT_TIMING_IDS.LIVE, _constants.EVENT_TIMING_IDS.ONDEMAND, _constants.EVENT_TIMING_IDS.UPCOMING]));
     var usingXorAndFilter = getUsingXorAndFilter(filterType, filterTypes);
     var usingOrFilter = getUsingOrFilter(filterType, filterTypes);
+    var usingTimingFilter = getUsingTimingFilter(activeFiltersSet);
+    // remove the time elements from the active filter set before you actually filter
+    timingSet.forEach(function (x) {
+        return activeFiltersSet.delete(x);
+    });
 
-    if (activeFiltersSet.size === 0) return cards;
+    if (activeFiltersSet.size === 0 && !usingTimingFilter) return cards;
 
     return cards.filter(function (card) {
-        if (!card.tags) {
+        if (!card.tags && !usingTimingFilter) {
             return false;
+        } else if (usingTimingFilter && !checkEventTiming(card, timingSet)) {
+            return false;
+        } else if (usingTimingFilter && checkEventTiming(card, timingSet) && activeFiltersSet.size === 0) {
+            // if the only filters being performed are about event timing
+            return true;
         }
-
+        // you proceed to check the other tags in the cards after the time filter checks
         var tagIds = new Set(card.tags.map(function (tag) {
             return tag.id;
         }));
@@ -3200,7 +3267,7 @@ var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
 };
-var FREEZE = !__webpack_require__(15)(function () {
+var FREEZE = !__webpack_require__(16)(function () {
   return isExtensible(Object.preventExtensions({}));
 });
 var setMeta = function (it) {
@@ -3254,7 +3321,7 @@ var meta = module.exports = {
 "use strict";
 
 // Forced replacement prototype accessors methods
-module.exports = __webpack_require__(27) || !__webpack_require__(15)(function () {
+module.exports = __webpack_require__(27) || !__webpack_require__(16)(function () {
   var K = Math.random();
   // In FF throws only define methods
   // eslint-disable-next-line no-undef, no-useless-call
@@ -3300,7 +3367,7 @@ module.exports = function (R, S) {
 __webpack_require__(189);
 var redefine = __webpack_require__(26);
 var hide = __webpack_require__(22);
-var fails = __webpack_require__(15);
+var fails = __webpack_require__(16);
 var defined = __webpack_require__(21);
 var wks = __webpack_require__(4);
 var regexpExec = __webpack_require__(62);
@@ -4601,7 +4668,7 @@ function isEditor() {
 /* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(10) && !__webpack_require__(15)(function () {
+module.exports = !__webpack_require__(10) && !__webpack_require__(16)(function () {
   return Object.defineProperty(__webpack_require__(50)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -5468,7 +5535,7 @@ module.exports = function (that, maxLength, fillString, left) {
 
 var $export = __webpack_require__(2);
 var defined = __webpack_require__(21);
-var fails = __webpack_require__(15);
+var fails = __webpack_require__(16);
 var spaces = __webpack_require__(203);
 var space = '[' + spaces + ']';
 var non = '\u200b\u0085';
@@ -6034,7 +6101,7 @@ var _hooks = __webpack_require__(7);
 
 var _Info = __webpack_require__(310);
 
-var _constants = __webpack_require__(17);
+var _constants = __webpack_require__(15);
 
 var _contexts = __webpack_require__(111);
 
@@ -6852,11 +6919,12 @@ var Container = function Container(props) {
                 return tag.id;
             });
         })));
+        var timingTags = [_constants.EVENT_TIMING_IDS.LIVE, _constants.EVENT_TIMING_IDS.ONDEMAND, _constants.EVENT_TIMING_IDS.UPCOMING];
 
         return allFilters.map(function (filter) {
             return _extends({}, filter, {
                 items: filter.items.filter(function (item) {
-                    return tags.includes(item.id);
+                    return tags.includes(item.id) || timingTags.includes(item.id);
                 })
             });
         }).filter(function (filter) {
@@ -7594,7 +7662,7 @@ exports.getDefaultSortOption = getDefaultSortOption;
 
 var _general = __webpack_require__(6);
 
-var _constants = __webpack_require__(17);
+var _constants = __webpack_require__(15);
 
 /**
  * Gets the number of selected filter items
@@ -7720,7 +7788,7 @@ var _Card = __webpack_require__(252);
 
 var _Card2 = _interopRequireDefault(_Card);
 
-var _constants = __webpack_require__(17);
+var _constants = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9107,7 +9175,7 @@ var IObject = __webpack_require__(51);
 var $assign = Object.assign;
 
 // should work with symbols and should have deterministic property order (V8 bug)
-module.exports = !$assign || __webpack_require__(15)(function () {
+module.exports = !$assign || __webpack_require__(16)(function () {
   var A = {};
   var B = {};
   // eslint-disable-next-line no-undef
@@ -9474,7 +9542,7 @@ var DESCRIPTORS = __webpack_require__(10);
 var $export = __webpack_require__(2);
 var redefine = __webpack_require__(26);
 var META = __webpack_require__(46).KEY;
-var $fails = __webpack_require__(15);
+var $fails = __webpack_require__(16);
 var shared = __webpack_require__(41);
 var setToStringTag = __webpack_require__(44);
 var uid = __webpack_require__(33);
@@ -9785,7 +9853,7 @@ $export($export.S + $export.F * !__webpack_require__(10), 'Object', { defineProp
 var toIObject = __webpack_require__(18);
 var $getOwnPropertyDescriptor = __webpack_require__(25).f;
 
-__webpack_require__(16)('getOwnPropertyDescriptor', function () {
+__webpack_require__(17)('getOwnPropertyDescriptor', function () {
   return function getOwnPropertyDescriptor(it, key) {
     return $getOwnPropertyDescriptor(toIObject(it), key);
   };
@@ -9800,7 +9868,7 @@ __webpack_require__(16)('getOwnPropertyDescriptor', function () {
 var toObject = __webpack_require__(14);
 var $getPrototypeOf = __webpack_require__(45);
 
-__webpack_require__(16)('getPrototypeOf', function () {
+__webpack_require__(17)('getPrototypeOf', function () {
   return function getPrototypeOf(it) {
     return $getPrototypeOf(toObject(it));
   };
@@ -9815,7 +9883,7 @@ __webpack_require__(16)('getPrototypeOf', function () {
 var toObject = __webpack_require__(14);
 var $keys = __webpack_require__(30);
 
-__webpack_require__(16)('keys', function () {
+__webpack_require__(17)('keys', function () {
   return function keys(it) {
     return $keys(toObject(it));
   };
@@ -9827,7 +9895,7 @@ __webpack_require__(16)('keys', function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.7 Object.getOwnPropertyNames(O)
-__webpack_require__(16)('getOwnPropertyNames', function () {
+__webpack_require__(17)('getOwnPropertyNames', function () {
   return __webpack_require__(92).f;
 });
 
@@ -9840,7 +9908,7 @@ __webpack_require__(16)('getOwnPropertyNames', function () {
 var isObject = __webpack_require__(8);
 var meta = __webpack_require__(46).onFreeze;
 
-__webpack_require__(16)('freeze', function ($freeze) {
+__webpack_require__(17)('freeze', function ($freeze) {
   return function freeze(it) {
     return $freeze && isObject(it) ? $freeze(meta(it)) : it;
   };
@@ -9855,7 +9923,7 @@ __webpack_require__(16)('freeze', function ($freeze) {
 var isObject = __webpack_require__(8);
 var meta = __webpack_require__(46).onFreeze;
 
-__webpack_require__(16)('seal', function ($seal) {
+__webpack_require__(17)('seal', function ($seal) {
   return function seal(it) {
     return $seal && isObject(it) ? $seal(meta(it)) : it;
   };
@@ -9870,7 +9938,7 @@ __webpack_require__(16)('seal', function ($seal) {
 var isObject = __webpack_require__(8);
 var meta = __webpack_require__(46).onFreeze;
 
-__webpack_require__(16)('preventExtensions', function ($preventExtensions) {
+__webpack_require__(17)('preventExtensions', function ($preventExtensions) {
   return function preventExtensions(it) {
     return $preventExtensions && isObject(it) ? $preventExtensions(meta(it)) : it;
   };
@@ -9884,7 +9952,7 @@ __webpack_require__(16)('preventExtensions', function ($preventExtensions) {
 // 19.1.2.12 Object.isFrozen(O)
 var isObject = __webpack_require__(8);
 
-__webpack_require__(16)('isFrozen', function ($isFrozen) {
+__webpack_require__(17)('isFrozen', function ($isFrozen) {
   return function isFrozen(it) {
     return isObject(it) ? $isFrozen ? $isFrozen(it) : false : true;
   };
@@ -9898,7 +9966,7 @@ __webpack_require__(16)('isFrozen', function ($isFrozen) {
 // 19.1.2.13 Object.isSealed(O)
 var isObject = __webpack_require__(8);
 
-__webpack_require__(16)('isSealed', function ($isSealed) {
+__webpack_require__(17)('isSealed', function ($isSealed) {
   return function isSealed(it) {
     return isObject(it) ? $isSealed ? $isSealed(it) : false : true;
   };
@@ -9912,7 +9980,7 @@ __webpack_require__(16)('isSealed', function ($isSealed) {
 // 19.1.2.11 Object.isExtensible(O)
 var isObject = __webpack_require__(8);
 
-__webpack_require__(16)('isExtensible', function ($isExtensible) {
+__webpack_require__(17)('isExtensible', function ($isExtensible) {
   return function isExtensible(it) {
     return isObject(it) ? $isExtensible ? $isExtensible(it) : true : false;
   };
@@ -10748,7 +10816,7 @@ var advanceStringIndex = __webpack_require__(61);
 var toLength = __webpack_require__(19);
 var callRegExpExec = __webpack_require__(48);
 var regexpExec = __webpack_require__(62);
-var fails = __webpack_require__(15);
+var fails = __webpack_require__(16);
 var $min = Math.min;
 var $push = [].push;
 var $SPLIT = 'split';
@@ -41539,6 +41607,16 @@ class MinPriorityQueue extends PriorityQueue {
       this._heap = new MinHeap();
     }
   }
+
+  static from(entries) {
+    const queue = new MinPriorityQueue();
+
+    entries.forEach(([element, priority]) => {
+      queue.enqueue(element, priority);
+    });
+
+    return queue;
+  }
 }
 
 exports.MinPriorityQueue = MinPriorityQueue;
@@ -41841,6 +41919,16 @@ class MaxPriorityQueue extends PriorityQueue {
     if (!this._compare) {
       this._heap = new MaxHeap();
     }
+  }
+
+  static from(entries) {
+    const queue = new MaxPriorityQueue();
+
+    entries.forEach(([element, priority]) => {
+      queue.enqueue(element, priority);
+    });
+
+    return queue;
   }
 }
 
@@ -43569,7 +43657,7 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _propTypes = __webpack_require__(1);
 
-var _constants = __webpack_require__(17);
+var _constants = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46285,7 +46373,7 @@ var _prettyFormat = __webpack_require__(118);
 
 var _prettyFormat2 = _interopRequireDefault(_prettyFormat);
 
-var _constants = __webpack_require__(17);
+var _constants = __webpack_require__(15);
 
 var _Helpers = __webpack_require__(39);
 
@@ -46756,7 +46844,7 @@ var _Group2 = _interopRequireDefault(_Group);
 
 var _card = __webpack_require__(38);
 
-var _constants = __webpack_require__(17);
+var _constants = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46948,7 +47036,7 @@ var _Gated = __webpack_require__(269);
 
 var _Gated2 = _interopRequireDefault(_Gated);
 
-var _constants = __webpack_require__(17);
+var _constants = __webpack_require__(15);
 
 var _general = __webpack_require__(6);
 
@@ -50182,31 +50270,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createFocusTrap", function() { return createFocusTrap; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tabbable__ = __webpack_require__(286);
 /*!
-* focus-trap 7.2.0
+* focus-trap 7.5.4
 * @license MIT, https://github.com/focus-trap/focus-trap/blob/master/LICENSE
 */
 
 
-function ownKeys(object, enumerableOnly) {
-  var keys = Object.keys(object);
+function ownKeys(e, r) {
+  var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
-    var symbols = Object.getOwnPropertySymbols(object);
-    enumerableOnly && (symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    })), keys.push.apply(keys, symbols);
+    var o = Object.getOwnPropertySymbols(e);
+    r && (o = o.filter(function (r) {
+      return Object.getOwnPropertyDescriptor(e, r).enumerable;
+    })), t.push.apply(t, o);
   }
-  return keys;
+  return t;
 }
-function _objectSpread2(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = null != arguments[i] ? arguments[i] : {};
-    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
-      _defineProperty(target, key, source[key]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
-      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+function _objectSpread2(e) {
+  for (var r = 1; r < arguments.length; r++) {
+    var t = null != arguments[r] ? arguments[r] : {};
+    r % 2 ? ownKeys(Object(t), !0).forEach(function (r) {
+      _defineProperty(e, r, t[r]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) {
+      Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
     });
   }
-  return target;
+  return e;
 }
 function _defineProperty(obj, key, value) {
   key = _toPropertyKey(key);
@@ -50268,10 +50356,10 @@ var isSelectableInput = function isSelectableInput(node) {
   return node.tagName && node.tagName.toLowerCase() === 'input' && typeof node.select === 'function';
 };
 var isEscapeEvent = function isEscapeEvent(e) {
-  return e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27;
+  return (e === null || e === void 0 ? void 0 : e.key) === 'Escape' || (e === null || e === void 0 ? void 0 : e.key) === 'Esc' || (e === null || e === void 0 ? void 0 : e.keyCode) === 27;
 };
 var isTabEvent = function isTabEvent(e) {
-  return e.key === 'Tab' || e.keyCode === 9;
+  return (e === null || e === void 0 ? void 0 : e.key) === 'Tab' || (e === null || e === void 0 ? void 0 : e.keyCode) === 9;
 };
 
 // checks for TAB by default
@@ -50355,8 +50443,11 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
     //   container: HTMLElement,
     //   tabbableNodes: Array<HTMLElement>, // empty if none
     //   focusableNodes: Array<HTMLElement>, // empty if none
-    //   firstTabbableNode: HTMLElement|null,
-    //   lastTabbableNode: HTMLElement|null,
+    //   posTabIndexesFound: boolean,
+    //   firstTabbableNode: HTMLElement|undefined,
+    //   lastTabbableNode: HTMLElement|undefined,
+    //   firstDomTabbableNode: HTMLElement|undefined,
+    //   lastDomTabbableNode: HTMLElement|undefined,
     //   nextTabbableNode: (node: HTMLElement, forward: boolean) => HTMLElement|undefined
     // }>}
     containerGroups: [],
@@ -50373,7 +50464,9 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
     paused: false,
     // timer ID for when delayInitialFocus is true and initial focus in this trap
     //  has been delayed during activation
-    delayInitialFocusTimer: undefined
+    delayInitialFocusTimer: undefined,
+    // the most recent KeyboardEvent for the configured nav key (typically [SHIFT+]TAB), if any
+    recentNavEvent: undefined
   };
   var trap; // eslint-disable-line prefer-const -- some private functions reference it, and its methods reference private functions, so we must declare here and define later
 
@@ -50392,23 +50485,26 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
   /**
    * Finds the index of the container that contains the element.
    * @param {HTMLElement} element
+   * @param {Event} [event] If available, and `element` isn't directly found in any container,
+   *  the event's composed path is used to see if includes any known trap containers in the
+   *  case where the element is inside a Shadow DOM.
    * @returns {number} Index of the container in either `state.containers` or
    *  `state.containerGroups` (the order/length of these lists are the same); -1
    *  if the element isn't found.
    */
-  var findContainerIndex = function findContainerIndex(element) {
+  var findContainerIndex = function findContainerIndex(element, event) {
+    var composedPath = typeof (event === null || event === void 0 ? void 0 : event.composedPath) === 'function' ? event.composedPath() : undefined;
     // NOTE: search `containerGroups` because it's possible a group contains no tabbable
     //  nodes, but still contains focusable nodes (e.g. if they all have `tabindex=-1`)
     //  and we still need to find the element in there
     return state.containerGroups.findIndex(function (_ref) {
       var container = _ref.container,
         tabbableNodes = _ref.tabbableNodes;
-      return container.contains(element) ||
-      // fall back to explicit tabbable search which will take into consideration any
+      return container.contains(element) || ( // fall back to explicit tabbable search which will take into consideration any
       //  web components if the `tabbableOptions.getShadowRoot` option was used for
       //  the trap, enabling shadow DOM support in tabbable (`Node.contains()` doesn't
       //  look inside web components even if open)
-      tabbableNodes.find(function (node) {
+      composedPath === null || composedPath === void 0 ? void 0 : composedPath.includes(container)) || tabbableNodes.find(function (node) {
         return node === element;
       });
     });
@@ -50464,8 +50560,8 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
     if (node === false) {
       return false;
     }
-    if (node === undefined) {
-      // option not specified: use fallback options
+    if (node === undefined || !Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["c" /* isFocusable */])(node, config.tabbableOptions)) {
+      // option not specified nor focusable: use fallback options
       if (findContainerIndex(doc.activeElement) >= 0) {
         node = doc.activeElement;
       } else {
@@ -50483,17 +50579,44 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
   };
   var updateTabbableNodes = function updateTabbableNodes() {
     state.containerGroups = state.containers.map(function (container) {
-      var tabbableNodes = Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["d" /* tabbable */])(container, config.tabbableOptions);
+      var tabbableNodes = Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["e" /* tabbable */])(container, config.tabbableOptions);
 
       // NOTE: if we have tabbable nodes, we must have focusable nodes; focusable nodes
-      //  are a superset of tabbable nodes
+      //  are a superset of tabbable nodes since nodes with negative `tabindex` attributes
+      //  are focusable but not tabbable
       var focusableNodes = Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["a" /* focusable */])(container, config.tabbableOptions);
+      var firstTabbableNode = tabbableNodes.length > 0 ? tabbableNodes[0] : undefined;
+      var lastTabbableNode = tabbableNodes.length > 0 ? tabbableNodes[tabbableNodes.length - 1] : undefined;
+      var firstDomTabbableNode = focusableNodes.find(function (node) {
+        return Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["d" /* isTabbable */])(node);
+      });
+      var lastDomTabbableNode = focusableNodes.slice().reverse().find(function (node) {
+        return Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["d" /* isTabbable */])(node);
+      });
+      var posTabIndexesFound = !!tabbableNodes.find(function (node) {
+        return Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["b" /* getTabIndex */])(node) > 0;
+      });
       return {
         container: container,
         tabbableNodes: tabbableNodes,
         focusableNodes: focusableNodes,
-        firstTabbableNode: tabbableNodes.length > 0 ? tabbableNodes[0] : null,
-        lastTabbableNode: tabbableNodes.length > 0 ? tabbableNodes[tabbableNodes.length - 1] : null,
+        /** True if at least one node with positive `tabindex` was found in this container. */
+        posTabIndexesFound: posTabIndexesFound,
+        /** First tabbable node in container, __tabindex__ order; `undefined` if none. */
+        firstTabbableNode: firstTabbableNode,
+        /** Last tabbable node in container, __tabindex__ order; `undefined` if none. */
+        lastTabbableNode: lastTabbableNode,
+        // NOTE: DOM order is NOT NECESSARILY "document position" order, but figuring that out
+        //  would require more than just https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition
+        //  because that API doesn't work with Shadow DOM as well as it should (@see
+        //  https://github.com/whatwg/dom/issues/320) and since this first/last is only needed, so far,
+        //  to address an edge case related to positive tabindex support, this seems like a much easier,
+        //  "close enough most of the time" alternative for positive tabindexes which should generally
+        //  be avoided anyway...
+        /** First tabbable node in container, __DOM__ order; `undefined` if none. */
+        firstDomTabbableNode: firstDomTabbableNode,
+        /** Last tabbable node in container, __DOM__ order; `undefined` if none. */
+        lastDomTabbableNode: lastDomTabbableNode,
         /**
          * Finds the __tabbable__ node that follows the given node in the specified direction,
          *  in this container, if any.
@@ -50504,30 +50627,24 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
          */
         nextTabbableNode: function nextTabbableNode(node) {
           var forward = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-          // NOTE: If tabindex is positive (in order to manipulate the tab order separate
-          //  from the DOM order), this __will not work__ because the list of focusableNodes,
-          //  while it contains tabbable nodes, does not sort its nodes in any order other
-          //  than DOM order, because it can't: Where would you place focusable (but not
-          //  tabbable) nodes in that order? They have no order, because they aren't tabbale...
-          // Support for positive tabindex is already broken and hard to manage (possibly
-          //  not supportable, TBD), so this isn't going to make things worse than they
-          //  already are, and at least makes things better for the majority of cases where
-          //  tabindex is either 0/unset or negative.
-          // FYI, positive tabindex issue: https://github.com/focus-trap/focus-trap/issues/375
-          var nodeIdx = focusableNodes.findIndex(function (n) {
-            return n === node;
-          });
+          var nodeIdx = tabbableNodes.indexOf(node);
           if (nodeIdx < 0) {
-            return undefined;
-          }
-          if (forward) {
-            return focusableNodes.slice(nodeIdx + 1).find(function (n) {
-              return Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["c" /* isTabbable */])(n, config.tabbableOptions);
+            // either not tabbable nor focusable, or was focused but not tabbable (negative tabindex):
+            //  since `node` should at least have been focusable, we assume that's the case and mimic
+            //  what browsers do, which is set focus to the next node in __document position order__,
+            //  regardless of positive tabindexes, if any -- and for reasons explained in the NOTE
+            //  above related to `firstDomTabbable` and `lastDomTabbable` properties, we fall back to
+            //  basic DOM order
+            if (forward) {
+              return focusableNodes.slice(focusableNodes.indexOf(node) + 1).find(function (el) {
+                return Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["d" /* isTabbable */])(el);
+              });
+            }
+            return focusableNodes.slice(0, focusableNodes.indexOf(node)).reverse().find(function (el) {
+              return Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["d" /* isTabbable */])(el);
             });
           }
-          return focusableNodes.slice(0, nodeIdx).reverse().find(function (n) {
-            return Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["c" /* isTabbable */])(n, config.tabbableOptions);
-          });
+          return tabbableNodes[nodeIdx + (forward ? 1 : -1)];
         }
       };
     });
@@ -50540,12 +50657,44 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
     ) {
       throw new Error('Your focus-trap must have at least one container with at least one tabbable node in it at all times');
     }
+
+    // NOTE: Positive tabindexes are only properly supported in single-container traps because
+    //  doing it across multiple containers where tabindexes could be all over the place
+    //  would require Tabbable to support multiple containers, would require additional
+    //  specialized Shadow DOM support, and would require Tabbable's multi-container support
+    //  to look at those containers in document position order rather than user-provided
+    //  order (as they are treated in Focus-trap, for legacy reasons). See discussion on
+    //  https://github.com/focus-trap/focus-trap/issues/375 for more details.
+    if (state.containerGroups.find(function (g) {
+      return g.posTabIndexesFound;
+    }) && state.containerGroups.length > 1) {
+      throw new Error("At least one node with a positive tabindex was found in one of your focus-trap's multiple containers. Positive tabindexes are only supported in single-container focus-traps.");
+    }
+  };
+
+  /**
+   * Gets the current activeElement. If it's a web-component and has open shadow-root
+   * it will recursively search inside shadow roots for the "true" activeElement.
+   *
+   * @param {Document | ShadowRoot} el
+   *
+   * @returns {HTMLElement} The element that currently has the focus
+   **/
+  var getActiveElement = function getActiveElement(el) {
+    var activeElement = el.activeElement;
+    if (!activeElement) {
+      return;
+    }
+    if (activeElement.shadowRoot && activeElement.shadowRoot.activeElement !== null) {
+      return getActiveElement(activeElement.shadowRoot);
+    }
+    return activeElement;
   };
   var tryFocus = function tryFocus(node) {
     if (node === false) {
       return;
     }
-    if (node === doc.activeElement) {
+    if (node === getActiveElement(document)) {
       return;
     }
     if (!node || !node.focus) {
@@ -50555,6 +50704,7 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
     node.focus({
       preventScroll: !!config.preventScroll
     });
+    // NOTE: focus() API does not trigger focusIn event so set MRU node manually
     state.mostRecentlyFocusedNode = node;
     if (isSelectableInput(node)) {
       node.select();
@@ -50565,29 +50715,126 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
     return node ? node : node === false ? false : previousActiveElement;
   };
 
+  /**
+   * Finds the next node (in either direction) where focus should move according to a
+   *  keyboard focus-in event.
+   * @param {Object} params
+   * @param {Node} [params.target] Known target __from which__ to navigate, if any.
+   * @param {KeyboardEvent|FocusEvent} [params.event] Event to use if `target` isn't known (event
+   *  will be used to determine the `target`). Ignored if `target` is specified.
+   * @param {boolean} [params.isBackward] True if focus should move backward.
+   * @returns {Node|undefined} The next node, or `undefined` if a next node couldn't be
+   *  determined given the current state of the trap.
+   */
+  var findNextNavNode = function findNextNavNode(_ref2) {
+    var target = _ref2.target,
+      event = _ref2.event,
+      _ref2$isBackward = _ref2.isBackward,
+      isBackward = _ref2$isBackward === void 0 ? false : _ref2$isBackward;
+    target = target || getActualTarget(event);
+    updateTabbableNodes();
+    var destinationNode = null;
+    if (state.tabbableGroups.length > 0) {
+      // make sure the target is actually contained in a group
+      // NOTE: the target may also be the container itself if it's focusable
+      //  with tabIndex='-1' and was given initial focus
+      var containerIndex = findContainerIndex(target, event);
+      var containerGroup = containerIndex >= 0 ? state.containerGroups[containerIndex] : undefined;
+      if (containerIndex < 0) {
+        // target not found in any group: quite possible focus has escaped the trap,
+        //  so bring it back into...
+        if (isBackward) {
+          // ...the last node in the last group
+          destinationNode = state.tabbableGroups[state.tabbableGroups.length - 1].lastTabbableNode;
+        } else {
+          // ...the first node in the first group
+          destinationNode = state.tabbableGroups[0].firstTabbableNode;
+        }
+      } else if (isBackward) {
+        // REVERSE
+
+        // is the target the first tabbable node in a group?
+        var startOfGroupIndex = findIndex(state.tabbableGroups, function (_ref3) {
+          var firstTabbableNode = _ref3.firstTabbableNode;
+          return target === firstTabbableNode;
+        });
+        if (startOfGroupIndex < 0 && (containerGroup.container === target || Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["c" /* isFocusable */])(target, config.tabbableOptions) && !Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["d" /* isTabbable */])(target, config.tabbableOptions) && !containerGroup.nextTabbableNode(target, false))) {
+          // an exception case where the target is either the container itself, or
+          //  a non-tabbable node that was given focus (i.e. tabindex is negative
+          //  and user clicked on it or node was programmatically given focus)
+          //  and is not followed by any other tabbable node, in which
+          //  case, we should handle shift+tab as if focus were on the container's
+          //  first tabbable node, and go to the last tabbable node of the LAST group
+          startOfGroupIndex = containerIndex;
+        }
+        if (startOfGroupIndex >= 0) {
+          // YES: then shift+tab should go to the last tabbable node in the
+          //  previous group (and wrap around to the last tabbable node of
+          //  the LAST group if it's the first tabbable node of the FIRST group)
+          var destinationGroupIndex = startOfGroupIndex === 0 ? state.tabbableGroups.length - 1 : startOfGroupIndex - 1;
+          var destinationGroup = state.tabbableGroups[destinationGroupIndex];
+          destinationNode = Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["b" /* getTabIndex */])(target) >= 0 ? destinationGroup.lastTabbableNode : destinationGroup.lastDomTabbableNode;
+        } else if (!isTabEvent(event)) {
+          // user must have customized the nav keys so we have to move focus manually _within_
+          //  the active group: do this based on the order determined by tabbable()
+          destinationNode = containerGroup.nextTabbableNode(target, false);
+        }
+      } else {
+        // FORWARD
+
+        // is the target the last tabbable node in a group?
+        var lastOfGroupIndex = findIndex(state.tabbableGroups, function (_ref4) {
+          var lastTabbableNode = _ref4.lastTabbableNode;
+          return target === lastTabbableNode;
+        });
+        if (lastOfGroupIndex < 0 && (containerGroup.container === target || Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["c" /* isFocusable */])(target, config.tabbableOptions) && !Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["d" /* isTabbable */])(target, config.tabbableOptions) && !containerGroup.nextTabbableNode(target))) {
+          // an exception case where the target is the container itself, or
+          //  a non-tabbable node that was given focus (i.e. tabindex is negative
+          //  and user clicked on it or node was programmatically given focus)
+          //  and is not followed by any other tabbable node, in which
+          //  case, we should handle tab as if focus were on the container's
+          //  last tabbable node, and go to the first tabbable node of the FIRST group
+          lastOfGroupIndex = containerIndex;
+        }
+        if (lastOfGroupIndex >= 0) {
+          // YES: then tab should go to the first tabbable node in the next
+          //  group (and wrap around to the first tabbable node of the FIRST
+          //  group if it's the last tabbable node of the LAST group)
+          var _destinationGroupIndex = lastOfGroupIndex === state.tabbableGroups.length - 1 ? 0 : lastOfGroupIndex + 1;
+          var _destinationGroup = state.tabbableGroups[_destinationGroupIndex];
+          destinationNode = Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["b" /* getTabIndex */])(target) >= 0 ? _destinationGroup.firstTabbableNode : _destinationGroup.firstDomTabbableNode;
+        } else if (!isTabEvent(event)) {
+          // user must have customized the nav keys so we have to move focus manually _within_
+          //  the active group: do this based on the order determined by tabbable()
+          destinationNode = containerGroup.nextTabbableNode(target);
+        }
+      }
+    } else {
+      // no groups available
+      // NOTE: the fallbackFocus option does not support returning false to opt-out
+      destinationNode = getNodeForOption('fallbackFocus');
+    }
+    return destinationNode;
+  };
+
   // This needs to be done on mousedown and touchstart instead of click
   // so that it precedes the focus event.
   var checkPointerDown = function checkPointerDown(e) {
     var target = getActualTarget(e);
-    if (findContainerIndex(target) >= 0) {
+    if (findContainerIndex(target, e) >= 0) {
       // allow the click since it ocurred inside the trap
       return;
     }
     if (valueOrHandler(config.clickOutsideDeactivates, e)) {
       // immediately deactivate the trap
       trap.deactivate({
-        // if, on deactivation, we should return focus to the node originally-focused
-        //  when the trap was activated (or the configured `setReturnFocus` node),
-        //  then assume it's also OK to return focus to the outside node that was
-        //  just clicked, causing deactivation, as long as that node is focusable;
-        //  if it isn't focusable, then return focus to the original node focused
-        //  on activation (or the configured `setReturnFocus` node)
         // NOTE: by setting `returnFocus: false`, deactivate() will do nothing,
         //  which will result in the outside click setting focus to the node
-        //  that was clicked, whether it's focusable or not; by setting
+        //  that was clicked (and if not focusable, to "nothing"); by setting
         //  `returnFocus: true`, we'll attempt to re-focus the node originally-focused
-        //  on activation (or the configured `setReturnFocus` node)
-        returnFocus: config.returnFocusOnDeactivate && !Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["b" /* isFocusable */])(target, config.tabbableOptions)
+        //  on activation (or the configured `setReturnFocus` node), whether the
+        //  outside click was on a focusable node or not
+        returnFocus: config.returnFocusOnDeactivate
       });
       return;
     }
@@ -50605,9 +50852,12 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
   };
 
   // In case focus escapes the trap for some strange reason, pull it back in.
-  var checkFocusIn = function checkFocusIn(e) {
-    var target = getActualTarget(e);
-    var targetContained = findContainerIndex(target) >= 0;
+  // NOTE: the focusIn event is NOT cancelable, so if focus escapes, it may cause unexpected
+  //  scrolling if the node that got focused was out of view; there's nothing we can do to
+  //  prevent that from happening by the time we discover that focus escaped
+  var checkFocusIn = function checkFocusIn(event) {
+    var target = getActualTarget(event);
+    var targetContained = findContainerIndex(target, event) >= 0;
 
     // In Firefox when you Tab out of an iframe the Document is briefly focused.
     if (targetContained || target instanceof Document) {
@@ -50616,9 +50866,88 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
       }
     } else {
       // escaped! pull it back in to where it just left
-      e.stopImmediatePropagation();
-      tryFocus(state.mostRecentlyFocusedNode || getInitialFocusNode());
+      event.stopImmediatePropagation();
+
+      // focus will escape if the MRU node had a positive tab index and user tried to nav forward;
+      //  it will also escape if the MRU node had a 0 tab index and user tried to nav backward
+      //  toward a node with a positive tab index
+      var nextNode; // next node to focus, if we find one
+      var navAcrossContainers = true;
+      if (state.mostRecentlyFocusedNode) {
+        if (Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["b" /* getTabIndex */])(state.mostRecentlyFocusedNode) > 0) {
+          // MRU container index must be >=0 otherwise we wouldn't have it as an MRU node...
+          var mruContainerIdx = findContainerIndex(state.mostRecentlyFocusedNode);
+          // there MAY not be any tabbable nodes in the container if there are at least 2 containers
+          //  and the MRU node is focusable but not tabbable (focus-trap requires at least 1 container
+          //  with at least one tabbable node in order to function, so this could be the other container
+          //  with nothing tabbable in it)
+          var tabbableNodes = state.containerGroups[mruContainerIdx].tabbableNodes;
+          if (tabbableNodes.length > 0) {
+            // MRU tab index MAY not be found if the MRU node is focusable but not tabbable
+            var mruTabIdx = tabbableNodes.findIndex(function (node) {
+              return node === state.mostRecentlyFocusedNode;
+            });
+            if (mruTabIdx >= 0) {
+              if (config.isKeyForward(state.recentNavEvent)) {
+                if (mruTabIdx + 1 < tabbableNodes.length) {
+                  nextNode = tabbableNodes[mruTabIdx + 1];
+                  navAcrossContainers = false;
+                }
+                // else, don't wrap within the container as focus should move to next/previous
+                //  container
+              } else {
+                if (mruTabIdx - 1 >= 0) {
+                  nextNode = tabbableNodes[mruTabIdx - 1];
+                  navAcrossContainers = false;
+                }
+                // else, don't wrap within the container as focus should move to next/previous
+                //  container
+              }
+              // else, don't find in container order without considering direction too
+            }
+          }
+          // else, no tabbable nodes in that container (which means we must have at least one other
+          //  container with at least one tabbable node in it, otherwise focus-trap would've thrown
+          //  an error the last time updateTabbableNodes() was run): find next node among all known
+          //  containers
+        } else {
+          // check to see if there's at least one tabbable node with a positive tab index inside
+          //  the trap because focus seems to escape when navigating backward from a tabbable node
+          //  with tabindex=0 when this is the case (instead of wrapping to the tabbable node with
+          //  the greatest positive tab index like it should)
+          if (!state.containerGroups.some(function (g) {
+            return g.tabbableNodes.some(function (n) {
+              return Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["b" /* getTabIndex */])(n) > 0;
+            });
+          })) {
+            // no containers with tabbable nodes with positive tab indexes which means the focus
+            //  escaped for some other reason and we should just execute the fallback to the
+            //  MRU node or initial focus node, if any
+            navAcrossContainers = false;
+          }
+        }
+      } else {
+        // no MRU node means we're likely in some initial condition when the trap has just
+        //  been activated and initial focus hasn't been given yet, in which case we should
+        //  fall through to trying to focus the initial focus node, which is what should
+        //  happen below at this point in the logic
+        navAcrossContainers = false;
+      }
+      if (navAcrossContainers) {
+        nextNode = findNextNavNode({
+          // move FROM the MRU node, not event-related node (which will be the node that is
+          //  outside the trap causing the focus escape we're trying to fix)
+          target: state.mostRecentlyFocusedNode,
+          isBackward: config.isKeyBackward(state.recentNavEvent)
+        });
+      }
+      if (nextNode) {
+        tryFocus(nextNode);
+      } else {
+        tryFocus(state.mostRecentlyFocusedNode || getInitialFocusNode());
+      }
     }
+    state.recentNavEvent = undefined; // clear
   };
 
   // Hijack key nav events on the first and last focusable nodes of the trap,
@@ -50627,89 +50956,11 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
   // kind of need to capture the action at the keydown phase.
   var checkKeyNav = function checkKeyNav(event) {
     var isBackward = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-    var target = getActualTarget(event);
-    updateTabbableNodes();
-    var destinationNode = null;
-    if (state.tabbableGroups.length > 0) {
-      // make sure the target is actually contained in a group
-      // NOTE: the target may also be the container itself if it's focusable
-      //  with tabIndex='-1' and was given initial focus
-      var containerIndex = findContainerIndex(target);
-      var containerGroup = containerIndex >= 0 ? state.containerGroups[containerIndex] : undefined;
-      if (containerIndex < 0) {
-        // target not found in any group: quite possible focus has escaped the trap,
-        //  so bring it back into...
-        if (isBackward) {
-          // ...the last node in the last group
-          destinationNode = state.tabbableGroups[state.tabbableGroups.length - 1].lastTabbableNode;
-        } else {
-          // ...the first node in the first group
-          destinationNode = state.tabbableGroups[0].firstTabbableNode;
-        }
-      } else if (isBackward) {
-        // REVERSE
-
-        // is the target the first tabbable node in a group?
-        var startOfGroupIndex = findIndex(state.tabbableGroups, function (_ref2) {
-          var firstTabbableNode = _ref2.firstTabbableNode;
-          return target === firstTabbableNode;
-        });
-        if (startOfGroupIndex < 0 && (containerGroup.container === target || Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["b" /* isFocusable */])(target, config.tabbableOptions) && !Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["c" /* isTabbable */])(target, config.tabbableOptions) && !containerGroup.nextTabbableNode(target, false))) {
-          // an exception case where the target is either the container itself, or
-          //  a non-tabbable node that was given focus (i.e. tabindex is negative
-          //  and user clicked on it or node was programmatically given focus)
-          //  and is not followed by any other tabbable node, in which
-          //  case, we should handle shift+tab as if focus were on the container's
-          //  first tabbable node, and go to the last tabbable node of the LAST group
-          startOfGroupIndex = containerIndex;
-        }
-        if (startOfGroupIndex >= 0) {
-          // YES: then shift+tab should go to the last tabbable node in the
-          //  previous group (and wrap around to the last tabbable node of
-          //  the LAST group if it's the first tabbable node of the FIRST group)
-          var destinationGroupIndex = startOfGroupIndex === 0 ? state.tabbableGroups.length - 1 : startOfGroupIndex - 1;
-          var destinationGroup = state.tabbableGroups[destinationGroupIndex];
-          destinationNode = destinationGroup.lastTabbableNode;
-        } else if (!isTabEvent(event)) {
-          // user must have customized the nav keys so we have to move focus manually _within_
-          //  the active group: do this based on the order determined by tabbable()
-          destinationNode = containerGroup.nextTabbableNode(target, false);
-        }
-      } else {
-        // FORWARD
-
-        // is the target the last tabbable node in a group?
-        var lastOfGroupIndex = findIndex(state.tabbableGroups, function (_ref3) {
-          var lastTabbableNode = _ref3.lastTabbableNode;
-          return target === lastTabbableNode;
-        });
-        if (lastOfGroupIndex < 0 && (containerGroup.container === target || Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["b" /* isFocusable */])(target, config.tabbableOptions) && !Object(__WEBPACK_IMPORTED_MODULE_0_tabbable__["c" /* isTabbable */])(target, config.tabbableOptions) && !containerGroup.nextTabbableNode(target))) {
-          // an exception case where the target is the container itself, or
-          //  a non-tabbable node that was given focus (i.e. tabindex is negative
-          //  and user clicked on it or node was programmatically given focus)
-          //  and is not followed by any other tabbable node, in which
-          //  case, we should handle tab as if focus were on the container's
-          //  last tabbable node, and go to the first tabbable node of the FIRST group
-          lastOfGroupIndex = containerIndex;
-        }
-        if (lastOfGroupIndex >= 0) {
-          // YES: then tab should go to the first tabbable node in the next
-          //  group (and wrap around to the first tabbable node of the FIRST
-          //  group if it's the last tabbable node of the LAST group)
-          var _destinationGroupIndex = lastOfGroupIndex === state.tabbableGroups.length - 1 ? 0 : lastOfGroupIndex + 1;
-          var _destinationGroup = state.tabbableGroups[_destinationGroupIndex];
-          destinationNode = _destinationGroup.firstTabbableNode;
-        } else if (!isTabEvent(event)) {
-          // user must have customized the nav keys so we have to move focus manually _within_
-          //  the active group: do this based on the order determined by tabbable()
-          destinationNode = containerGroup.nextTabbableNode(target);
-        }
-      }
-    } else {
-      // no groups available
-      // NOTE: the fallbackFocus option does not support returning false to opt-out
-      destinationNode = getNodeForOption('fallbackFocus');
-    }
+    state.recentNavEvent = event;
+    var destinationNode = findNextNavNode({
+      event: event,
+      isBackward: isBackward
+    });
     if (destinationNode) {
       if (isTabEvent(event)) {
         // since tab natively moves focus, we wouldn't have a destination node unless we
@@ -50735,7 +50986,7 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
   };
   var checkClick = function checkClick(e) {
     var target = getActualTarget(e);
-    if (findContainerIndex(target) >= 0) {
+    if (findContainerIndex(target, e) >= 0) {
       return;
     }
     if (valueOrHandler(config.clickOutsideDeactivates, e)) {
@@ -50797,6 +51048,43 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
   };
 
   //
+  // MUTATION OBSERVER
+  //
+
+  var checkDomRemoval = function checkDomRemoval(mutations) {
+    var isFocusedNodeRemoved = mutations.some(function (mutation) {
+      var removedNodes = Array.from(mutation.removedNodes);
+      return removedNodes.some(function (node) {
+        return node === state.mostRecentlyFocusedNode;
+      });
+    });
+
+    // If the currently focused is removed then browsers will move focus to the
+    // <body> element. If this happens, try to move focus back into the trap.
+    if (isFocusedNodeRemoved) {
+      tryFocus(getInitialFocusNode());
+    }
+  };
+
+  // Use MutationObserver - if supported - to detect if focused node is removed
+  // from the DOM.
+  var mutationObserver = typeof window !== 'undefined' && 'MutationObserver' in window ? new MutationObserver(checkDomRemoval) : undefined;
+  var updateObservedNodes = function updateObservedNodes() {
+    if (!mutationObserver) {
+      return;
+    }
+    mutationObserver.disconnect();
+    if (state.active && !state.paused) {
+      state.containers.map(function (container) {
+        mutationObserver.observe(container, {
+          subtree: true,
+          childList: true
+        });
+      });
+    }
+  };
+
+  //
   // TRAP DEFINITION
   //
 
@@ -50820,17 +51108,14 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
       state.active = true;
       state.paused = false;
       state.nodeFocusedBeforeActivation = doc.activeElement;
-      if (onActivate) {
-        onActivate();
-      }
+      onActivate === null || onActivate === void 0 || onActivate();
       var finishActivation = function finishActivation() {
         if (checkCanFocusTrap) {
           updateTabbableNodes();
         }
         addListeners();
-        if (onPostActivate) {
-          onPostActivate();
-        }
+        updateObservedNodes();
+        onPostActivate === null || onPostActivate === void 0 || onPostActivate();
       };
       if (checkCanFocusTrap) {
         checkCanFocusTrap(state.containers.concat()).then(finishActivation, finishActivation);
@@ -50853,22 +51138,19 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
       removeListeners();
       state.active = false;
       state.paused = false;
+      updateObservedNodes();
       activeFocusTraps.deactivateTrap(trapStack, trap);
       var onDeactivate = getOption(options, 'onDeactivate');
       var onPostDeactivate = getOption(options, 'onPostDeactivate');
       var checkCanReturnFocus = getOption(options, 'checkCanReturnFocus');
       var returnFocus = getOption(options, 'returnFocus', 'returnFocusOnDeactivate');
-      if (onDeactivate) {
-        onDeactivate();
-      }
+      onDeactivate === null || onDeactivate === void 0 || onDeactivate();
       var finishDeactivation = function finishDeactivation() {
         delay(function () {
           if (returnFocus) {
             tryFocus(getReturnFocusNode(state.nodeFocusedBeforeActivation));
           }
-          if (onPostDeactivate) {
-            onPostDeactivate();
-          }
+          onPostDeactivate === null || onPostDeactivate === void 0 || onPostDeactivate();
         });
       };
       if (returnFocus && checkCanReturnFocus) {
@@ -50878,21 +51160,31 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
       finishDeactivation();
       return this;
     },
-    pause: function pause() {
+    pause: function pause(pauseOptions) {
       if (state.paused || !state.active) {
         return this;
       }
+      var onPause = getOption(pauseOptions, 'onPause');
+      var onPostPause = getOption(pauseOptions, 'onPostPause');
       state.paused = true;
+      onPause === null || onPause === void 0 || onPause();
       removeListeners();
+      updateObservedNodes();
+      onPostPause === null || onPostPause === void 0 || onPostPause();
       return this;
     },
-    unpause: function unpause() {
+    unpause: function unpause(unpauseOptions) {
       if (!state.paused || !state.active) {
         return this;
       }
+      var onUnpause = getOption(unpauseOptions, 'onUnpause');
+      var onPostUnpause = getOption(unpauseOptions, 'onPostUnpause');
       state.paused = false;
+      onUnpause === null || onUnpause === void 0 || onUnpause();
       updateTabbableNodes();
       addListeners();
+      updateObservedNodes();
+      onPostUnpause === null || onPostUnpause === void 0 || onPostUnpause();
       return this;
     },
     updateContainerElements: function updateContainerElements(containerElements) {
@@ -50903,6 +51195,7 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
       if (state.active) {
         updateTabbableNodes();
       }
+      updateObservedNodes();
       return this;
     }
   };
@@ -50922,21 +51215,71 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return focusable; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isFocusable; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return isTabbable; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return tabbable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getTabIndex; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return isFocusable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return isTabbable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return tabbable; });
 /*!
-* tabbable 6.0.1
+* tabbable 6.2.0
 * @license MIT, https://github.com/focus-trap/tabbable/blob/master/LICENSE
 */
-var candidateSelectors = ['input', 'select', 'textarea', 'a[href]', 'button', '[tabindex]:not(slot)', 'audio[controls]', 'video[controls]', '[contenteditable]:not([contenteditable="false"])', 'details>summary:first-of-type', 'details'];
+// NOTE: separate `:not()` selectors has broader browser support than the newer
+//  `:not([inert], [inert] *)` (Feb 2023)
+// CAREFUL: JSDom does not support `:not([inert] *)` as a selector; using it causes
+//  the entire query to fail, resulting in no nodes found, which will break a lot
+//  of things... so we have to rely on JS to identify nodes inside an inert container
+var candidateSelectors = ['input:not([inert])', 'select:not([inert])', 'textarea:not([inert])', 'a[href]:not([inert])', 'button:not([inert])', '[tabindex]:not(slot):not([inert])', 'audio[controls]:not([inert])', 'video[controls]:not([inert])', '[contenteditable]:not([contenteditable="false"]):not([inert])', 'details>summary:first-of-type:not([inert])', 'details:not([inert])'];
 var candidateSelector = /* #__PURE__ */candidateSelectors.join(',');
 var NoElement = typeof Element === 'undefined';
 var matches = NoElement ? function () {} : Element.prototype.matches || Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
 var getRootNode = !NoElement && Element.prototype.getRootNode ? function (element) {
-  return element.getRootNode();
+  var _element$getRootNode;
+  return element === null || element === void 0 ? void 0 : (_element$getRootNode = element.getRootNode) === null || _element$getRootNode === void 0 ? void 0 : _element$getRootNode.call(element);
 } : function (element) {
-  return element.ownerDocument;
+  return element === null || element === void 0 ? void 0 : element.ownerDocument;
+};
+
+/**
+ * Determines if a node is inert or in an inert ancestor.
+ * @param {Element} [node]
+ * @param {boolean} [lookUp] If true and `node` is not inert, looks up at ancestors to
+ *  see if any of them are inert. If false, only `node` itself is considered.
+ * @returns {boolean} True if inert itself or by way of being in an inert ancestor.
+ *  False if `node` is falsy.
+ */
+var isInert = function isInert(node, lookUp) {
+  var _node$getAttribute;
+  if (lookUp === void 0) {
+    lookUp = true;
+  }
+  // CAREFUL: JSDom does not support inert at all, so we can't use the `HTMLElement.inert`
+  //  JS API property; we have to check the attribute, which can either be empty or 'true';
+  //  if it's `null` (not specified) or 'false', it's an active element
+  var inertAtt = node === null || node === void 0 ? void 0 : (_node$getAttribute = node.getAttribute) === null || _node$getAttribute === void 0 ? void 0 : _node$getAttribute.call(node, 'inert');
+  var inert = inertAtt === '' || inertAtt === 'true';
+
+  // NOTE: this could also be handled with `node.matches('[inert], :is([inert] *)')`
+  //  if it weren't for `matches()` not being a function on shadow roots; the following
+  //  code works for any kind of node
+  // CAREFUL: JSDom does not appear to support certain selectors like `:not([inert] *)`
+  //  so it likely would not support `:is([inert] *)` either...
+  var result = inert || lookUp && node && isInert(node.parentNode); // recursive
+
+  return result;
+};
+
+/**
+ * Determines if a node's content is editable.
+ * @param {Element} [node]
+ * @returns True if it's content-editable; false if it's not or `node` is falsy.
+ */
+var isContentEditable = function isContentEditable(node) {
+  var _node$getAttribute2;
+  // CAREFUL: JSDom does not support the `HTMLElement.isContentEditable` API so we have
+  //  to use the attribute directly to check for this, which can either be empty or 'true';
+  //  if it's `null` (not specified) or 'false', it's a non-editable element
+  var attValue = node === null || node === void 0 ? void 0 : (_node$getAttribute2 = node.getAttribute) === null || _node$getAttribute2 === void 0 ? void 0 : _node$getAttribute2.call(node, 'contenteditable');
+  return attValue === '' || attValue === 'true';
 };
 
 /**
@@ -50946,6 +51289,11 @@ var getRootNode = !NoElement && Element.prototype.getRootNode ? function (elemen
  * @returns {Element[]}
  */
 var getCandidates = function getCandidates(el, includeContainer, filter) {
+  // even if `includeContainer=false`, we still have to check it for inertness because
+  //  if it's inert, all its children are inert
+  if (isInert(el)) {
+    return [];
+  }
   var candidates = Array.prototype.slice.apply(el.querySelectorAll(candidateSelector));
   if (includeContainer && matches.call(el, candidateSelector)) {
     candidates.unshift(el);
@@ -50993,6 +51341,11 @@ var getCandidatesIteratively = function getCandidatesIteratively(elements, inclu
   var elementsToCheck = Array.from(elements);
   while (elementsToCheck.length) {
     var element = elementsToCheck.shift();
+    if (isInert(element, false)) {
+      // no need to look up since we're drilling down
+      // anything inside this container will also be inert
+      continue;
+    }
     if (element.tagName === 'SLOT') {
       // add shadow dom slot scope (slot itself cannot be focusable)
       var assigned = element.assignedElements();
@@ -51017,7 +51370,11 @@ var getCandidatesIteratively = function getCandidatesIteratively(elements, inclu
       var shadowRoot = element.shadowRoot ||
       // check for an undisclosed shadow
       typeof options.getShadowRoot === 'function' && options.getShadowRoot(element);
-      var validShadowRoot = !options.shadowRootFilter || options.shadowRootFilter(element);
+
+      // no inert look up because we're already drilling down and checking for inertness
+      //  on the way down, so all containers to this root node should have already been
+      //  vetted as non-inert
+      var validShadowRoot = !isInert(shadowRoot, false) && (!options.shadowRootFilter || options.shadowRootFilter(element));
       if (shadowRoot && validShadowRoot) {
         // add shadow dom scope IIF a shadow root node was given; otherwise, an undisclosed
         //  shadow exists, so look at light dom children as fallback BUT create a scope for any
@@ -51043,7 +51400,27 @@ var getCandidatesIteratively = function getCandidatesIteratively(elements, inclu
   }
   return candidates;
 };
-var getTabindex = function getTabindex(node, isScope) {
+
+/**
+ * @private
+ * Determines if the node has an explicitly specified `tabindex` attribute.
+ * @param {HTMLElement} node
+ * @returns {boolean} True if so; false if not.
+ */
+var hasTabIndex = function hasTabIndex(node) {
+  return !isNaN(parseInt(node.getAttribute('tabindex'), 10));
+};
+
+/**
+ * Determine the tab index of a given node.
+ * @param {HTMLElement} node
+ * @returns {number} Tab order (negative, 0, or positive number).
+ * @throws {Error} If `node` is falsy.
+ */
+var getTabIndex = function getTabIndex(node) {
+  if (!node) {
+    throw new Error('No node provided');
+  }
   if (node.tabIndex < 0) {
     // in Chrome, <details/>, <audio controls/> and <video controls/> elements get a default
     // `tabIndex` of -1 when the 'tabindex' attribute isn't specified in the DOM,
@@ -51052,15 +51429,27 @@ var getTabindex = function getTabindex(node, isScope) {
     // order, consider their tab index to be 0.
     // Also browsers do not return `tabIndex` correctly for contentEditable nodes;
     // so if they don't have a tabindex attribute specifically set, assume it's 0.
-    //
-    // isScope is positive for custom element with shadow root or slot that by default
-    // have tabIndex -1, but need to be sorted by document order in order for their
-    // content to be inserted in the correct position
-    if ((isScope || /^(AUDIO|VIDEO|DETAILS)$/.test(node.tagName) || node.isContentEditable) && isNaN(parseInt(node.getAttribute('tabindex'), 10))) {
+    if ((/^(AUDIO|VIDEO|DETAILS)$/.test(node.tagName) || isContentEditable(node)) && !hasTabIndex(node)) {
       return 0;
     }
   }
   return node.tabIndex;
+};
+
+/**
+ * Determine the tab index of a given node __for sort order purposes__.
+ * @param {HTMLElement} node
+ * @param {boolean} [isScope] True for a custom element with shadow root or slot that, by default,
+ *  has tabIndex -1, but needs to be sorted by document order in order for its content to be
+ *  inserted into the correct sort position.
+ * @returns {number} Tab order (negative, 0, or positive number).
+ */
+var getSortOrderTabIndex = function getSortOrderTabIndex(node, isScope) {
+  var tabIndex = getTabIndex(node);
+  if (tabIndex < 0 && isScope && !hasTabIndex(node)) {
+    return 0;
+  }
+  return tabIndex;
 };
 var sortOrderedTabbables = function sortOrderedTabbables(a, b) {
   return a.tabIndex === b.tabIndex ? a.documentOrder - b.documentOrder : a.tabIndex - b.tabIndex;
@@ -51116,7 +51505,7 @@ var isNonTabbableRadio = function isNonTabbableRadio(node) {
 
 // determines if a node is ultimately attached to the window's document
 var isNodeAttached = function isNodeAttached(node) {
-  var _nodeRootHost;
+  var _nodeRoot;
   // The root node is the shadow root if the node is in a shadow DOM; some document otherwise
   //  (but NOT _the_ document; see second 'If' comment below for more).
   // If rootNode is shadow root, it'll have a host, which is the element to which the shadow
@@ -51136,15 +51525,28 @@ var isNodeAttached = function isNodeAttached(node) {
   //  to ignore the rootNode at this point, and use `node.ownerDocument`. Otherwise,
   //  using `rootNode.contains(node)` will _always_ be true we'll get false-positives when
   //  node is actually detached.
-  var nodeRootHost = getRootNode(node).host;
-  var attached = !!((_nodeRootHost = nodeRootHost) !== null && _nodeRootHost !== void 0 && _nodeRootHost.ownerDocument.contains(nodeRootHost) || node.ownerDocument.contains(node));
-  while (!attached && nodeRootHost) {
-    var _nodeRootHost2;
-    // since it's not attached and we have a root host, the node MUST be in a nested shadow DOM,
-    //  which means we need to get the host's host and check if that parent host is contained
-    //  in (i.e. attached to) the document
-    nodeRootHost = getRootNode(nodeRootHost).host;
-    attached = !!((_nodeRootHost2 = nodeRootHost) !== null && _nodeRootHost2 !== void 0 && _nodeRootHost2.ownerDocument.contains(nodeRootHost));
+  // NOTE: If `nodeRootHost` or `node` happens to be the `document` itself (which is possible
+  //  if a tabbable/focusable node was quickly added to the DOM, focused, and then removed
+  //  from the DOM as in https://github.com/focus-trap/focus-trap-react/issues/905), then
+  //  `ownerDocument` will be `null`, hence the optional chaining on it.
+  var nodeRoot = node && getRootNode(node);
+  var nodeRootHost = (_nodeRoot = nodeRoot) === null || _nodeRoot === void 0 ? void 0 : _nodeRoot.host;
+
+  // in some cases, a detached node will return itself as the root instead of a document or
+  //  shadow root object, in which case, we shouldn't try to look further up the host chain
+  var attached = false;
+  if (nodeRoot && nodeRoot !== node) {
+    var _nodeRootHost, _nodeRootHost$ownerDo, _node$ownerDocument;
+    attached = !!((_nodeRootHost = nodeRootHost) !== null && _nodeRootHost !== void 0 && (_nodeRootHost$ownerDo = _nodeRootHost.ownerDocument) !== null && _nodeRootHost$ownerDo !== void 0 && _nodeRootHost$ownerDo.contains(nodeRootHost) || node !== null && node !== void 0 && (_node$ownerDocument = node.ownerDocument) !== null && _node$ownerDocument !== void 0 && _node$ownerDocument.contains(node));
+    while (!attached && nodeRootHost) {
+      var _nodeRoot2, _nodeRootHost2, _nodeRootHost2$ownerD;
+      // since it's not attached and we have a root host, the node MUST be in a nested shadow DOM,
+      //  which means we need to get the host's host and check if that parent host is contained
+      //  in (i.e. attached to) the document
+      nodeRoot = getRootNode(nodeRootHost);
+      nodeRootHost = (_nodeRoot2 = nodeRoot) === null || _nodeRoot2 === void 0 ? void 0 : _nodeRoot2.host;
+      attached = !!((_nodeRootHost2 = nodeRootHost) !== null && _nodeRootHost2 !== void 0 && (_nodeRootHost2$ownerD = _nodeRootHost2.ownerDocument) !== null && _nodeRootHost2$ownerD !== void 0 && _nodeRootHost2$ownerD.contains(nodeRootHost));
+    }
   }
   return attached;
 };
@@ -51279,7 +51681,11 @@ var isDisabledFromFieldset = function isDisabledFromFieldset(node) {
   return false;
 };
 var isNodeMatchingSelectorFocusable = function isNodeMatchingSelectorFocusable(options, node) {
-  if (node.disabled || isHiddenInput(node) || isHidden(node, options) ||
+  if (node.disabled ||
+  // we must do an inert look up to filter out any elements inside an inert ancestor
+  //  because we're limited in the type of selectors we can use in JSDom (see related
+  //  note related to `candidateSelectors`)
+  isInert(node) || isHiddenInput(node) || isHidden(node, options) ||
   // For a details element with a summary, the summary element gets the focus
   isDetailsWithSummary(node) || isDisabledFromFieldset(node)) {
     return false;
@@ -51287,7 +51693,7 @@ var isNodeMatchingSelectorFocusable = function isNodeMatchingSelectorFocusable(o
   return true;
 };
 var isNodeMatchingSelectorTabbable = function isNodeMatchingSelectorTabbable(options, node) {
-  if (isNonTabbableRadio(node) || getTabindex(node) < 0 || !isNodeMatchingSelectorFocusable(options, node)) {
+  if (isNonTabbableRadio(node) || getTabIndex(node) < 0 || !isNodeMatchingSelectorFocusable(options, node)) {
     return false;
   }
   return true;
@@ -51312,7 +51718,7 @@ var sortByOrder = function sortByOrder(candidates) {
   candidates.forEach(function (item, i) {
     var isScope = !!item.scopeParent;
     var element = isScope ? item.scopeParent : item;
-    var candidateTabindex = getTabindex(element, isScope);
+    var candidateTabindex = getSortOrderTabIndex(element, isScope);
     var elements = isScope ? sortByOrder(item.candidates) : element;
     if (candidateTabindex === 0) {
       isScope ? regularTabbables.push.apply(regularTabbables, elements) : regularTabbables.push(element);
@@ -51331,32 +51737,32 @@ var sortByOrder = function sortByOrder(candidates) {
     return acc;
   }, []).concat(regularTabbables);
 };
-var tabbable = function tabbable(el, options) {
+var tabbable = function tabbable(container, options) {
   options = options || {};
   var candidates;
   if (options.getShadowRoot) {
-    candidates = getCandidatesIteratively([el], options.includeContainer, {
+    candidates = getCandidatesIteratively([container], options.includeContainer, {
       filter: isNodeMatchingSelectorTabbable.bind(null, options),
       flatten: false,
       getShadowRoot: options.getShadowRoot,
       shadowRootFilter: isValidShadowRootTabbable
     });
   } else {
-    candidates = getCandidates(el, options.includeContainer, isNodeMatchingSelectorTabbable.bind(null, options));
+    candidates = getCandidates(container, options.includeContainer, isNodeMatchingSelectorTabbable.bind(null, options));
   }
   return sortByOrder(candidates);
 };
-var focusable = function focusable(el, options) {
+var focusable = function focusable(container, options) {
   options = options || {};
   var candidates;
   if (options.getShadowRoot) {
-    candidates = getCandidatesIteratively([el], options.includeContainer, {
+    candidates = getCandidatesIteratively([container], options.includeContainer, {
       filter: isNodeMatchingSelectorFocusable.bind(null, options),
       flatten: true,
       getShadowRoot: options.getShadowRoot
     });
   } else {
-    candidates = getCandidates(el, options.includeContainer, isNodeMatchingSelectorFocusable.bind(null, options));
+    candidates = getCandidates(container, options.includeContainer, isNodeMatchingSelectorFocusable.bind(null, options));
   }
   return candidates;
 };
@@ -52031,7 +52437,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _Helpers = __webpack_require__(39);
 
-var _constants = __webpack_require__(17);
+var _constants = __webpack_require__(15);
 
 var _cards = __webpack_require__(293);
 
@@ -52334,7 +52740,7 @@ var _general = __webpack_require__(6);
 
 var _hooks = __webpack_require__(7);
 
-var _constants = __webpack_require__(17);
+var _constants = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

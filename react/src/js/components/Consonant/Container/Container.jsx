@@ -45,6 +45,7 @@ import {
     LAYOUT_CONTAINER,
     ONE_SECOND_DELAY,
     SORT_TYPES,
+    EVENT_TIMING_IDS,
 } from '../Helpers/constants';
 import {
     ConfigContext,
@@ -725,10 +726,16 @@ const Container = (props) => {
 
     const removeEmptyFilters = (allFilters, cardsFromJson) => {
         const tags = [].concat(...cardsFromJson.map(card => card.tags.map(tag => tag.id)));
+        const timingTags = [
+            EVENT_TIMING_IDS.LIVE,
+            EVENT_TIMING_IDS.ONDEMAND,
+            EVENT_TIMING_IDS.UPCOMING,
+        ];
 
         return allFilters.map(filter => ({
             ...filter,
-            items: filter.items.filter(item => tags.includes(item.id)),
+            items: filter.items.filter(item => tags.includes(item.id) ||
+                timingTags.includes(item.id)),
         })).filter(filter => filter.items.length > 0);
     };
 

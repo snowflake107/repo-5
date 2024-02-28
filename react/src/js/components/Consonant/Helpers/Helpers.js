@@ -11,7 +11,13 @@ import {
     chainFromIterable,
     removeDuplicatesByKey,
 } from './general';
-import { eventTiming } from './eventSort';
+import { EVENT_TIMING_IDS } from './constants';
+import {
+    eventTiming,
+    convertDateStrToMs,
+    defineIsOnDemand,
+    defineIsUpcoming,
+} from './eventSort';
 
 /**
  * Needs to be explicitly called by immer - Needed for IE 11 support
@@ -117,6 +123,44 @@ const getUsingOrFilter = (filterType, filterTypes) => (
 );
 
 /**
+ * Helper method to determine whether we are doing event filtering from the side bar tags
+ * @param {Set} activeFilterSet
+ * @returns {Boolean} - Whether collection has an event filter
+ */
+const getUsingTimingFilter = activeFiltersSet => (
+    activeFiltersSet.has(EVENT_TIMING_IDS.LIVE) ||
+    activeFiltersSet.has(EVENT_TIMING_IDS.ONDEMAND) ||
+    activeFiltersSet.has(EVENT_TIMING_IDS.UPCOMING)
+);
+
+/**
+ * Helper method to determine whether the card is within event timing
+ * @param {Object} card
+ * @param {Set} timing
+ * @returns {Boolean} - whether the card falls within selected timing options
+ */
+const checkEventTiming = (card, timing) => {
+    const curMs = Date.now();
+    // Times in milliseconds
+    const startMs = convertDateStrToMs(card.startDate);
+    const endMs = convertDateStrToMs(card.endDate);
+    // Timed categories
+    const isTimed = !!(startMs && endMs);
+    const isUpComing = isTimed ?
+        defineIsUpcoming(curMs, startMs) : false;
+    const isOnDemand = isTimed && !isUpComing ?
+        defineIsOnDemand(curMs, endMs) : false;
+    const isLive = !!(isTimed && !isUpComing && !isOnDemand && startMs);
+
+    // if you have timing filters active and there is no timing on the card it should be rejected
+    if (!isTimed) return false;
+    if (timing.has(EVENT_TIMING_IDS.UPCOMING) && isUpComing) return true;
+    else if (timing.has(EVENT_TIMING_IDS.ONDEMAND) && isOnDemand) return true;
+    else if (timing.has(EVENT_TIMING_IDS.LIVE) && isLive) return true;
+    return false;
+};
+
+/**
  * Will return all cards that match a set of filters
  * @param {Array} cards - All cards in the collection
  * @param {Array} activeFilters - All filters selected by user
@@ -127,17 +171,33 @@ const getUsingOrFilter = (filterType, filterTypes) => (
  */
 export const getFilteredCards = (cards, activeFilters, activePanels, filterType, filterTypes) => {
     const activeFiltersSet = new Set(activeFilters);
-
+    const timingSet = intersection(activeFiltersSet, new Set([
+        EVENT_TIMING_IDS.LIVE,
+        EVENT_TIMING_IDS.ONDEMAND,
+        EVENT_TIMING_IDS.UPCOMING,
+    ]));
     const usingXorAndFilter = getUsingXorAndFilter(filterType, filterTypes);
     const usingOrFilter = getUsingOrFilter(filterType, filterTypes);
+    const usingTimingFilter = getUsingTimingFilter(activeFiltersSet);
+    // remove the time elements from the active filter set before you actually filter
+    timingSet.forEach(x => activeFiltersSet.delete(x));
 
-    if (activeFiltersSet.size === 0) return cards;
+    if (activeFiltersSet.size === 0 && !usingTimingFilter) return cards;
 
     return cards.filter((card) => {
-        if (!card.tags) {
+        if (!card.tags && !usingTimingFilter) {
             return false;
+        } else if (usingTimingFilter && !checkEventTiming(card, timingSet)) {
+            return false;
+        } else if (
+            usingTimingFilter &&
+            checkEventTiming(card, timingSet) &&
+            activeFiltersSet.size === 0
+        ) {
+            // if the only filters being performed are about event timing
+            return true;
         }
-
+        // you proceed to check the other tags in the cards after the time filter checks
         const tagIds = new Set(card.tags.map(tag => tag.id));
 
         if (usingXorAndFilter) {
