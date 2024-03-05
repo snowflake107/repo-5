@@ -32,7 +32,7 @@ npm run start
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome. Please do all work from a branch and not a fork so that our e2e repository tests and other pr checks will work as intended.  Additionally we ask that you follow the husky prompts in their entirety (choosing what kind of change you're doing, specifying your ticket number, adding a short description for the change).
 
 ## Apache
 
