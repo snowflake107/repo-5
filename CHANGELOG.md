@@ -1,5 +1,12 @@
 
 
+## [0.11.12](https://github.com/adobecom/caas/compare/0.11.11...0.11.12) (2024-03-05)
+
+
+### Bug Fixes
+
+* **dotcom-114584:** updates comparison in isDateWithinInterval function ([bf59e10](https://github.com/adobecom/caas/commit/bf59e10a47e211e921ed767054b2e64496a9c4f6))
+
 ## [0.11.11](https://github.com/adobecom/caas/compare/0.11.10...0.11.11) (2024-03-01)
 
 ## [0.11.10](https://github.com/adobecom/caas/compare/0.11.9...0.11.10) (2024-02-28)
