@@ -1,5 +1,12 @@
 
 
+## [0.11.14](https://github.com/adobecom/caas/compare/0.11.13...0.11.14) (2024-03-07)
+
+
+### Bug Fixes
+
+* **mwpw-143651:** fix timer-related bug by using performance.now() ([83df454](https://github.com/adobecom/caas/commit/83df4544c2ddb2009a52d893495ba36dfa5da469))
+
 ## [0.11.13](https://github.com/adobecom/caas/compare/0.11.12...0.11.13) (2024-03-05)
 
 ## [0.11.12](https://github.com/adobecom/caas/compare/0.11.11...0.11.12) (2024-03-05)
