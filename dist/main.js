@@ -1,9 +1,5 @@
 /*!
-<<<<<<< HEAD
- * Chimera UI Libraries - Build 0.11.13 (3/7/2024, 14:57:25)
-=======
- * Chimera UI Libraries - Build 0.11.12 (3/12/2024, 14:33:25)
->>>>>>> 7d4749f (fix(mwpw-131582): makes carousel accessible to screenreaders)
+ * Chimera UI Libraries - Build 0.11.14 (3/12/2024, 15:18:00)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
