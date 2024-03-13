@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.11.13 (3/7/2024, 14:57:25)
+ * Chimera UI Libraries - Build 0.11.14 (3/12/2024, 15:18:00)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -43988,9 +43988,8 @@ function CardsCarousel() {
                 onMouseMove: mouseMoveHandler,
                 onMouseLeave: mouseLeaveHandler,
                 onScroll: scrollHandler,
-                role: 'slider',
-                'aria-valuenow': 1,
-                tabIndex: 0,
+                role: 'tab',
+                tabIndex: -1,
                 ref: carouselRef },
             _react2.default.createElement(_Grid2.default, {
                 cards: cards,
