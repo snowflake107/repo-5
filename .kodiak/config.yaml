@@ -22,6 +22,8 @@ notifications:
           - mauchley
         labels:
           - "OriginatingProcess=Kodiak"
+          - "security"
+          - "kodiak-ticket"
         components:
           - name: "DevOps Security"
           
