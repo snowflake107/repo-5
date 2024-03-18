@@ -1,5 +1,12 @@
 
 
+## [0.11.20](https://github.com/adobecom/caas/compare/0.11.19...0.11.20) (2024-03-18)
+
+
+### Bug Fixes
+
+* **npm modules:** mWPW-144687 - NPM module upgrades ([abb14db](https://github.com/adobecom/caas/commit/abb14dbe29aa8f5ec585e75d06698abb362e4e0e))
+
 ## [0.11.19](https://github.com/adobecom/caas/compare/0.11.18...0.11.19) (2024-03-15)
 
 ## [0.11.18](https://github.com/adobecom/caas/compare/0.11.17...0.11.18) (2024-03-15)
