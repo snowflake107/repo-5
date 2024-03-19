@@ -14,7 +14,8 @@ notifications:
         assignee:
           name: sunier
         customfield_11800: MWPW-140779 #epic link
-        customfield_12900: 100702 #javelin
+        customfield_12900: 
+          value: 100702
         watchers:
           - casalino
           - shkhan
