@@ -514,7 +514,7 @@ export function getTransitions(cardsPtr) {
 
 
 export const getLinkTarget = (link, ctaAction = '', domain = window.location.hostname) => {
-    if (ctaAction) {
+    if (ctaAction || link.startsWith('#')) {
         return ctaAction;
     }
     let target = '_blank';
@@ -528,7 +528,6 @@ export const getLinkTarget = (link, ctaAction = '', domain = window.location.hos
     }
     return target;
 };
-
 
 export const getGlobalNavHeight = () => {
     const header = document.querySelector('header');

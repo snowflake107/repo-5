@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.11.20 (3/19/2024, 10:54:04)
+ * Chimera UI Libraries - Build 0.11.20 (3/20/2024, 11:03:52)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -871,7 +871,7 @@ var getLinkTarget = exports.getLinkTarget = function getLinkTarget(link) {
     var ctaAction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
     var domain = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : window.location.hostname;
 
-    if (ctaAction) {
+    if (ctaAction || link.startsWith('#')) {
         return ctaAction;
     }
     var target = '_blank';
