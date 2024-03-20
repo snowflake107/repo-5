@@ -1,5 +1,12 @@
 
 
+## [0.11.22](https://github.com/adobecom/caas/compare/0.11.20...0.11.22) (2024-03-20)
+
+
+### Reverts
+
+* Revert "MWPW-144920 (fix): Fixes link target=_blank on anchor links (#141)" (#142) ([237bc95](https://github.com/adobecom/caas/commit/237bc959ad20b3e624e8729f271e2fb468c3ca31)), closes [#141](https://github.com/adobecom/caas/issues/141) [#142](https://github.com/adobecom/caas/issues/142)
+
 ## [0.11.20](https://github.com/adobecom/caas/compare/0.11.19...0.11.20) (2024-03-18)
 
 
