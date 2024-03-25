@@ -1,5 +1,12 @@
 
 
+## [0.11.24](https://github.com/adobecom/caas/compare/0.11.23...0.11.24) (2024-03-25)
+
+
+### Bug Fixes
+
+* **mwpw-143449:** focus ring for when voiceover is not being used ([fd06957](https://github.com/adobecom/caas/commit/fd06957039cb00359c7dd09207fbd705a20cd030))
+
 ## [0.11.23](https://github.com/adobecom/caas/compare/0.11.22...0.11.23) (2024-03-22)
 
 ## [0.11.22](https://github.com/adobecom/caas/compare/0.11.20...0.11.22) (2024-03-20)
