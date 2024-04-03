@@ -141,6 +141,21 @@ module.exports = {
       },
     },
     {
+      name: 'Automattic Blue',
+      default: 30,
+      specs: {
+        hue_start: 204,
+        hue_end: 196,
+        hue_curve: 'easeOutSine',
+        sat_steps: [
+          6, 20, 44, 61, 84, 90, 99, 98, 98, 97, 96, 94,
+        ],
+        lum_steps: [
+          98, 96, 95, 91, 88, 78, 66, 52, 43.2, 30, 21, 14,
+        ],
+      },
+    },
+    {
       name: 'WordPress Blue',
       default: 50,
       specs: {
