@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.11.27 (4/24/2024, 07:30:18)
+ * Chimera UI Libraries - Build 0.11.28 (4/26/2024, 09:55:40)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -7840,6 +7840,7 @@ var Grid = function Grid(props) {
     var cardsGridLayout = getConfig('collection', 'layout.type');
     var cardsGridGutter = getConfig('collection', 'layout.gutter');
     var renderCardsBorders = getConfig('collection', 'setCardBorders');
+    var renderFooterDivider = getConfig('collection', 'showFooterDivider');
     var renderCardsOverlay = getConfig('collection', 'useOverlayLinks');
     var dateFormat = getConfig('collection', 'i18n.prettyDateIntervalFormat');
     var locale = getConfig('language', '');
@@ -7996,6 +7997,7 @@ var Grid = function Grid(props) {
                         dateFormat: dateFormat,
                         locale: locale,
                         renderBorder: renderCardsBorders,
+                        renderDivider: renderFooterDivider,
                         renderOverlay: renderCardsOverlay,
                         hideCTA: hideCTA,
                         onFocus: function onFocus() {
@@ -46400,6 +46402,7 @@ var CardType = {
     footer: (0, _propTypes.arrayOf)((0, _propTypes.shape)(_card.footerType)),
     contentArea: (0, _propTypes.shape)(_card.contentAreaType),
     renderBorder: _propTypes.bool,
+    renderDivider: _propTypes.bool,
     renderOverlay: _propTypes.bool,
     overlayLink: _propTypes.string,
     hideCTA: _propTypes.bool,
@@ -46422,6 +46425,7 @@ var defaultProps = {
     isBookmarked: false,
     disableBookmarkIco: false,
     renderBorder: true,
+    renderDivider: false,
     renderOverlay: false,
     overlayLink: '',
     hideCTA: false,
@@ -46485,6 +46489,7 @@ var Card = function Card(props) {
         logoBorderBg = _props$overlays$logo.borderColor,
         badgeText = _props$overlays.label.description,
         renderBorder = props.renderBorder,
+        renderDivider = props.renderDivider,
         renderOverlay = props.renderOverlay,
         overlayLink = props.overlayLink,
         hideCTA = props.hideCTA,
@@ -46753,7 +46758,7 @@ var Card = function Card(props) {
             ),
             showFooter && !hideCTA && footer.map(function (footerItem) {
                 return _react2.default.createElement(_CardFooter2.default, {
-                    divider: footerItem.divider,
+                    divider: renderDivider || footerItem.divider,
                     isFluid: footerItem.isFluid,
                     key: (0, _cuid2.default)(),
                     left: showFooterLeft ? extendFooterData(footerItem.left) : [],
