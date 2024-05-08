@@ -105,7 +105,8 @@ const Card = (props) => {
             backgroundImage: image,
             backgroundAltText: altText,
             mnemonic,
-            cardIcon,
+            icon: cardIcon,
+            iconAlt,
         },
         contentArea: {
             title,
@@ -265,7 +266,7 @@ const Card = (props) => {
     const isIcon = cardStyle === 'icon-card';
 
     // Card elements to show
-    const showHeader = !isProduct || !isIcon;
+    const showHeader = !isProduct;
     const showBadge = isOneHalf || isThreeFourths || isFull;
     const showLogo = isOneHalf || isThreeFourths || isFull || isText;
     const showLabel = !isProduct && !isText;
@@ -379,6 +380,21 @@ const Card = (props) => {
                         width="32" />
                 </div>
                 }
+                {isIcon &&
+                <div
+                    style={({
+                        backgroundColor: logoBg,
+                        borderColor: logoBorderBg,
+                    })}
+                    data-testid="consonant-Card-logo"
+                    className="consonant-Card-logo">
+                    <img
+                        src={cardIcon}
+                        alt={iconAlt}
+                        loading="lazy"
+                        width="32" />
+                </div>
+                }
             </div>
             }
             <div
@@ -409,7 +425,6 @@ const Card = (props) => {
                     className="consonant-Card-title"
                     title={title}>
                     {isProduct && mnemonic && <img src={mnemonic} alt="mnemonic" loading="lazy" />}
-                    {isIcon && cardIcon && <img src={cardIcon} alt="icon" loading="lazy" />}
                     {title}
                 </p>
                 {

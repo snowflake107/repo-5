@@ -1,16 +1,53 @@
 .consonant-CardsGrid {
     .consonant-Card.icon-card {
         height: auto;
-        min-height: 222px;
 
         .consonant-Card-content {
             padding: 16px 16px 20px;
         }
 
-        .consonant-Card-row {
-            display: flex;
-            flex-direction: row;
-            margin-bottom: 16px;
+        .consonant-Card-header {
+            flex-grow: 1;
+            position: relative;
+            width: 100%;
+            padding: 16px 0 0 16px;
+            height: 64px;
+            max-height: 64px;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+            background-image: none !important;
+        }
+
+        .consonant-Card-logo {
+            display: block;
+            width: 48px;
+            height: 48px;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center center;
+            border-radius: 4px;
+
+            .no-font;
+
+            img {
+                width: 48px;
+                height: 48px;
+                object-fit: cover;
+                user-select: none;
+            }
+        }
+
+        .consonant-Card-label {
+            display: none;
+            max-width: 100%;
+            margin-bottom: 4px;
+
+            .font(@color: @consonantGray800);
+
+            text-decoration: none;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
         }
 
         .consonant-Card-title {
