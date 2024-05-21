@@ -25,12 +25,14 @@ describe(`Consonant/Card/${cardStyle}`, () => {
                 styles: {
                     icon: iconSrc,
                     iconAlt,
-                }
-            }
+                },
+            },
         } = renderCard({
             cardStyle,
         });
         const iconElement = screen.getByTestId('consonant-Card-logo');
+        const iconImgElement = screen.getByTestId('consonant-Card-logoImg');
         expect(iconElement).not.toBeNull();
-    })
+        expect(iconImgElement).toHaveAttribute('src', iconSrc);
+    });
 });
