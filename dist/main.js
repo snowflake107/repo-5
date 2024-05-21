@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.11.29 (5/21/2024, 12:47:06)
+ * Chimera UI Libraries - Build 0.11.29 (5/21/2024, 13:41:00)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -46642,7 +46642,7 @@ var Card = function Card(props) {
     }
 
     var hasBanner = bannerDescriptionToUse && bannerFontColorToUse && bannerBackgroundColorToUse;
-    var headingAria = videoURL || label || detailText || description || logoSrc || badgeText || hasBanner && !disableBanners ? '' : title;
+    var headingAria = videoURL || label || detailText || description || logoSrc || badgeText || hasBanner && !disableBanners || isIcon ? '' : title;
 
     var ariaText = title;
     if (hasBanner && !disableBanners) {
@@ -46671,7 +46671,7 @@ var Card = function Card(props) {
                 style: { backgroundImage: 'url("' + image + '")' },
                 role: altText && 'img',
                 'aria-label': altText },
-            hasBanner && !disableBanners && _react2.default.createElement(
+            hasBanner && !disableBanners && !isIcon && _react2.default.createElement(
                 'span',
                 {
                     'data-testid': 'consonant-Card-banner',
@@ -48631,6 +48631,7 @@ var LinkBlocker = function LinkBlocker(props) {
             href: link,
             target: target,
             rel: 'noopener noreferrer',
+            'aria-label': link,
             tabIndex: '0',
             className: 'consonant-LinkBlocker' })
     );

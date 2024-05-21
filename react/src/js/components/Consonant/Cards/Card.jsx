@@ -299,7 +299,7 @@ const Card = (props) => {
 
     const hasBanner = bannerDescriptionToUse && bannerFontColorToUse && bannerBackgroundColorToUse;
     const headingAria = (videoURL ||
-        label || detailText || description || logoSrc || badgeText || (hasBanner && !disableBanners)) ? '' : title;
+        label || detailText || description || logoSrc || badgeText || (hasBanner && !disableBanners) || isIcon) ? '' : title;
 
     let ariaText = title;
     if (hasBanner && !disableBanners) {
@@ -326,7 +326,7 @@ const Card = (props) => {
                 style={{ backgroundImage: `url("${image}")` }}
                 role={altText && 'img'}
                 aria-label={altText}>
-                {hasBanner && !disableBanners &&
+                {hasBanner && !disableBanners && !isIcon &&
                 <span
                     data-testid="consonant-Card-banner"
                     className="consonant-Card-banner"
