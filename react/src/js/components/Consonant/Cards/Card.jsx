@@ -451,7 +451,7 @@ const Card = (props) => {
                     && !renderOverlay
                     && <LinkBlocker target={linkBlockerTarget} link={overlay} />}
             </div>
-            {(renderOverlay || hideCTA || isHalfHeight)
+            {(renderOverlay || hideCTA || isHalfHeight || isIcon)
             && <LinkBlocker target={linkBlockerTarget} link={overlay} />}
         </div>
     );

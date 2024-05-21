@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.11.29 (5/21/2024, 12:30:43)
+ * Chimera UI Libraries - Build 0.11.29 (5/21/2024, 12:47:06)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -46784,7 +46784,7 @@ var Card = function Card(props) {
             }),
             (isThreeFourths || isDoubleWide || isFull) && !renderOverlay && _react2.default.createElement(_LinkBlocker2.default, { target: linkBlockerTarget, link: overlay })
         ),
-        (renderOverlay || hideCTA || isHalfHeight) && _react2.default.createElement(_LinkBlocker2.default, { target: linkBlockerTarget, link: overlay })
+        (renderOverlay || hideCTA || isHalfHeight || isIcon) && _react2.default.createElement(_LinkBlocker2.default, { target: linkBlockerTarget, link: overlay })
     );
 };
 
