@@ -388,7 +388,8 @@ const Card = (props) => {
                         src={cardIcon}
                         alt={iconAlt}
                         loading="lazy"
-                        width="32" />
+                        width="32"
+                        data-testid="consonant-Card-logoImg" />
                 </div>
                 }
             </div>
