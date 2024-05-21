@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.11.29 (5/9/2024, 13:19:43)
+ * Chimera UI Libraries - Build 0.11.29 (5/21/2024, 11:24:56)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -46726,10 +46726,6 @@ var Card = function Card(props) {
             isIcon && _react2.default.createElement(
                 'div',
                 {
-                    style: {
-                        backgroundColor: logoBg,
-                        borderColor: logoBorderBg
-                    },
                     'data-testid': 'consonant-Card-logo',
                     className: 'consonant-Card-logo' },
                 _react2.default.createElement('img', {

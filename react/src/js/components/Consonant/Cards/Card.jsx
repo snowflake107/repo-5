@@ -382,10 +382,6 @@ const Card = (props) => {
                 }
                 {isIcon &&
                 <div
-                    style={({
-                        backgroundColor: logoBg,
-                        borderColor: logoBorderBg,
-                    })}
                     data-testid="consonant-Card-logo"
                     className="consonant-Card-logo">
                     <img
