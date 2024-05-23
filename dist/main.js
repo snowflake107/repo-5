@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.11.29 (5/23/2024, 15:10:17)
+ * Chimera UI Libraries - Build 0.11.29 (5/23/2024, 15:41:58)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -7970,6 +7970,7 @@ var Grid = function Grid(props) {
             'data-card-style': collectionStyleOverride,
             'data-testid': 'consonant-CardsGrid',
             className: gridClass,
+            role: 'tablist',
             'aria-live': isAriaLiveActive ? 'polite' : 'off' },
         cardsToshow.map(function (card, index) {
             var cardStyleOverride = (0, _general.getByPath)(card, 'styles.typeOverride');
@@ -46642,7 +46643,7 @@ var Card = function Card(props) {
     }
 
     var hasBanner = bannerDescriptionToUse && bannerFontColorToUse && bannerBackgroundColorToUse;
-    var headingAria = videoURL || label || detailText || description || logoSrc || badgeText || hasBanner && !disableBanners || isIcon ? '' : title;
+    var headingAria = videoURL || label || detailText || description || logoSrc || badgeText || hasBanner && !disableBanners || !isIcon ? '' : title;
 
     var ariaText = title;
     if (hasBanner && !disableBanners) {

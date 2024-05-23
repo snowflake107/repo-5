@@ -207,6 +207,7 @@ const Grid = (props) => {
             data-card-style={collectionStyleOverride}
             data-testid="consonant-CardsGrid"
             className={gridClass}
+            role="tablist"
             aria-live={isAriaLiveActive ? 'polite' : 'off'}>
             {cardsToshow.map((card, index) => {
                 const cardStyleOverride = getByPath(card, 'styles.typeOverride');

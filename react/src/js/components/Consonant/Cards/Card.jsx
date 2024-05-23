@@ -299,7 +299,7 @@ const Card = (props) => {
 
     const hasBanner = bannerDescriptionToUse && bannerFontColorToUse && bannerBackgroundColorToUse;
     const headingAria = (videoURL ||
-        label || detailText || description || logoSrc || badgeText || (hasBanner && !disableBanners) || isIcon) ? '' : title;
+        label || detailText || description || logoSrc || badgeText || (hasBanner && !disableBanners) || !isIcon) ? '' : title;
 
     let ariaText = title;
     if (hasBanner && !disableBanners) {
