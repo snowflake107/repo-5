@@ -1,5 +1,20 @@
 
 
+# [0.12.0](https://github.com/adobecom/caas/compare/0.11.29...0.12.0) (2024-05-24)
+
+
+### Features
+
+* **mwpw-140454:** hide banners when they are there ([8cbca23](https://github.com/adobecom/caas/commit/8cbca23dc72defaabf646f48ca9209fa9ae63faf))
+* **mwpw-140454:** icon content card styles ([dddf7d7](https://github.com/adobecom/caas/commit/dddf7d7f37bfa530ce4f3baa94b6374b2c2b39c5))
+* **mwpw-140454:** lmao forgot to make it overlay clickable ([4781020](https://github.com/adobecom/caas/commit/478102036831e5180deee9d8d0c48a0bfe58c35b))
+* **mwpw-140454:** maybe fixed accessility ([5d6dede](https://github.com/adobecom/caas/commit/5d6dede961da3ce6f4772e69d77cd99c3ee10a48))
+* **mwpw-140454:** maybe fixed the lighthouse thing ([d591b55](https://github.com/adobecom/caas/commit/d591b555f073cb15f542ea93b94075897b590516))
+* **mwpw-140454:** more css styling ([2da0970](https://github.com/adobecom/caas/commit/2da0970832920b5e1512ddfa4612b0ad8ea49722))
+* **mwpw-140454:** oops ([9804e18](https://github.com/adobecom/caas/commit/9804e181a16400fb4d6dcfa0c3041428142677ee))
+* **mwpw-140454:** saving work ([62a461b](https://github.com/adobecom/caas/commit/62a461bbf8c893d3c713aa93f451e3aa6f84abe9))
+* **mwpw-140454:** unit tests ([97ce629](https://github.com/adobecom/caas/commit/97ce6293daadfb2c6c7e35bbabf81b9d3922ce31))
+
 ## [0.11.29](https://github.com/adobecom/caas/compare/0.11.28...0.11.29) (2024-04-26)
 
 ## [0.11.28](https://github.com/adobecom/caas/compare/0.11.27...0.11.28) (2024-04-26)
