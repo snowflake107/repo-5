@@ -105,6 +105,8 @@ const Card = (props) => {
             backgroundImage: image,
             backgroundAltText: altText,
             mnemonic,
+            icon: cardIcon,
+            iconAlt,
         },
         contentArea: {
             title,
@@ -261,13 +263,14 @@ const Card = (props) => {
     const isProduct = cardStyle === 'product';
     const isText = cardStyle === 'text-card';
     const isFull = cardStyle === 'full-card';
+    const isIcon = cardStyle === 'icon-card';
 
     // Card elements to show
     const showHeader = !isProduct;
     const showBadge = isOneHalf || isThreeFourths || isFull;
     const showLogo = isOneHalf || isThreeFourths || isFull || isText;
     const showLabel = !isProduct && !isText;
-    const showVideoButton = !isProduct && !isText;
+    const showVideoButton = !isProduct && !isText && !isIcon;
     const showText = !isHalfHeight && !isFull;
     const showFooter = isOneHalf || isProduct || isText;
     const showFooterLeft = !isProduct;
@@ -296,7 +299,7 @@ const Card = (props) => {
 
     const hasBanner = bannerDescriptionToUse && bannerFontColorToUse && bannerBackgroundColorToUse;
     const headingAria = (videoURL ||
-        label || detailText || description || logoSrc || badgeText || (hasBanner && !disableBanners)) ? '' : title;
+        label || detailText || description || logoSrc || badgeText || (hasBanner && !disableBanners) || !isIcon) ? '' : title;
 
     let ariaText = title;
     if (hasBanner && !disableBanners) {
@@ -323,7 +326,7 @@ const Card = (props) => {
                 style={{ backgroundImage: `url("${image}")` }}
                 role={altText && 'img'}
                 aria-label={altText}>
-                {hasBanner && !disableBanners &&
+                {hasBanner && !disableBanners && !isIcon &&
                 <span
                     data-testid="consonant-Card-banner"
                     className="consonant-Card-banner"
@@ -377,6 +380,18 @@ const Card = (props) => {
                         width="32" />
                 </div>
                 }
+                {isIcon &&
+                <div
+                    data-testid="consonant-Card-logo"
+                    className="consonant-Card-logo">
+                    <img
+                        src={cardIcon}
+                        alt={iconAlt}
+                        loading="lazy"
+                        width="32"
+                        data-testid="consonant-Card-logoImg" />
+                </div>
+                }
             </div>
             }
             <div
@@ -412,6 +427,7 @@ const Card = (props) => {
                 {
                     showText &&
                     description &&
+                    !isIcon &&
                     <p
                         data-testid="consonant-Card-text"
                         className="consonant-Card-text">
@@ -435,7 +451,7 @@ const Card = (props) => {
                     && !renderOverlay
                     && <LinkBlocker target={linkBlockerTarget} link={overlay} />}
             </div>
-            {(renderOverlay || hideCTA || isHalfHeight)
+            {(renderOverlay || hideCTA || isHalfHeight || isIcon)
             && <LinkBlocker target={linkBlockerTarget} link={overlay} />}
         </div>
     );

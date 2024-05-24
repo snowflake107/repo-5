@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.11.28 (4/26/2024, 09:55:40)
+ * Chimera UI Libraries - Build 0.11.29 (5/23/2024, 15:41:58)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -7970,6 +7970,7 @@ var Grid = function Grid(props) {
             'data-card-style': collectionStyleOverride,
             'data-testid': 'consonant-CardsGrid',
             className: gridClass,
+            role: 'tablist',
             'aria-live': isAriaLiveActive ? 'polite' : 'off' },
         cardsToshow.map(function (card, index) {
             var cardStyleOverride = (0, _general.getByPath)(card, 'styles.typeOverride');
@@ -46468,6 +46469,8 @@ var Card = function Card(props) {
         image = _props$styles.backgroundImage,
         altText = _props$styles.backgroundAltText,
         mnemonic = _props$styles.mnemonic,
+        cardIcon = _props$styles.icon,
+        iconAlt = _props$styles.iconAlt,
         _props$contentArea = props.contentArea,
         title = _props$contentArea.title,
         label = _props$contentArea.detailText,
@@ -46605,13 +46608,14 @@ var Card = function Card(props) {
     var isProduct = cardStyle === 'product';
     var isText = cardStyle === 'text-card';
     var isFull = cardStyle === 'full-card';
+    var isIcon = cardStyle === 'icon-card';
 
     // Card elements to show
     var showHeader = !isProduct;
     var showBadge = isOneHalf || isThreeFourths || isFull;
     var showLogo = isOneHalf || isThreeFourths || isFull || isText;
     var showLabel = !isProduct && !isText;
-    var showVideoButton = !isProduct && !isText;
+    var showVideoButton = !isProduct && !isText && !isIcon;
     var showText = !isHalfHeight && !isFull;
     var showFooter = isOneHalf || isProduct || isText;
     var showFooterLeft = !isProduct;
@@ -46639,7 +46643,7 @@ var Card = function Card(props) {
     }
 
     var hasBanner = bannerDescriptionToUse && bannerFontColorToUse && bannerBackgroundColorToUse;
-    var headingAria = videoURL || label || detailText || description || logoSrc || badgeText || hasBanner && !disableBanners ? '' : title;
+    var headingAria = videoURL || label || detailText || description || logoSrc || badgeText || hasBanner && !disableBanners || !isIcon ? '' : title;
 
     var ariaText = title;
     if (hasBanner && !disableBanners) {
@@ -46668,7 +46672,7 @@ var Card = function Card(props) {
                 style: { backgroundImage: 'url("' + image + '")' },
                 role: altText && 'img',
                 'aria-label': altText },
-            hasBanner && !disableBanners && _react2.default.createElement(
+            hasBanner && !disableBanners && !isIcon && _react2.default.createElement(
                 'span',
                 {
                     'data-testid': 'consonant-Card-banner',
@@ -46719,6 +46723,18 @@ var Card = function Card(props) {
                     alt: isText ? altText : logoAlt,
                     loading: 'lazy',
                     width: '32' })
+            ),
+            isIcon && _react2.default.createElement(
+                'div',
+                {
+                    'data-testid': 'consonant-Card-logo',
+                    className: 'consonant-Card-logo' },
+                _react2.default.createElement('img', {
+                    src: cardIcon,
+                    alt: iconAlt,
+                    loading: 'lazy',
+                    width: '32',
+                    'data-testid': 'consonant-Card-logoImg' })
             )
         ),
         _react2.default.createElement(
@@ -46749,7 +46765,7 @@ var Card = function Card(props) {
                 isProduct && mnemonic && _react2.default.createElement('img', { src: mnemonic, alt: 'mnemonic', loading: 'lazy' }),
                 title
             ),
-            showText && description && _react2.default.createElement(
+            showText && description && !isIcon && _react2.default.createElement(
                 'p',
                 {
                     'data-testid': 'consonant-Card-text',
@@ -46769,7 +46785,7 @@ var Card = function Card(props) {
             }),
             (isThreeFourths || isDoubleWide || isFull) && !renderOverlay && _react2.default.createElement(_LinkBlocker2.default, { target: linkBlockerTarget, link: overlay })
         ),
-        (renderOverlay || hideCTA || isHalfHeight) && _react2.default.createElement(_LinkBlocker2.default, { target: linkBlockerTarget, link: overlay })
+        (renderOverlay || hideCTA || isHalfHeight || isIcon) && _react2.default.createElement(_LinkBlocker2.default, { target: linkBlockerTarget, link: overlay })
     );
 };
 
@@ -48616,6 +48632,7 @@ var LinkBlocker = function LinkBlocker(props) {
             href: link,
             target: target,
             rel: 'noopener noreferrer',
+            'aria-label': link,
             tabIndex: '0',
             className: 'consonant-LinkBlocker' })
     );
