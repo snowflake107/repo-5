@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.11.29 (5/23/2024, 15:41:58)
+ * Chimera UI Libraries - Build 0.12.0 (5/28/2024, 14:11:28)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -46752,6 +46752,13 @@ var Card = function Card(props) {
                     'data-testid': 'consonant-Card-label',
                     className: 'consonant-Card-label' },
                 detailText
+            ),
+            isIcon && detailText === '' && _react2.default.createElement(
+                'span',
+                {
+                    'data-testid': 'consonant-Card-label',
+                    className: 'consonant-Card-label' },
+                iconAlt
             ),
             _react2.default.createElement(
                 'p',

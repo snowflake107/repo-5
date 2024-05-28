@@ -414,6 +414,14 @@ const Card = (props) => {
                     {detailText}
                 </span>
                 }
+                {isIcon &&
+                (detailText === '') &&
+                <span
+                    data-testid="consonant-Card-label"
+                    className="consonant-Card-label">
+                    {iconAlt}
+                </span>
+                }
                 <p
                     role="heading"
                     aria-label={headingAria}
