@@ -1,5 +1,12 @@
 
 
+# [0.13.0](https://github.com/adobecom/caas/compare/0.12.2...0.13.0) (2024-06-05)
+
+
+### Features
+
+* **MWPW-151628:** Adds support for new categories layout ([#156](https://github.com/adobecom/caas/issues/156)) ([0bedea0](https://github.com/adobecom/caas/commit/0bedea0b89ae1589e6c1330468bb6fe2b798e7f0))
+
 ## [0.12.2](https://github.com/adobecom/caas/compare/0.12.1...0.12.2) (2024-05-30)
 
 ## [0.12.1](https://github.com/adobecom/caas/compare/0.12.0...0.12.1) (2024-05-28)
