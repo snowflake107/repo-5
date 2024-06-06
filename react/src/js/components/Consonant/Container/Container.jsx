@@ -1221,7 +1221,7 @@ const Container = (props) => {
 
         // Sorts category list based on authored order
         const selectedCategories = categoryIds
-            .map(id => categoryList.filter(category => category.id === id)[0]);
+            .map(id => categoryList && categoryList.filter(category => category.id === id)[0]);
 
         return [{
             group: 'All Topics',
@@ -1236,13 +1236,14 @@ const Container = (props) => {
      *          Prepends the "All products" label to the list of categories
      */
     function getAllCategoryProducts() {
-        // if (isCategoriesContainer) return [];
         let allCategories = [];
         for (const category of authoredCategories) {
-            for (const item of category.items) {
-                item.fromCategory = true;
+            if (category && category.items) {
+                for (const item of category.items) {
+                    item.fromCategory = true;
+                }
+                allCategories = allCategories.concat(category.items);
             }
-            allCategories = allCategories.concat(category.items);
         }
         return {
             group: 'All products',
@@ -1338,6 +1339,7 @@ const Container = (props) => {
                             <div className="filters-category">
                                 {
                                     authoredCategories.map((category) => {
+                                        if (!category) return null;
                                         let selected = '';
                                         if (category.id === selectedCategory) {
                                             selected = 'selected';
