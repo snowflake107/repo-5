@@ -1,5 +1,12 @@
 
 
+## [0.13.1](https://github.com/adobecom/caas/compare/0.13.0...0.13.1) (2024-06-06)
+
+
+### Bug Fixes
+
+* **MWPW-151628:** fixes backwards compatibility issue ([#157](https://github.com/adobecom/caas/issues/157)) ([697345e](https://github.com/adobecom/caas/commit/697345e678bb1e988bd10cc7467b27d7ac34345b))
+
 # [0.13.0](https://github.com/adobecom/caas/compare/0.12.2...0.13.0) (2024-06-05)
 
 
