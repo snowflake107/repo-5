@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.13.0 (6/6/2024, 08:59:58)
+ * Chimera UI Libraries - Build 0.13.1 (6/11/2024, 19:35:09)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -46652,7 +46652,8 @@ var CardType = {
     modifiedDate: _propTypes.string,
     bannerMap: (0, _propTypes.shape)(Object).isRequired,
     tags: (0, _propTypes.arrayOf)((0, _propTypes.shape)(_card.tagsType)),
-    onFocus: _propTypes.func.isRequired
+    onFocus: _propTypes.func.isRequired,
+    origin: _propTypes.string
 };
 
 var defaultProps = {
@@ -46673,7 +46674,8 @@ var defaultProps = {
     startDate: '',
     endDate: '',
     modifiedDate: '',
-    tags: []
+    tags: [],
+    origin: ''
 };
 
 /**
@@ -46739,7 +46741,8 @@ var Card = function Card(props) {
         startDate = props.startDate,
         endDate = props.endDate,
         bannerMap = props.bannerMap,
-        onFocus = props.onFocus;
+        onFocus = props.onFocus,
+        origin = props.origin;
 
 
     var bannerBackgroundColorToUse = bannerBackgroundColor;
@@ -46805,6 +46808,12 @@ var Card = function Card(props) {
     var isRegistered = (0, _hooks.useRegistered)(false);
 
     /**
+     * isInPerson
+     * @type {Boolean}
+     */
+    var isInPerson = (0, _Helpers.hasTag)(/events\/session-format\/in-person/, tags);
+
+    /**
      * Extends infobits with the configuration data
      * @param {Array} data - Array of the infobits
      * @return {Array} - Array of the infobits with the configuration data added
@@ -46860,6 +46869,9 @@ var Card = function Card(props) {
     var showFooter = isOneHalf || isProduct || isText;
     var showFooterLeft = !isProduct;
     var showFooterCenter = !isProduct;
+    var isEventsCard = origin === 'Events';
+    var hideBanner = false;
+    var eventBanner = '';
 
     if (isHalfHeight && isGated && !isRegistered) {
         bannerDescriptionToUse = bannerMap.register.description;
@@ -46869,7 +46881,7 @@ var Card = function Card(props) {
         videoURLToUse = registrationUrl;
         gateVideo = true;
     } else if (startDate && endDate) {
-        var eventBanner = (0, _general.getEventBanner)(startDate, endDate, bannerMap);
+        eventBanner = (0, _general.getEventBanner)(startDate, endDate, bannerMap);
         bannerBackgroundColorToUse = eventBanner.backgroundColor;
         bannerDescriptionToUse = eventBanner.description;
         bannerFontColorToUse = eventBanner.fontColor;
@@ -46882,7 +46894,14 @@ var Card = function Card(props) {
         }
     }
 
-    var hasBanner = bannerDescriptionToUse && bannerFontColorToUse && bannerBackgroundColorToUse;
+    // Events card custom banners
+    if (isEventsCard) {
+        hideBanner = isInPerson && eventBanner === bannerMap.onDemand;
+        bannerDescriptionToUse = eventBanner === bannerMap.live ? 'Live Today' : bannerDescriptionToUse;
+    }
+
+    var hasBanner = bannerDescriptionToUse && bannerFontColorToUse && bannerBackgroundColorToUse && !hideBanner;
+
     var headingAria = videoURL || label || detailText || description || logoSrc || badgeText || hasBanner && !disableBanners || !isIcon ? '' : title;
 
     var ariaText = title;

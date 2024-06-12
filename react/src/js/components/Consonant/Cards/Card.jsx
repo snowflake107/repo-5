@@ -48,6 +48,7 @@ const CardType = {
     bannerMap: shape(Object).isRequired,
     tags: arrayOf(shape(tagsType)),
     onFocus: func.isRequired,
+    origin: string,
 };
 
 const defaultProps = {
@@ -69,6 +70,7 @@ const defaultProps = {
     endDate: '',
     modifiedDate: '',
     tags: [],
+    origin: '',
 };
 
 /**
@@ -146,6 +148,7 @@ const Card = (props) => {
         endDate,
         bannerMap,
         onFocus,
+        origin,
     } = props;
 
     let bannerBackgroundColorToUse = bannerBackgroundColor;
@@ -215,6 +218,11 @@ const Card = (props) => {
      */
     const isRegistered = useRegistered(false);
 
+    /**
+     * isInPerson
+     * @type {Boolean}
+     */
+    const isInPerson = hasTag(/events\/session-format\/in-person/, tags);
 
     /**
      * Extends infobits with the configuration data
@@ -275,6 +283,9 @@ const Card = (props) => {
     const showFooter = isOneHalf || isProduct || isText;
     const showFooterLeft = !isProduct;
     const showFooterCenter = !isProduct;
+    const isEventsCard = origin === 'Events';
+    let hideBanner = false;
+    let eventBanner = '';
 
     if (isHalfHeight && isGated && !isRegistered) {
         bannerDescriptionToUse = bannerMap.register.description;
@@ -284,7 +295,7 @@ const Card = (props) => {
         videoURLToUse = registrationUrl;
         gateVideo = true;
     } else if (startDate && endDate) {
-        const eventBanner = getEventBanner(startDate, endDate, bannerMap);
+        eventBanner = getEventBanner(startDate, endDate, bannerMap);
         bannerBackgroundColorToUse = eventBanner.backgroundColor;
         bannerDescriptionToUse = eventBanner.description;
         bannerFontColorToUse = eventBanner.fontColor;
@@ -297,7 +308,19 @@ const Card = (props) => {
         }
     }
 
-    const hasBanner = bannerDescriptionToUse && bannerFontColorToUse && bannerBackgroundColorToUse;
+    // Events card custom banners
+    if (isEventsCard) {
+        hideBanner = isInPerson && eventBanner === bannerMap.onDemand;
+        bannerDescriptionToUse = eventBanner === bannerMap.live
+            ? 'Live Today'
+            : bannerDescriptionToUse;
+    }
+
+    const hasBanner = bannerDescriptionToUse
+        && bannerFontColorToUse
+        && bannerBackgroundColorToUse
+        && !hideBanner;
+
     const headingAria = (videoURL ||
         label || detailText || description || logoSrc || badgeText || (hasBanner && !disableBanners) || !isIcon) ? '' : title;
 
