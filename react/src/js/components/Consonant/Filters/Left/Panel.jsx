@@ -89,8 +89,6 @@ const LeftFilterPanel = forwardRef(({
 }, ref) => {
     const getConfig = useConfig();
 
-    console.log('*** Panel.jsx: LeftFilterPanel: Filters:', filters);
-
     /**
      **** Authored Configs ****
      */
