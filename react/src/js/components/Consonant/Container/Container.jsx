@@ -154,10 +154,6 @@ const Container = (props) => {
     const cardStyle = getConfig('collection', 'cardStyle');
     const title = getConfig('collection', 'i18n.title');
     const headers = getConfig('headers', '');
-    // eslint-disable-next-line no-use-before-define
-    const categories = getConfig('filterPanel', 'categories');
-    // eslint-disable-next-line no-use-before-define
-    const authoredCategories = getAuthoredCategories(authoredFilters, categories);
 
     /**
      **** Constants ****
@@ -167,6 +163,11 @@ const Container = (props) => {
     const isCarouselContainer = authoredLayoutContainer === LAYOUT_CONTAINER.CAROUSEL;
     const isStandardContainer = authoredLayoutContainer !== LAYOUT_CONTAINER.CAROUSEL;
     const isCategoriesContainer = authoredLayoutContainer === LAYOUT_CONTAINER.CATEGORIES;
+
+    // eslint-disable-next-line no-use-before-define
+    const categories = getConfig('filterPanel', 'categories');
+    // eslint-disable-next-line no-use-before-define, max-len
+    const authoredCategories = isCategoriesContainer && getAuthoredCategories(authoredFilters, categories);
 
     /**
      **** Hooks ****
@@ -743,8 +744,9 @@ const Container = (props) => {
 
         return allFilters.map(filter => ({
             ...filter,
-            items: filter.items.filter(item => tags.includes(item.id) ||
-                timingTags.includes(item.id)),
+            items: filter.items.filter(item => tags.includes(item.id)
+                || tags.toString().includes(`/${item.id}`)
+                || timingTags.includes(item.id)),
         })).filter(filter => filter.items.length > 0);
     };
 
@@ -1236,6 +1238,7 @@ const Container = (props) => {
      *          Prepends the "All products" label to the list of categories
      */
     function getAllCategoryProducts() {
+        if (!authoredCategories) return [];
         let allCategories = [];
         for (const category of authoredCategories) {
             if (category && category.items) {
@@ -1247,7 +1250,7 @@ const Container = (props) => {
         }
         return {
             group: 'All products',
-            id: 'caas:products',
+            id: 'caas:all-products',
             items: allCategories,
         };
     }
@@ -1311,10 +1314,12 @@ const Container = (props) => {
     });
 
     useEffect(() => {
-        setFilters((prevFilters) => {
-            const nextFilters = prevFilters.concat(getAllCategoryProducts());
-            return nextFilters;
-        });
+        if (isCategoriesContainer) {
+            setFilters((prevFilters) => {
+                const nextFilters = prevFilters.concat(getAllCategoryProducts());
+                return nextFilters;
+            });
+        }
     }, []);
 
     return (

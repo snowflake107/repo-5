@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.13.1 (6/11/2024, 19:35:09)
+ * Chimera UI Libraries - Build 0.13.1 (6/17/2024, 13:19:35)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -6211,10 +6211,6 @@ var Container = function Container(props) {
     var cardStyle = getConfig('collection', 'cardStyle');
     var title = getConfig('collection', 'i18n.title');
     var headers = getConfig('headers', '');
-    // eslint-disable-next-line no-use-before-define
-    var categories = getConfig('filterPanel', 'categories');
-    // eslint-disable-next-line no-use-before-define
-    var authoredCategories = getAuthoredCategories(authoredFilters, categories);
 
     /**
      **** Constants ****
@@ -6224,6 +6220,11 @@ var Container = function Container(props) {
     var isCarouselContainer = authoredLayoutContainer === _constants.LAYOUT_CONTAINER.CAROUSEL;
     var isStandardContainer = authoredLayoutContainer !== _constants.LAYOUT_CONTAINER.CAROUSEL;
     var isCategoriesContainer = authoredLayoutContainer === _constants.LAYOUT_CONTAINER.CATEGORIES;
+
+    // eslint-disable-next-line no-use-before-define
+    var categories = getConfig('filterPanel', 'categories');
+    // eslint-disable-next-line no-use-before-define, max-len
+    var authoredCategories = isCategoriesContainer && getAuthoredCategories(authoredFilters, categories);
 
     /**
      **** Hooks ****
@@ -6960,7 +6961,7 @@ var Container = function Container(props) {
         return allFilters.map(function (filter) {
             return _extends({}, filter, {
                 items: filter.items.filter(function (item) {
-                    return tags.includes(item.id) || timingTags.includes(item.id);
+                    return tags.includes(item.id) || tags.toString().includes('/' + item.id) || timingTags.includes(item.id);
                 })
             });
         }).filter(function (filter) {
@@ -7525,6 +7526,7 @@ var Container = function Container(props) {
      *          Prepends the "All products" label to the list of categories
      */
     function getAllCategoryProducts() {
+        if (!authoredCategories) return [];
         var allCategories = [];
         var _iteratorNormalCompletion4 = true;
         var _didIteratorError4 = false;
@@ -7580,7 +7582,7 @@ var Container = function Container(props) {
 
         return {
             group: 'All products',
-            id: 'caas:products',
+            id: 'caas:all-products',
             items: allCategories
         };
     }
@@ -7669,10 +7671,12 @@ var Container = function Container(props) {
     });
 
     (0, _react.useEffect)(function () {
-        setFilters(function (prevFilters) {
-            var nextFilters = prevFilters.concat(getAllCategoryProducts());
-            return nextFilters;
-        });
+        if (isCategoriesContainer) {
+            setFilters(function (prevFilters) {
+                var nextFilters = prevFilters.concat(getAllCategoryProducts());
+                return nextFilters;
+            });
+        }
     }, []);
 
     return _react2.default.createElement(
@@ -54078,6 +54082,8 @@ var LeftFilterPanel = (0, _react.forwardRef)(function (_ref, ref) {
 
     var getConfig = (0, _hooks.useConfig)();
 
+    console.log('*** Panel.jsx: LeftFilterPanel: Filters:', filters);
+
     /**
      **** Authored Configs ****
      */
@@ -54473,7 +54479,7 @@ var Item = function Item(props) {
                         id: id + '-link',
                         onClick: handleClick,
                         tabIndex: '0' },
-                    name,
+                    name && name.replaceAll('&amp;', '&'),
                     _react2.default.createElement(
                         'div',
                         {
@@ -54589,7 +54595,7 @@ var Items = function Items(props) {
                         'span',
                         {
                             className: 'consonant-LeftFilter-itemsItemName' },
-                        item.label
+                        item.label && item.label.replaceAll('&amp;', '&')
                     )
                 )
             );
@@ -54837,7 +54843,7 @@ var ChosenFilterItem = function ChosenFilterItem(props) {
             'data-testid': 'consonant-ChosenFilter',
             className: 'consonant-ChosenFilter',
             tabIndex: '0' },
-        name
+        name.replaceAll('&amp;', '&')
     );
 };
 
