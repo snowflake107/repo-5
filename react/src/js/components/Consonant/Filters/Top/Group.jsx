@@ -80,7 +80,7 @@ const Group = (props) => {
     const mobileGroupApplyBtnText = getConfig('filterPanel', 'i18n.topPanel.mobile.group.applyBtnText');
     const mobileGroupDoneBtnText = getConfig('filterPanel', 'i18n.topPanel.mobile.group.doneBtnText');
     const isCategoriesPage = getConfig('collection', 'layout.container') === 'categories';
-    const isProductsFilter = id === 'caas:products';
+    const isProductsFilter = id === 'caas:all-products';
 
     const showFilter = (isCategoriesPage && isProductsFilter)
         || (isCategoriesPage && !id.startsWith('caas:product-categories')) // don't show product filters

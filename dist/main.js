@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.13.1 (6/19/2024, 03:11:20)
+ * Chimera UI Libraries - Build 0.13.1 (6/19/2024, 10:33:05)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -7143,24 +7143,45 @@ var Container = function Container(props) {
                     _removeDuplicateCards2 = _removeDuplicateCards.processedCards,
                     processedCards = _removeDuplicateCards2 === undefined ? [] : _removeDuplicateCards2;
 
-                setFilters(function () {
-                    return authoredFilters.map(function (filter) {
-                        var group = filter.group,
-                            items = filter.items;
+                if (isCategoriesContainer) {
+                    setFilters(function (prevFilters) {
+                        return prevFilters.map(function (filter) {
+                            var group = filter.group,
+                                items = filter.items;
 
-                        var urlStateValue = urlState[filterGroupPrefix + group];
-                        if (!urlStateValue) return filter;
-                        var urlStateArray = urlStateValue.split(',');
-                        return _extends({}, filter, {
-                            opened: true,
-                            items: items.map(function (item) {
-                                return _extends({}, item, {
-                                    selected: urlStateArray.includes(String(item.label))
-                                });
-                            })
+                            var urlStateValue = urlState[filterGroupPrefix + group];
+                            if (!urlStateValue) return filter;
+                            var urlStateArray = urlStateValue.split(',');
+                            return _extends({}, filter, {
+                                opened: true,
+                                items: items.map(function (item) {
+                                    return _extends({}, item, {
+                                        selected: urlStateArray.includes(String(item.label))
+                                    });
+                                })
+                            });
                         });
                     });
-                });
+                } else {
+                    setFilters(function () {
+                        return authoredFilters.map(function (filter) {
+                            var group = filter.group,
+                                items = filter.items;
+
+                            var urlStateValue = urlState[filterGroupPrefix + group];
+                            if (!urlStateValue) return filter;
+                            var urlStateArray = urlStateValue.split(',');
+                            return _extends({}, filter, {
+                                opened: true,
+                                items: items.map(function (item) {
+                                    return _extends({}, item, {
+                                        selected: urlStateArray.includes(String(item.label))
+                                    });
+                                })
+                            });
+                        });
+                    });
+                }
 
                 var transitions = (0, _general.getTransitions)(processedCards);
                 if (sortOption.sort.toLowerCase() === 'eventsort') {
@@ -7676,6 +7697,7 @@ var Container = function Container(props) {
         if (isCategoriesContainer) {
             setFilters(function (prevFilters) {
                 var nextFilters = prevFilters.concat(getAllCategoryProducts());
+                console.log('*** useEffect():nextFilters ***', nextFilters);
                 return nextFilters;
             });
         }
@@ -53525,7 +53547,7 @@ var Group = function Group(props) {
     var mobileGroupApplyBtnText = getConfig('filterPanel', 'i18n.topPanel.mobile.group.applyBtnText');
     var mobileGroupDoneBtnText = getConfig('filterPanel', 'i18n.topPanel.mobile.group.doneBtnText');
     var isCategoriesPage = getConfig('collection', 'layout.container') === 'categories';
-    var isProductsFilter = id === 'caas:products';
+    var isProductsFilter = id === 'caas:all-products';
 
     var showFilter = isCategoriesPage && isProductsFilter || isCategoriesPage && !id.startsWith('caas:product-categories') // don't show product filters
     || isCategoriesPage && id.includes(name) // include custom product filter
@@ -54445,7 +54467,7 @@ var Item = function Item(props) {
      * Impression Tracking
      */
     var filterName = name + ' ' + (isOpened ? 'Close' : 'Open');
-    var showFilter = id !== 'caas:products';
+    var showFilter = id !== 'caas:all-products';
 
     return _react2.default.createElement(
         'div',

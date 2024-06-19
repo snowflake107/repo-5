@@ -855,20 +855,37 @@ const Container = (props) => {
                             hideCtaIds,
                             hideCtaTags,
                         );
-                    setFilters(() => authoredFilters.map((filter) => {
-                        const { group, items } = filter;
-                        const urlStateValue = urlState[filterGroupPrefix + group];
-                        if (!urlStateValue) return filter;
-                        const urlStateArray = urlStateValue.split(',');
-                        return {
-                            ...filter,
-                            opened: true,
-                            items: items.map(item => ({
-                                ...item,
-                                selected: urlStateArray.includes(String(item.label)),
-                            })),
-                        };
-                    }));
+                    if (isCategoriesContainer) {
+                        setFilters(prevFilters => prevFilters.map((filter) => {
+                            const { group, items } = filter;
+                            const urlStateValue = urlState[filterGroupPrefix + group];
+                            if (!urlStateValue) return filter;
+                            const urlStateArray = urlStateValue.split(',');
+                            return {
+                                ...filter,
+                                opened: true,
+                                items: items.map(item => ({
+                                    ...item,
+                                    selected: urlStateArray.includes(String(item.label)),
+                                })),
+                            };
+                        }));
+                    } else {
+                        setFilters(() => authoredFilters.map((filter) => {
+                            const { group, items } = filter;
+                            const urlStateValue = urlState[filterGroupPrefix + group];
+                            if (!urlStateValue) return filter;
+                            const urlStateArray = urlStateValue.split(',');
+                            return {
+                                ...filter,
+                                opened: true,
+                                items: items.map(item => ({
+                                    ...item,
+                                    selected: urlStateArray.includes(String(item.label)),
+                                })),
+                            };
+                        }));
+                    }
 
                     const transitions = getTransitions(processedCards);
                     if (sortOption.sort.toLowerCase() === 'eventsort') {
@@ -1250,6 +1267,7 @@ const Container = (props) => {
                 allCategories = allCategories.concat(category.items);
             }
         }
+
         return {
             group: 'All products',
             id: 'caas:all-products',
@@ -1319,6 +1337,7 @@ const Container = (props) => {
         if (isCategoriesContainer) {
             setFilters((prevFilters) => {
                 const nextFilters = prevFilters.concat(getAllCategoryProducts());
+                console.log('*** useEffect():nextFilters ***', nextFilters);
                 return nextFilters;
             });
         }
