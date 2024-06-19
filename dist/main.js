@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.13.1 (6/17/2024, 13:19:35)
+ * Chimera UI Libraries - Build 0.13.1 (6/19/2024, 03:11:20)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -6224,7 +6224,7 @@ var Container = function Container(props) {
     // eslint-disable-next-line no-use-before-define
     var categories = getConfig('filterPanel', 'categories');
     // eslint-disable-next-line no-use-before-define, max-len
-    var authoredCategories = isCategoriesContainer && getAuthoredCategories(authoredFilters, categories);
+    var authoredCategories = isCategoriesContainer ? getAuthoredCategories(authoredFilters, categories) : [];
 
     /**
      **** Hooks ****
@@ -6956,12 +6956,14 @@ var Container = function Container(props) {
                 return tag.id;
             });
         })));
+
         var timingTags = [_constants.EVENT_TIMING_IDS.LIVE, _constants.EVENT_TIMING_IDS.ONDEMAND, _constants.EVENT_TIMING_IDS.UPCOMING];
 
         return allFilters.map(function (filter) {
             return _extends({}, filter, {
                 items: filter.items.filter(function (item) {
-                    return tags.includes(item.id) || tags.toString().includes('/' + item.id) || timingTags.includes(item.id);
+                    return tags.includes(item.id) || tags.includes(item.label) || tags.toString().includes('/' + item.id) // ***** FIX  HERE *****
+                    || timingTags.includes(item.id);
                 })
             });
         }).filter(function (filter) {
@@ -7141,8 +7143,8 @@ var Container = function Container(props) {
                     _removeDuplicateCards2 = _removeDuplicateCards.processedCards,
                     processedCards = _removeDuplicateCards2 === undefined ? [] : _removeDuplicateCards2;
 
-                setFilters(function (prevFilters) {
-                    return prevFilters.map(function (filter) {
+                setFilters(function () {
+                    return authoredFilters.map(function (filter) {
                         var group = filter.group,
                             items = filter.items;
 
@@ -54081,8 +54083,6 @@ var LeftFilterPanel = (0, _react.forwardRef)(function (_ref, ref) {
         windowWidth = _ref.windowWidth;
 
     var getConfig = (0, _hooks.useConfig)();
-
-    console.log('*** Panel.jsx: LeftFilterPanel: Filters:', filters);
 
     /**
      **** Authored Configs ****

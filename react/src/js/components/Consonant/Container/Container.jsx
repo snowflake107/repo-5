@@ -167,7 +167,7 @@ const Container = (props) => {
     // eslint-disable-next-line no-use-before-define
     const categories = getConfig('filterPanel', 'categories');
     // eslint-disable-next-line no-use-before-define, max-len
-    const authoredCategories = isCategoriesContainer && getAuthoredCategories(authoredFilters, categories);
+    const authoredCategories = isCategoriesContainer ? getAuthoredCategories(authoredFilters, categories) : [];
 
     /**
      **** Hooks ****
@@ -736,6 +736,7 @@ const Container = (props) => {
 
     const removeEmptyFilters = (allFilters, cardsFromJson) => {
         const tags = [].concat(...cardsFromJson.map(card => card.tags.map(tag => tag.id)));
+
         const timingTags = [
             EVENT_TIMING_IDS.LIVE,
             EVENT_TIMING_IDS.ONDEMAND,
@@ -745,8 +746,9 @@ const Container = (props) => {
         return allFilters.map(filter => ({
             ...filter,
             items: filter.items.filter(item => tags.includes(item.id)
-                || tags.toString().includes(`/${item.id}`)
-                || timingTags.includes(item.id)),
+            || tags.includes(item.label)
+            || tags.toString().includes(`/${item.id}`) // ***** FIX  HERE *****
+            || timingTags.includes(item.id)),
         })).filter(filter => filter.items.length > 0);
     };
 
@@ -853,7 +855,7 @@ const Container = (props) => {
                             hideCtaIds,
                             hideCtaTags,
                         );
-                    setFilters(prevFilters => prevFilters.map((filter) => {
+                    setFilters(() => authoredFilters.map((filter) => {
                         const { group, items } = filter;
                         const urlStateValue = urlState[filterGroupPrefix + group];
                         if (!urlStateValue) return filter;
