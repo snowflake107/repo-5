@@ -1,5 +1,18 @@
 
 
+# [0.14.0](https://github.com/adobecom/caas/compare/0.13.1...0.14.0) (2024-06-26)
+
+
+### Bug Fixes
+
+* **MWPW-152287:** Fixes filters backwards compatibility ([7ba2272](https://github.com/adobecom/caas/commit/7ba2272e28cbc0b687a0d5033862fcdbd6094028))
+* **MWPW-152338:** handles &s in custom localized custom filters ([4f66c56](https://github.com/adobecom/caas/commit/4f66c56e264b09b511fd9034a5ae39e31a7ceb8f))
+
+
+### Features
+
+* **MWPW-152287:** Adds suport for Events custom banners ([ad472da](https://github.com/adobecom/caas/commit/ad472da6360c21399c83b9731d8a327725da1188))
+
 ## [0.13.1](https://github.com/adobecom/caas/compare/0.13.0...0.13.1) (2024-06-06)
 
 
