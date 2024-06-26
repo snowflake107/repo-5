@@ -167,7 +167,7 @@ const Item = (props) => {
      * Impression Tracking
      */
     const filterName = `${name} ${isOpened ? 'Close' : 'Open'}`;
-    const showFilter = id !== 'caas:products';
+    const showFilter = id !== 'caas:all-products';
 
     return (
         <div
@@ -198,7 +198,7 @@ const Item = (props) => {
                             id={`${id}-link`}
                             onClick={handleClick}
                             tabIndex="0">
-                            {name}
+                            {name && name.replaceAll('&amp;', '&')}
                             <div
                                 className="consonant-LeftFilter-selectedItemsQty"
                                 data-qty={dataQtyTxt}>

@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.13.0 (6/6/2024, 08:59:58)
+ * Chimera UI Libraries - Build 0.13.1 (6/26/2024, 19:04:09)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -6211,10 +6211,6 @@ var Container = function Container(props) {
     var cardStyle = getConfig('collection', 'cardStyle');
     var title = getConfig('collection', 'i18n.title');
     var headers = getConfig('headers', '');
-    // eslint-disable-next-line no-use-before-define
-    var categories = getConfig('filterPanel', 'categories');
-    // eslint-disable-next-line no-use-before-define
-    var authoredCategories = getAuthoredCategories(authoredFilters, categories);
 
     /**
      **** Constants ****
@@ -6224,6 +6220,11 @@ var Container = function Container(props) {
     var isCarouselContainer = authoredLayoutContainer === _constants.LAYOUT_CONTAINER.CAROUSEL;
     var isStandardContainer = authoredLayoutContainer !== _constants.LAYOUT_CONTAINER.CAROUSEL;
     var isCategoriesContainer = authoredLayoutContainer === _constants.LAYOUT_CONTAINER.CATEGORIES;
+
+    // eslint-disable-next-line no-use-before-define
+    var categories = getConfig('filterPanel', 'categories');
+    // eslint-disable-next-line no-use-before-define, max-len
+    var authoredCategories = isCategoriesContainer ? getAuthoredCategories(authoredFilters, categories) : [];
 
     /**
      **** Hooks ****
@@ -6955,12 +6956,14 @@ var Container = function Container(props) {
                 return tag.id;
             });
         })));
+
         var timingTags = [_constants.EVENT_TIMING_IDS.LIVE, _constants.EVENT_TIMING_IDS.ONDEMAND, _constants.EVENT_TIMING_IDS.UPCOMING];
 
         return allFilters.map(function (filter) {
             return _extends({}, filter, {
                 items: filter.items.filter(function (item) {
-                    return tags.includes(item.id) || timingTags.includes(item.id);
+                    return tags.includes(item.id) || tags.includes(item.label) || tags.toString().includes('/' + item.id) // ***** FIX  HERE *****
+                    || timingTags.includes(item.id);
                 })
             });
         }).filter(function (filter) {
@@ -7140,24 +7143,45 @@ var Container = function Container(props) {
                     _removeDuplicateCards2 = _removeDuplicateCards.processedCards,
                     processedCards = _removeDuplicateCards2 === undefined ? [] : _removeDuplicateCards2;
 
-                setFilters(function (prevFilters) {
-                    return prevFilters.map(function (filter) {
-                        var group = filter.group,
-                            items = filter.items;
+                if (isCategoriesContainer) {
+                    setFilters(function (prevFilters) {
+                        return prevFilters.map(function (filter) {
+                            var group = filter.group,
+                                items = filter.items;
 
-                        var urlStateValue = urlState[filterGroupPrefix + group];
-                        if (!urlStateValue) return filter;
-                        var urlStateArray = urlStateValue.split(',');
-                        return _extends({}, filter, {
-                            opened: true,
-                            items: items.map(function (item) {
-                                return _extends({}, item, {
-                                    selected: urlStateArray.includes(String(item.label))
-                                });
-                            })
+                            var urlStateValue = urlState[filterGroupPrefix + group];
+                            if (!urlStateValue) return filter;
+                            var urlStateArray = urlStateValue.split(',');
+                            return _extends({}, filter, {
+                                opened: true,
+                                items: items.map(function (item) {
+                                    return _extends({}, item, {
+                                        selected: urlStateArray.includes(String(item.label))
+                                    });
+                                })
+                            });
                         });
                     });
-                });
+                } else {
+                    setFilters(function () {
+                        return authoredFilters.map(function (filter) {
+                            var group = filter.group,
+                                items = filter.items;
+
+                            var urlStateValue = urlState[filterGroupPrefix + group];
+                            if (!urlStateValue) return filter;
+                            var urlStateArray = urlStateValue.split(',');
+                            return _extends({}, filter, {
+                                opened: true,
+                                items: items.map(function (item) {
+                                    return _extends({}, item, {
+                                        selected: urlStateArray.includes(String(item.label))
+                                    });
+                                })
+                            });
+                        });
+                    });
+                }
 
                 var transitions = (0, _general.getTransitions)(processedCards);
                 if (sortOption.sort.toLowerCase() === 'eventsort') {
@@ -7525,6 +7549,7 @@ var Container = function Container(props) {
      *          Prepends the "All products" label to the list of categories
      */
     function getAllCategoryProducts() {
+        if (!authoredCategories) return [];
         var allCategories = [];
         var _iteratorNormalCompletion4 = true;
         var _didIteratorError4 = false;
@@ -7580,7 +7605,7 @@ var Container = function Container(props) {
 
         return {
             group: 'All products',
-            id: 'caas:products',
+            id: 'caas:all-products',
             items: allCategories
         };
     }
@@ -7669,10 +7694,13 @@ var Container = function Container(props) {
     });
 
     (0, _react.useEffect)(function () {
-        setFilters(function (prevFilters) {
-            var nextFilters = prevFilters.concat(getAllCategoryProducts());
-            return nextFilters;
-        });
+        if (isCategoriesContainer) {
+            setFilters(function (prevFilters) {
+                var nextFilters = prevFilters.concat(getAllCategoryProducts());
+                console.log('*** useEffect():nextFilters ***', nextFilters);
+                return nextFilters;
+            });
+        }
     }, []);
 
     return _react2.default.createElement(
@@ -46652,7 +46680,8 @@ var CardType = {
     modifiedDate: _propTypes.string,
     bannerMap: (0, _propTypes.shape)(Object).isRequired,
     tags: (0, _propTypes.arrayOf)((0, _propTypes.shape)(_card.tagsType)),
-    onFocus: _propTypes.func.isRequired
+    onFocus: _propTypes.func.isRequired,
+    origin: _propTypes.string
 };
 
 var defaultProps = {
@@ -46673,7 +46702,8 @@ var defaultProps = {
     startDate: '',
     endDate: '',
     modifiedDate: '',
-    tags: []
+    tags: [],
+    origin: ''
 };
 
 /**
@@ -46739,7 +46769,8 @@ var Card = function Card(props) {
         startDate = props.startDate,
         endDate = props.endDate,
         bannerMap = props.bannerMap,
-        onFocus = props.onFocus;
+        onFocus = props.onFocus,
+        origin = props.origin;
 
 
     var bannerBackgroundColorToUse = bannerBackgroundColor;
@@ -46805,6 +46836,12 @@ var Card = function Card(props) {
     var isRegistered = (0, _hooks.useRegistered)(false);
 
     /**
+     * isInPerson
+     * @type {Boolean}
+     */
+    var isInPerson = (0, _Helpers.hasTag)(/events\/session-format\/in-person/, tags);
+
+    /**
      * Extends infobits with the configuration data
      * @param {Array} data - Array of the infobits
      * @return {Array} - Array of the infobits with the configuration data added
@@ -46860,6 +46897,9 @@ var Card = function Card(props) {
     var showFooter = isOneHalf || isProduct || isText;
     var showFooterLeft = !isProduct;
     var showFooterCenter = !isProduct;
+    var isEventsCard = origin === 'Events';
+    var hideBanner = false;
+    var eventBanner = '';
 
     if (isHalfHeight && isGated && !isRegistered) {
         bannerDescriptionToUse = bannerMap.register.description;
@@ -46869,7 +46909,7 @@ var Card = function Card(props) {
         videoURLToUse = registrationUrl;
         gateVideo = true;
     } else if (startDate && endDate) {
-        var eventBanner = (0, _general.getEventBanner)(startDate, endDate, bannerMap);
+        eventBanner = (0, _general.getEventBanner)(startDate, endDate, bannerMap);
         bannerBackgroundColorToUse = eventBanner.backgroundColor;
         bannerDescriptionToUse = eventBanner.description;
         bannerFontColorToUse = eventBanner.fontColor;
@@ -46882,7 +46922,14 @@ var Card = function Card(props) {
         }
     }
 
-    var hasBanner = bannerDescriptionToUse && bannerFontColorToUse && bannerBackgroundColorToUse;
+    // Events card custom banners
+    if (isEventsCard) {
+        hideBanner = isInPerson && eventBanner === bannerMap.onDemand;
+        bannerDescriptionToUse = eventBanner === bannerMap.live ? 'Live Today' : bannerDescriptionToUse;
+    }
+
+    var hasBanner = bannerDescriptionToUse && bannerFontColorToUse && bannerBackgroundColorToUse && !hideBanner;
+
     var headingAria = videoURL || label || detailText || description || logoSrc || badgeText || hasBanner && !disableBanners || !isIcon ? '' : title;
 
     var ariaText = title;
@@ -53500,7 +53547,7 @@ var Group = function Group(props) {
     var mobileGroupApplyBtnText = getConfig('filterPanel', 'i18n.topPanel.mobile.group.applyBtnText');
     var mobileGroupDoneBtnText = getConfig('filterPanel', 'i18n.topPanel.mobile.group.doneBtnText');
     var isCategoriesPage = getConfig('collection', 'layout.container') === 'categories';
-    var isProductsFilter = id === 'caas:products';
+    var isProductsFilter = id === 'caas:all-products';
 
     var showFilter = isCategoriesPage && isProductsFilter || isCategoriesPage && !id.startsWith('caas:product-categories') // don't show product filters
     || isCategoriesPage && id.includes(name) // include custom product filter
@@ -54420,7 +54467,7 @@ var Item = function Item(props) {
      * Impression Tracking
      */
     var filterName = name + ' ' + (isOpened ? 'Close' : 'Open');
-    var showFilter = id !== 'caas:products';
+    var showFilter = id !== 'caas:all-products';
 
     return _react2.default.createElement(
         'div',
@@ -54454,7 +54501,7 @@ var Item = function Item(props) {
                         id: id + '-link',
                         onClick: handleClick,
                         tabIndex: '0' },
-                    name,
+                    name && name.replaceAll('&amp;', '&'),
                     _react2.default.createElement(
                         'div',
                         {
@@ -54570,7 +54617,7 @@ var Items = function Items(props) {
                         'span',
                         {
                             className: 'consonant-LeftFilter-itemsItemName' },
-                        item.label
+                        item.label && item.label.toString().replaceAll('&amp;', '&')
                     )
                 )
             );
@@ -54818,7 +54865,7 @@ var ChosenFilterItem = function ChosenFilterItem(props) {
             'data-testid': 'consonant-ChosenFilter',
             className: 'consonant-ChosenFilter',
             tabIndex: '0' },
-        name
+        name.replaceAll('&amp;', '&')
     );
 };
 

@@ -154,10 +154,6 @@ const Container = (props) => {
     const cardStyle = getConfig('collection', 'cardStyle');
     const title = getConfig('collection', 'i18n.title');
     const headers = getConfig('headers', '');
-    // eslint-disable-next-line no-use-before-define
-    const categories = getConfig('filterPanel', 'categories');
-    // eslint-disable-next-line no-use-before-define
-    const authoredCategories = getAuthoredCategories(authoredFilters, categories);
 
     /**
      **** Constants ****
@@ -167,6 +163,11 @@ const Container = (props) => {
     const isCarouselContainer = authoredLayoutContainer === LAYOUT_CONTAINER.CAROUSEL;
     const isStandardContainer = authoredLayoutContainer !== LAYOUT_CONTAINER.CAROUSEL;
     const isCategoriesContainer = authoredLayoutContainer === LAYOUT_CONTAINER.CATEGORIES;
+
+    // eslint-disable-next-line no-use-before-define
+    const categories = getConfig('filterPanel', 'categories');
+    // eslint-disable-next-line no-use-before-define, max-len
+    const authoredCategories = isCategoriesContainer ? getAuthoredCategories(authoredFilters, categories) : [];
 
     /**
      **** Hooks ****
@@ -735,6 +736,7 @@ const Container = (props) => {
 
     const removeEmptyFilters = (allFilters, cardsFromJson) => {
         const tags = [].concat(...cardsFromJson.map(card => card.tags.map(tag => tag.id)));
+
         const timingTags = [
             EVENT_TIMING_IDS.LIVE,
             EVENT_TIMING_IDS.ONDEMAND,
@@ -743,8 +745,10 @@ const Container = (props) => {
 
         return allFilters.map(filter => ({
             ...filter,
-            items: filter.items.filter(item => tags.includes(item.id) ||
-                timingTags.includes(item.id)),
+            items: filter.items.filter(item => tags.includes(item.id)
+            || tags.includes(item.label)
+            || tags.toString().includes(`/${item.id}`) // ***** FIX  HERE *****
+            || timingTags.includes(item.id)),
         })).filter(filter => filter.items.length > 0);
     };
 
@@ -851,20 +855,37 @@ const Container = (props) => {
                             hideCtaIds,
                             hideCtaTags,
                         );
-                    setFilters(prevFilters => prevFilters.map((filter) => {
-                        const { group, items } = filter;
-                        const urlStateValue = urlState[filterGroupPrefix + group];
-                        if (!urlStateValue) return filter;
-                        const urlStateArray = urlStateValue.split(',');
-                        return {
-                            ...filter,
-                            opened: true,
-                            items: items.map(item => ({
-                                ...item,
-                                selected: urlStateArray.includes(String(item.label)),
-                            })),
-                        };
-                    }));
+                    if (isCategoriesContainer) {
+                        setFilters(prevFilters => prevFilters.map((filter) => {
+                            const { group, items } = filter;
+                            const urlStateValue = urlState[filterGroupPrefix + group];
+                            if (!urlStateValue) return filter;
+                            const urlStateArray = urlStateValue.split(',');
+                            return {
+                                ...filter,
+                                opened: true,
+                                items: items.map(item => ({
+                                    ...item,
+                                    selected: urlStateArray.includes(String(item.label)),
+                                })),
+                            };
+                        }));
+                    } else {
+                        setFilters(() => authoredFilters.map((filter) => {
+                            const { group, items } = filter;
+                            const urlStateValue = urlState[filterGroupPrefix + group];
+                            if (!urlStateValue) return filter;
+                            const urlStateArray = urlStateValue.split(',');
+                            return {
+                                ...filter,
+                                opened: true,
+                                items: items.map(item => ({
+                                    ...item,
+                                    selected: urlStateArray.includes(String(item.label)),
+                                })),
+                            };
+                        }));
+                    }
 
                     const transitions = getTransitions(processedCards);
                     if (sortOption.sort.toLowerCase() === 'eventsort') {
@@ -1236,6 +1257,7 @@ const Container = (props) => {
      *          Prepends the "All products" label to the list of categories
      */
     function getAllCategoryProducts() {
+        if (!authoredCategories) return [];
         let allCategories = [];
         for (const category of authoredCategories) {
             if (category && category.items) {
@@ -1245,9 +1267,10 @@ const Container = (props) => {
                 allCategories = allCategories.concat(category.items);
             }
         }
+
         return {
             group: 'All products',
-            id: 'caas:products',
+            id: 'caas:all-products',
             items: allCategories,
         };
     }
@@ -1311,10 +1334,13 @@ const Container = (props) => {
     });
 
     useEffect(() => {
-        setFilters((prevFilters) => {
-            const nextFilters = prevFilters.concat(getAllCategoryProducts());
-            return nextFilters;
-        });
+        if (isCategoriesContainer) {
+            setFilters((prevFilters) => {
+                const nextFilters = prevFilters.concat(getAllCategoryProducts());
+                console.log('*** useEffect():nextFilters ***', nextFilters);
+                return nextFilters;
+            });
+        }
     }, []);
 
     return (
