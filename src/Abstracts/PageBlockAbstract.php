@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Event;
 use Creode\NovaPageBuilder\Events\PageContentEvent;
 use Creode\NovaPageBuilder\Events\PageContentBlockViewsEvent;
 use Creode\NovaPageBuilder\Events\PageContentBlockAttributesEvent;
+use Modules\Pages\app\Models\Page;
 
 /**
  * Page Block class used to define a Page Block.
@@ -73,9 +74,12 @@ abstract class PageBlockAbstract
     /**
      * Determines if to register this function under certain conditions.
      *
+     * @param PageContentEvent $pageContentEvent
+     *
      * @return boolean
      */
-    protected function shouldRegister(): bool {
+    protected function shouldRegister(PageContentEvent $pageContentEvent): bool
+    {
         return true;
     }
 
