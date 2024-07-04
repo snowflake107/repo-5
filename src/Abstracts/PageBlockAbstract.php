@@ -3,7 +3,6 @@
 namespace Creode\NovaPageBuilder\Abstracts;
 
 use Illuminate\Support\Facades\Event;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Creode\NovaPageBuilder\Events\PageContentEvent;
 use Creode\NovaPageBuilder\Events\PageContentBlockViewsEvent;
 use Creode\NovaPageBuilder\Events\PageContentBlockAttributesEvent;
