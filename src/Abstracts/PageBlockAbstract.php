@@ -2,10 +2,11 @@
 
 namespace Creode\NovaPageBuilder\Abstracts;
 
-use Creode\NovaPageBuilder\Events\PageContentBlockAttributesEvent;
 use Illuminate\Support\Facades\Event;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Creode\NovaPageBuilder\Events\PageContentEvent;
 use Creode\NovaPageBuilder\Events\PageContentBlockViewsEvent;
+use Creode\NovaPageBuilder\Events\PageContentBlockAttributesEvent;
 
 /**
  * Page Block class used to define a Page Block.
@@ -71,6 +72,15 @@ abstract class PageBlockAbstract
     }
 
     /**
+     * Determines if to register this function under certain conditions.
+     *
+     * @return boolean
+     */
+    protected function shouldRegister(): bool {
+        return true;
+    }
+
+    /**
      * Sets fields for this block.
      *
      * @return void
@@ -89,6 +99,10 @@ abstract class PageBlockAbstract
     {
         Event::listen(
             function (PageContentEvent $pageContentEvent) {
+                if (!$this->shouldRegister($pageContentEvent)) {
+                    return;
+                }
+
                 $pageContentEvent->content->addLayout(
                     $this->label,
                     $this->name,
