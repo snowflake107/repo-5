@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.13.1 (6/26/2024, 19:04:09)
+ * Chimera UI Libraries - Build 0.14.0 (7/12/2024, 14:33:13)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -7697,7 +7697,6 @@ var Container = function Container(props) {
         if (isCategoriesContainer) {
             setFilters(function (prevFilters) {
                 var nextFilters = prevFilters.concat(getAllCategoryProducts());
-                console.log('*** useEffect():nextFilters ***', nextFilters);
                 return nextFilters;
             });
         }
