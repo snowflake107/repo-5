@@ -1337,7 +1337,6 @@ const Container = (props) => {
         if (isCategoriesContainer) {
             setFilters((prevFilters) => {
                 const nextFilters = prevFilters.concat(getAllCategoryProducts());
-                console.log('*** useEffect():nextFilters ***', nextFilters);
                 return nextFilters;
             });
         }
