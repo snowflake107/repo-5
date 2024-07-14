@@ -19,6 +19,7 @@ func initConfig() (*args.Args, error) {
 	pflag.String("spaceId", "", "Octopus Space ID")
 	pflag.String("apiKey", "", "Octopus API Key")
 	pflag.String("libraryVariableSet", "", "Octopus Library Variable Set")
+	pflag.Bool("allLibraryVariableSets", false, "Spread all library variable sets")
 	pflag.Bool("haveDoneBackup", false, "Confirm that a backup has been done")
 	pflag.Bool("haveVerifiedBackup", false, "Confirm that a backup has been verified")
 	pflag.Parse()
@@ -65,11 +66,36 @@ func main() {
 		return
 	}
 
-	err = spreadVariables(client, parsedArgs)
+	if parsedArgs.AllLibraryVariableSets {
+		libraryVariableSets, err := client.LibraryVariableSets.GetAll()
 
-	if err != nil {
-		fmt.Printf("Error creating client: %v\n", err)
-		return
+		if err != nil {
+			fmt.Printf("Error creating client: %v\n", err)
+			return
+		}
+
+		for _, libraryVariableSet := range libraryVariableSets {
+			err = spreadVariables(client, parsedArgs, libraryVariableSet)
+
+			if err != nil {
+				fmt.Printf("Error creating client: %v\n", err)
+				return
+			}
+		}
+	} else {
+		libraryVariableSet, err := getExactLibraryVariableSet(client, parsedArgs)
+
+		if err != nil {
+			fmt.Printf("Error creating client: %v\n", err)
+			return
+		}
+
+		err = spreadVariables(client, parsedArgs, libraryVariableSet)
+
+		if err != nil {
+			fmt.Printf("Error creating client: %v\n", err)
+			return
+		}
 	}
 }
 
@@ -176,13 +202,7 @@ func buildUniqueVariableName(variable *variables.Variable, usedNamed []string) s
 	return name
 }
 
-func spreadVariables(client *client.Client, parsedArgs *args.Args) error {
-	libraryVariableSet, err := getExactLibraryVariableSet(client, parsedArgs)
-
-	if err != nil {
-		return err
-	}
-
+func spreadVariables(client *client.Client, parsedArgs *args.Args, libraryVariableSet *variables.LibraryVariableSet) error {
 	variableSet, err := variables.GetVariableSet(client, client.GetSpaceID(), libraryVariableSet.VariableSetID)
 
 	if err != nil {
