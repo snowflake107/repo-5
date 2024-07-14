@@ -109,7 +109,7 @@ func getExactLibraryVariableSet(client *client.Client, parsedArgs *args.Args) (*
 }
 
 func findSecretVariablesWithSharedNameAndScoped(variableSet *variables.VariableSet) ([]string, error) {
-	variableCount := map[string]int{}
+	groupedVariables := []string{}
 	for _, variable := range variableSet.Variables {
 		if !variable.IsSensitive {
 			continue
@@ -129,18 +129,7 @@ func findSecretVariablesWithSharedNameAndScoped(variableSet *variables.VariableS
 			continue
 		}
 
-		if _, ok := variableCount[variable.Name]; !ok {
-			variableCount[variable.Name] = 1
-		} else {
-			variableCount[variable.Name]++
-		}
-	}
-
-	groupedVariables := []string{}
-	for variable, count := range variableCount {
-		if count > 1 {
-			groupedVariables = append(groupedVariables, variable)
-		}
+		groupedVariables = append(groupedVariables, variable.Name)
 	}
 
 	return groupedVariables, nil
