@@ -248,6 +248,10 @@ func spreadVariables(client *client.Client, parsedArgs *args.Args) error {
 			fmt.Println("Recreating " + referenceVar.Name + " referencing " + reference)
 
 			_, err = variables.AddSingle(client, client.GetSpaceID(), libraryVariableSet.ID, &referenceVar)
+
+			if err != nil {
+				return err
+			}
 		}
 	}
 
