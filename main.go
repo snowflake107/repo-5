@@ -225,8 +225,27 @@ func spreadVariables(client *client.Client, parsedArgs *args.Args, libraryVariab
 			// Copy the original variable
 			originalVar := *variable
 
-			// Update the original variable with the new name and no scopes
+			// Get a unique name
 			uniqueName := buildUniqueVariableName(variable, usedNames)
+
+			// Create a new variable with the original name and scopes referencing the new unscoped variable
+			referenceVar := originalVar
+
+			referenceVar.IsSensitive = false
+			referenceVar.Type = "String"
+			referenceVar.ID = ""
+			reference := "#{" + uniqueName + "}"
+			referenceVar.Value = &reference
+
+			fmt.Println("Recreating " + referenceVar.Name + " referencing " + reference)
+
+			_, err = variables.AddSingle(client, client.GetSpaceID(), libraryVariableSet.ID, &referenceVar)
+
+			if err != nil {
+				return err
+			}
+
+			// Update the original variable with the new name and no scopes
 			originalName := variable.Name
 			usedNames = append(usedNames, uniqueName)
 
@@ -240,23 +259,6 @@ func spreadVariables(client *client.Client, parsedArgs *args.Args, libraryVariab
 			variable.Scope = variables.VariableScope{}
 
 			_, err := variables.UpdateSingle(client, client.GetSpaceID(), libraryVariableSet.ID, variable)
-
-			if err != nil {
-				return err
-			}
-
-			// Create a new variable with the original name and referencing the new unscoped variable
-			referenceVar := originalVar
-
-			referenceVar.IsSensitive = false
-			referenceVar.Type = "String"
-			referenceVar.ID = ""
-			reference := "#{" + uniqueName + "}"
-			referenceVar.Value = &reference
-
-			fmt.Println("Recreating " + referenceVar.Name + " referencing " + reference)
-
-			_, err = variables.AddSingle(client, client.GetSpaceID(), libraryVariableSet.ID, &referenceVar)
 
 			if err != nil {
 				return err
