@@ -250,19 +250,20 @@ func spreadVariables(client *client.Client, libraryVariableSet *variables.Librar
 			// Create a new variable with the original name and scopes referencing the new unscoped variable
 			referenceVar := originalVar
 
-			referenceVar.IsSensitive = false
-			referenceVar.Type = "String"
-			referenceVar.ID = ""
-			reference := "#{" + uniqueName + "}"
-			referenceVar.Value = &reference
-
 			jsonData, err := json.Marshal(referenceVar.Scope)
 			if err != nil {
 				return err
 			}
 
 			// Note the original scope of this variable
+			referenceVar.Description += "\n\nReplaced variable ID\n\n" + referenceVar.ID
 			referenceVar.Description += "\n\nOriginal Scope\n\n" + string(jsonData)
+
+			referenceVar.IsSensitive = false
+			referenceVar.Type = "String"
+			referenceVar.ID = ""
+			reference := "#{" + uniqueName + "}"
+			referenceVar.Value = &reference
 
 			fmt.Println("Recreating " + referenceVar.Name + " referencing " + reference)
 
