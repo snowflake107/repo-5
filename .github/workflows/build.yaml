@@ -1,0 +1,100 @@
+permissions:
+  id-token: write
+  checks: write
+  contents: write
+  packages: write
+
+
+name: Go Build
+'on':
+  workflow_dispatch: {}
+  push:
+    paths-ignore:
+      - '**/*.md'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    needs: [ tests-combine-summaries ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v8
+      - name: Set up Go
+        uses: actions/setup-go@v3
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.15
+        with:
+          versionSpec: 5.x
+      - id: determine_version
+        name: Determine Version
+        uses: gittools/actions/gitversion/execute@v0.9.15
+        with:
+          additionalArguments: /overrideconfig mode=Mainline
+      - name: Install Octopus Deploy CLI
+        uses: OctopusDeploy/install-octopus-cli-action@v1
+        with:
+          version: latest
+      - name: Install Dependencies
+        run: go get ./...
+        shell: bash
+      - name: List Dependencies
+        run: go list -m all > dependencies.txt
+        shell: bash
+      - name: Collect Dependencies
+        uses: actions/upload-artifact@v3
+        with:
+          name: Dependencies
+          path: dependencies.txt
+      - name: List Dependency Updates
+        run: go list -u -m -f "{{if .Update}}{{.}}{{end}}" all > dependencyUpdates.txt
+        shell: bash
+      - name: Collect Dependency Updates
+        uses: actions/upload-artifact@v3
+        with:
+          name: Dependencies Updates
+          path: dependencyUpdates.txt
+      - name: Generate SBOM
+        uses: CycloneDX/gh-gomod-generate-sbom@v2
+        with:
+          version: v1
+          args: mod -licenses -json -output functions/bom.json
+      - run: go build -ldflags="-X 'main.Version=${{ steps.determine_version.outputs.semVer }}'" -o octopus_var_spreader main.go
+        env:
+          GOOS: linux
+          GOARCH: amd64
+          CGO_ENABLED: 0
+      - run: go build -ldflags="-X 'main.Version=${{ steps.determine_version.outputs.semVer }}'" -o octoterra_windows_amd64.exe main.go
+        env:
+          GOOS: windows
+          GOARCH: amd64
+          CGO_ENABLED: 0
+      - run: go build -ldflags="-X 'main.Version=${{ steps.determine_version.outputs.semVer }}'" -o octoterra_macos_amd64 main.go
+        env:
+          GOOS: darwin
+          GOARCH: amd64
+          CGO_ENABLED: 0
+      - run: go build -ldflags="-X 'main.Version=${{ steps.determine_version.outputs.semVer }}'" -o octopus_var_spreader_macos_arm64 main.go
+        env:
+          GOOS: darwin
+          GOARCH: arm64
+          CGO_ENABLED: 0
+      - name: Tag Release
+        uses: mathieudutour/github-tag-action@v6.1
+        continue-on-error: true
+        with:
+          custom_tag: ${{ steps.determine_version.outputs.semVer }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v1
+        continue-on-error: true
+        with:
+          tag_name: ${{ steps.determine_version.outputs.semVer }}+run${{ github.run_number }}-attempt${{ github.run_attempt }}
+          files: |
+            octopus_var_spreader_linux_amd64
+            octopus_var_spreader_windows_amd64.exe
+            octopus_var_spreader_macos_amd64
+            octopus_var_spreader_macos_arm64
