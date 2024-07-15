@@ -57,7 +57,7 @@ jobs:
         with:
           version: v1
           args: mod -licenses -json -output bom.json
-      - run: go build -ldflags="-X 'main.Version=${{ steps.determine_version.outputs.semVer }}'" -o octopus_var_spreader main.go
+      - run: go build -ldflags="-X 'main.Version=${{ steps.determine_version.outputs.semVer }}'" -o octopus_var_spreader_linux_amd64 main.go
         env:
           GOOS: linux
           GOARCH: amd64
