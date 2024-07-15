@@ -48,12 +48,12 @@ func main() {
 	}
 
 	if !parsedArgs.HaveDoneBackup {
-		fmt.Println("Pass the --haveDoneBackup argument to confirm you have performed a backup before running this program. Use the -haveDoneBackup flag to confirm that you have performed a backup of your Octopus instance.")
+		fmt.Println("Pass the --haveDoneBackup argument to confirm you have performed a backup of your Octopus instance before running this program.")
 		return
 	}
 
 	if !parsedArgs.HaveVerifiedBackup {
-		fmt.Println("Pass the --haveVerifiedBackup argument to confirm you have verified that any backup you have of the Octopus instance can be successfully used to restore your Octopus instance. Use the -haveVerifiedBackup flag to confirm that you have verified your backup of your Octopus instance.")
+		fmt.Println("Pass the --haveVerifiedBackup argument to confirm you have verified that any backup you have of the Octopus instance can be successfully used to restore your Octopus instance.")
 		return
 	}
 
