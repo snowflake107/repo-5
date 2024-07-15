@@ -23,7 +23,7 @@ Imagine you have a library variable set like this, with two variables scoped to 
 
 ![](example1.png)
 
-There is no way to the value of both secret variables made available to a step deploying a Terraform module. We need to spread these variables so that each sensitive variable has a unique name, while retaining the original variable called `DatabasePassword` with the original scopes.
+There is no way for the value of both secret variables made available to a step deploying a Terraform module. We need to spread these variables so that each sensitive variable has a unique name, while retaining the original variable called `DatabasePassword` with the original scopes.
 
 Running this tool against the library variable set results in these variables:
 
