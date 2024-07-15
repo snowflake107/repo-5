@@ -62,7 +62,7 @@ func main() {
 	client, err := createClient(parsedArgs)
 
 	if err != nil {
-		fmt.Printf("Error creating client: %v\n", err)
+		handleError(err)
 		return
 	}
 
@@ -70,15 +70,22 @@ func main() {
 		libraryVariableSets, err := client.LibraryVariableSets.GetAll()
 
 		if err != nil {
-			fmt.Printf("Error creating client: %v\n", err)
+			handleError(err)
 			return
 		}
 
 		for _, libraryVariableSet := range libraryVariableSets {
-			err = spreadVariables(client, parsedArgs, libraryVariableSet)
+			variableSet, err := variables.GetVariableSet(client, client.GetSpaceID(), libraryVariableSet.VariableSetID)
 
 			if err != nil {
-				fmt.Printf("Error creating client: %v\n", err)
+				handleError(err)
+				return
+			}
+
+			err = spreadVariables(client, libraryVariableSet, variableSet)
+
+			if err != nil {
+				handleError(err)
 				return
 			}
 		}
@@ -86,17 +93,28 @@ func main() {
 		libraryVariableSet, err := getExactLibraryVariableSet(client, parsedArgs)
 
 		if err != nil {
-			fmt.Printf("Error creating client: %v\n", err)
+			handleError(err)
 			return
 		}
 
-		err = spreadVariables(client, parsedArgs, libraryVariableSet)
+		variableSet, err := variables.GetVariableSet(client, client.GetSpaceID(), libraryVariableSet.VariableSetID)
 
 		if err != nil {
-			fmt.Printf("Error creating client: %v\n", err)
+			handleError(err)
+			return
+		}
+
+		err = spreadVariables(client, libraryVariableSet, variableSet)
+
+		if err != nil {
+			handleError(err)
 			return
 		}
 	}
+}
+
+func handleError(err error) {
+	fmt.Printf("Error creating client: %v\n", err)
 }
 
 func createClient(parsedArgs *args.Args) (*client.Client, error) {
@@ -202,13 +220,7 @@ func buildUniqueVariableName(variable *variables.Variable, usedNamed []string) s
 	return name
 }
 
-func spreadVariables(client *client.Client, parsedArgs *args.Args, libraryVariableSet *variables.LibraryVariableSet) error {
-	variableSet, err := variables.GetVariableSet(client, client.GetSpaceID(), libraryVariableSet.VariableSetID)
-
-	if err != nil {
-		return err
-	}
-
+func spreadVariables(client *client.Client, libraryVariableSet *variables.LibraryVariableSet, variableSet *variables.VariableSet) error {
 	groupedVariables, err := findSecretVariablesWithSharedNameAndScoped(variableSet)
 
 	if err != nil {
