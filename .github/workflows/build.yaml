@@ -62,12 +62,12 @@ jobs:
           GOOS: linux
           GOARCH: amd64
           CGO_ENABLED: 0
-      - run: go build -ldflags="-X 'main.Version=${{ steps.determine_version.outputs.semVer }}'" -o octoterra_windows_amd64.exe main.go
+      - run: go build -ldflags="-X 'main.Version=${{ steps.determine_version.outputs.semVer }}'" -o octopus_var_spreader_windows_amd64.exe main.go
         env:
           GOOS: windows
           GOARCH: amd64
           CGO_ENABLED: 0
-      - run: go build -ldflags="-X 'main.Version=${{ steps.determine_version.outputs.semVer }}'" -o octoterra_macos_amd64 main.go
+      - run: go build -ldflags="-X 'main.Version=${{ steps.determine_version.outputs.semVer }}'" -o octopus_var_spreader_macos_amd64 main.go
         env:
           GOOS: darwin
           GOARCH: amd64
