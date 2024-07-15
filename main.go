@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/OctopusDeploy/go-octopusdeploy/v2/pkg/client"
@@ -255,6 +256,14 @@ func spreadVariables(client *client.Client, libraryVariableSet *variables.Librar
 			reference := "#{" + uniqueName + "}"
 			referenceVar.Value = &reference
 
+			jsonData, err := json.Marshal(referenceVar.Scope)
+			if err != nil {
+				return err
+			}
+
+			// Note the original scope of this variable
+			referenceVar.Description += "\n\nOriginal Scope\n\n" + string(jsonData)
+
 			fmt.Println("Recreating " + referenceVar.Name + " referencing " + reference)
 
 			_, err = variables.AddSingle(client, client.GetSpaceID(), libraryVariableSet.ID, &referenceVar)
@@ -273,10 +282,20 @@ func spreadVariables(client *client.Client, libraryVariableSet *variables.Librar
 
 			fmt.Println("Renaming " + originalName + " to " + uniqueName + " and removing scopes")
 
+			jsonData, err = json.Marshal(variable.Scope)
+			if err != nil {
+				return err
+			}
+
+			// Note the original scope of this variable
+			referenceVar.Description += "\n\nOriginal Name\n\n" + variable.Name
+			// Note the original scope of this variable
+			referenceVar.Description += "\n\nOriginal Scope\n\n" + string(jsonData)
+
 			variable.Name = uniqueName
 			variable.Scope = variables.VariableScope{}
 
-			_, err := variables.UpdateSingle(client, client.GetSpaceID(), libraryVariableSet.ID, variable)
+			_, err = variables.UpdateSingle(client, client.GetSpaceID(), libraryVariableSet.ID, variable)
 
 			if err != nil {
 				return err
