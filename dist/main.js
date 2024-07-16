@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.14.1 (7/12/2024, 13:27:43)
+ * Chimera UI Libraries - Build 0.14.1 (7/16/2024, 11:30:06)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -276,7 +276,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.getGlobalNavHeight = exports.getLinkTarget = exports.getEventBanner = exports.getCurrentDate = exports.isDateBeforeInterval = exports.isDateWithinInterval = exports.qs = exports.mergeDeep = exports.setByPath = exports.debounce = exports.getSelectedItemsCount = exports.getByPath = exports.template = exports.getEndNumber = exports.getStartNumber = exports.getPageStartEnd = exports.generateRange = exports.stopPropagation = exports.isAtleastOneFilterSelected = exports.isNullish = exports.parseToPrimitive = exports.isObject = exports.mapObject = exports.sanitizeText = exports.sortByKey = exports.intersection = exports.isSuperset = exports.chainFromIterable = exports.chain = exports.removeDuplicatesByKey = exports.truncateList = exports.truncateString = exports.readInclusionsFromLocalStorage = exports.readBookmarksFromLocalStorage = exports.saveBookmarksToLocalStorage = undefined;
+exports.getGlobalNavHeight = exports.getLinkTarget = exports.getEventBanner = exports.getCurrentDate = exports.isDateAfterInterval = exports.isDateBeforeInterval = exports.isDateWithinInterval = exports.qs = exports.mergeDeep = exports.setByPath = exports.debounce = exports.getSelectedItemsCount = exports.getByPath = exports.template = exports.getEndNumber = exports.getStartNumber = exports.getPageStartEnd = exports.generateRange = exports.stopPropagation = exports.isAtleastOneFilterSelected = exports.isNullish = exports.parseToPrimitive = exports.isObject = exports.mapObject = exports.sanitizeText = exports.sortByKey = exports.intersection = exports.isSuperset = exports.chainFromIterable = exports.chain = exports.removeDuplicatesByKey = exports.truncateList = exports.truncateString = exports.readInclusionsFromLocalStorage = exports.readBookmarksFromLocalStorage = exports.saveBookmarksToLocalStorage = undefined;
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -845,6 +845,13 @@ var isDateBeforeInterval = exports.isDateBeforeInterval = function isDateBeforeI
     var start = Date.parse(startDate);
 
     return curr < start;
+};
+
+var isDateAfterInterval = exports.isDateAfterInterval = function isDateAfterInterval(currentDate, endDate) {
+    var curr = Date.parse(currentDate);
+    var end = Date.parse(endDate);
+
+    return curr > end;
 };
 
 var getCurrentDate = exports.getCurrentDate = function getCurrentDate() {
@@ -46793,6 +46800,7 @@ var Card = function Card(props) {
     var detailsTextOption = getConfig('collection', 'detailsTextOption');
     var lastModified = getConfig('collection', 'i18n.lastModified');
     var registrationUrl = getConfig('collection', 'banner.register.url');
+    var hideDateInterval = getConfig('collection', 'hideDateInterval');
 
     /**
      * Class name for the card:
@@ -46899,6 +46907,7 @@ var Card = function Card(props) {
     var isEventsCard = origin === 'Events';
     var hideBanner = false;
     var eventBanner = '';
+    var hideOnDemandDates = hideDateInterval && (0, _general.isDateAfterInterval)((0, _general.getCurrentDate)(), endDate);
 
     if (isHalfHeight && isGated && !isRegistered) {
         bannerDescriptionToUse = bannerMap.register.description;
@@ -47070,7 +47079,7 @@ var Card = function Card(props) {
                     divider: renderDivider || footerItem.divider,
                     isFluid: footerItem.isFluid,
                     key: (0, _cuid2.default)(),
-                    left: showFooterLeft ? extendFooterData(footerItem.left) : [],
+                    left: showFooterLeft && !hideOnDemandDates ? extendFooterData(footerItem.left) : [],
                     center: showFooterCenter ? extendFooterData(footerItem.center) : [],
                     right: extendFooterData(footerItem.right),
                     cardStyle: cardStyle,

@@ -474,6 +474,13 @@ export const isDateBeforeInterval = (currentDate, startDate) => {
     return curr < start;
 };
 
+export const isDateAfterInterval = (currentDate, endDate) => {
+    const curr = Date.parse(currentDate);
+    const end = Date.parse(endDate);
+
+    return curr > end;
+};
+
 export const getCurrentDate = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const servertime = parseInt(urlParams.get('servertime'), 10);

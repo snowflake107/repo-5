@@ -13,7 +13,7 @@ import CardFooter from './CardFooter/CardFooter';
 import prettyFormatDate from '../Helpers/prettyFormat';
 import { INFOBIT_TYPE } from '../Helpers/constants';
 import { hasTag } from '../Helpers/Helpers';
-import { getEventBanner, getLinkTarget, isDateBeforeInterval, getCurrentDate } from '../Helpers/general';
+import { getEventBanner, getLinkTarget, isDateBeforeInterval, isDateAfterInterval, getCurrentDate } from '../Helpers/general';
 import { useConfig, useRegistered } from '../Helpers/hooks';
 import {
     stylesType,
@@ -172,6 +172,7 @@ const Card = (props) => {
     const detailsTextOption = getConfig('collection', 'detailsTextOption');
     const lastModified = getConfig('collection', 'i18n.lastModified');
     const registrationUrl = getConfig('collection', 'banner.register.url');
+    const hideDateInterval = getConfig('collection', 'hideDateInterval');
 
     /**
      * Class name for the card:
@@ -286,6 +287,7 @@ const Card = (props) => {
     const isEventsCard = origin === 'Events';
     let hideBanner = false;
     let eventBanner = '';
+    const hideOnDemandDates = hideDateInterval && isDateAfterInterval(getCurrentDate(), endDate);
 
     if (isHalfHeight && isGated && !isRegistered) {
         bannerDescriptionToUse = bannerMap.register.description;
@@ -472,7 +474,8 @@ const Card = (props) => {
                         divider={renderDivider || footerItem.divider}
                         isFluid={footerItem.isFluid}
                         key={cuid()}
-                        left={showFooterLeft ? extendFooterData(footerItem.left) : []}
+                        left={(showFooterLeft && !hideOnDemandDates) ?
+                            extendFooterData(footerItem.left) : []}
                         center={showFooterCenter ? extendFooterData(footerItem.center) : []}
                         right={extendFooterData(footerItem.right)}
                         cardStyle={cardStyle}
