@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.14.2 (7/17/2024, 13:45:06)
+ * Chimera UI Libraries - Build 0.15.0 (7/23/2024, 15:11:12)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -46801,6 +46801,7 @@ var Card = function Card(props) {
     var lastModified = getConfig('collection', 'i18n.lastModified');
     var registrationUrl = getConfig('collection', 'banner.register.url');
     var hideDateInterval = getConfig('collection', 'hideDateInterval');
+    var showCardBadges = getConfig('collection', 'showCardBadges');
 
     /**
      * Class name for the card:
@@ -46896,7 +46897,8 @@ var Card = function Card(props) {
 
     // Card elements to show
     var showHeader = !isProduct;
-    var showBadge = isOneHalf || isThreeFourths || isFull;
+    var fromDexter = origin === 'Dexter';
+    var showBadge = (isOneHalf || isThreeFourths || isFull) && (fromDexter || showCardBadges);
     var showLogo = isOneHalf || isThreeFourths || isFull || isText;
     var showLabel = !isProduct && !isText;
     var showVideoButton = !isProduct && !isText && !isIcon;
