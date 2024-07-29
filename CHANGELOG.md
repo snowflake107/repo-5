@@ -1,5 +1,12 @@
 
 
+## [0.15.1](https://github.com/adobecom/caas/compare/0.15.0...0.15.1) (2024-07-29)
+
+
+### Bug Fixes
+
+* **mwpw-153704:** grids within tabs were defaulting to carousel mode ([c68e5f4](https://github.com/adobecom/caas/commit/c68e5f4bc46c928a2ffb9f5171de0fcaf662bb7d))
+
 # [0.15.0](https://github.com/adobecom/caas/compare/0.14.2...0.15.0) (2024-07-17)
 
 
