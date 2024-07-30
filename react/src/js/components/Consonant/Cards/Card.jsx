@@ -173,6 +173,7 @@ const Card = (props) => {
     const lastModified = getConfig('collection', 'i18n.lastModified');
     const registrationUrl = getConfig('collection', 'banner.register.url');
     const hideDateInterval = getConfig('collection', 'hideDateInterval');
+    const showCardBadges = getConfig('collection', 'showCardBadges');
 
     /**
      * Class name for the card:
@@ -276,7 +277,8 @@ const Card = (props) => {
 
     // Card elements to show
     const showHeader = !isProduct;
-    const showBadge = isOneHalf || isThreeFourths || isFull;
+    const fromDexter = origin === 'Dexter';
+    const showBadge = (isOneHalf || isThreeFourths || isFull) && (fromDexter || showCardBadges);
     const showLogo = isOneHalf || isThreeFourths || isFull || isText;
     const showLabel = !isProduct && !isText;
     const showVideoButton = !isProduct && !isText && !isIcon;

@@ -52,7 +52,7 @@ describe(`Consonant/Card/${cardStyle}`, () => {
         });
 
         const badgeElement = screen.queryByText(someBadgeText);
-        expect(badgeElement).not.toBeNull();
+        expect(badgeElement).toBeNull();
     });
 
     test('should be able to render a overlay banner', () => {
