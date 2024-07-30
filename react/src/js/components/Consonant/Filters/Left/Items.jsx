@@ -6,6 +6,7 @@ import {
 } from 'prop-types';
 
 import { filterItemType } from '../../types/config';
+import { sanitizeStr } from '../../Helpers/Helpers';
 
 const ItemsType = {
     handleCheck: func.isRequired,
@@ -57,7 +58,7 @@ const Items = (props) => {
                             className="consonant-LeftFilter-itemsItemCheckmark" />
                         <span
                             className="consonant-LeftFilter-itemsItemName">
-                            {item.label && item.label.toString().replaceAll('&amp;', '&')}
+                            {item.label && sanitizeStr(item.label.toString())}
                         </span>
                     </label>
                 </li>

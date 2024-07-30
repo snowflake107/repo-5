@@ -538,3 +538,19 @@ export const getFeaturedCards = (ids, cards) => {
     }
     return ans;
 };
+
+/**
+ * Returns an sanitized (html friendly) string
+ *
+ * If the string conatins '&amp;' it will be replaced with '&'
+ * if the string contains '&lt;' it will be replaced with '<'
+ * if the string contains '&gt;' it will be replaced with '>'
+ *
+ * @param {str} str - string to be sanitized
+ * @returns {str} - satinized string
+ */
+export const sanitizeStr = str => str
+    .replaceAll('&amp;', '&')
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>');
+

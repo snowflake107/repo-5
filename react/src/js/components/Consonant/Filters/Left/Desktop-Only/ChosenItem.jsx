@@ -3,6 +3,7 @@ import {
     string,
     func,
 } from 'prop-types';
+import { sanitizeStr } from '../../../Helpers/Helpers';
 
 const chosenFilterItemType = {
     id: string.isRequired,
@@ -51,7 +52,7 @@ const ChosenFilterItem = (props) => {
             data-testid="consonant-ChosenFilter"
             className="consonant-ChosenFilter"
             tabIndex="0">
-            {name.replaceAll('&amp;', '&')}
+            {sanitizeStr(name)}
         </button>
     );
 };
