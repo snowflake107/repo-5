@@ -7879,6 +7879,7 @@ var Container = function Container(props) {
                         atLeastOneCard && isCarouselContainer && !(cardStyle === 'custom-card') && _react2.default.createElement(_CardsCarousel2.default, {
                             resQty: gridCards.length,
                             cards: gridCards,
+                            role: 'tablist',
                             onCardBookmark: handleCardBookmarking }),
                         atLeastOneCard && isCarouselContainer && cardStyle === 'custom-card' && _react2.default.createElement(_View2.default, {
                             title: 'Not Supported',
