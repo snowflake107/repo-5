@@ -1,5 +1,13 @@
 
 
+# [0.16.0](https://github.com/adobecom/caas/compare/0.15.3...0.16.0) (2024-08-02)
+
+
+### Features
+
+* **mwpw-145210:** added role=tablist for carousels/accessibility ([ba31fd6](https://github.com/adobecom/caas/commit/ba31fd6401e0a50b08f86253d4419fb386512556))
+* **mwpw-145210:** rebuild project after rebase ([dfc1855](https://github.com/adobecom/caas/commit/dfc185561f9bec5789c4222912501690bd871449))
+
 ## [0.15.3](https://github.com/adobecom/caas/compare/0.15.2...0.15.3) (2024-08-02)
 
 ## [0.15.2](https://github.com/adobecom/caas/compare/0.15.1...0.15.2) (2024-07-30)
