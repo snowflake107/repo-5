@@ -1509,6 +1509,7 @@ const Container = (props) => {
                             <CardsCarousel
                                 resQty={gridCards.length}
                                 cards={gridCards}
+                                role="tablist"
                                 onCardBookmark={handleCardBookmarking} />
                             }
                             { atLeastOneCard && isCarouselContainer && (cardStyle === 'custom-card') &&
