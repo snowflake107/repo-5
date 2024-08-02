@@ -14,6 +14,7 @@ import { useConfig } from '../../Helpers/hooks';
 import { filterItemType } from '../../types/config';
 import { GroupFooter } from './Mobile-Only/GroupFooter';
 import { SelectedItem as DesktopSelectedItem } from './Desktop-Only/SelectedItem';
+import { sanitizeStr } from '../../Helpers/Helpers';
 
 const itemType = {
     icon: string,
@@ -198,7 +199,7 @@ const Item = (props) => {
                             id={`${id}-link`}
                             onClick={handleClick}
                             tabIndex="0">
-                            {name && name.replaceAll('&amp;', '&')}
+                            {name && sanitizeStr(name)}
                             <div
                                 className="consonant-LeftFilter-selectedItemsQty"
                                 data-qty={dataQtyTxt}>
