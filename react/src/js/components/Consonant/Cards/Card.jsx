@@ -44,6 +44,7 @@ const CardType = {
     hideCTA: bool,
     startDate: string,
     endDate: string,
+    cardDate: string,
     modifiedDate: string,
     bannerMap: shape(Object).isRequired,
     tags: arrayOf(shape(tagsType)),
@@ -68,6 +69,7 @@ const defaultProps = {
     hideCTA: false,
     startDate: '',
     endDate: '',
+    cardDate: '',
     modifiedDate: '',
     tags: [],
     origin: '',
@@ -102,6 +104,7 @@ const Card = (props) => {
         isBookmarked,
         onClick,
         dateFormat,
+        cardDate,
         modifiedDate,
         styles: {
             backgroundImage: image,
@@ -197,12 +200,15 @@ const Card = (props) => {
      * @type {String}
      */
     let detailText = prettyDate || label;
-    if (modifiedDate && detailsTextOption === 'modifiedDate') {
+    if (detailsTextOption === 'modifiedDate' && modifiedDate) {
         const localModifiedDate = new Date(modifiedDate);
-        // detailText = lastModified.replace('{date}', localModifiedDate.toLocaleDateString());
         detailText = lastModified
             && lastModified.replace('{date}', localModifiedDate.toLocaleDateString())
             || localModifiedDate.toLocaleDateString();
+    } else if (detailsTextOption === 'createdDate' && cardDate) {
+        console.log('cardDate', cardDate);
+        const localCreatedDate = new Date(cardDate);
+        detailText = localCreatedDate.toLocaleDateString();
     }
 
     /**

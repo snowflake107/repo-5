@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.15.2 (8/2/2024, 14:06:05)
+ * Chimera UI Libraries - Build 0.16.0 (8/5/2024, 09:58:28)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -46698,6 +46698,7 @@ var CardType = {
     hideCTA: _propTypes.bool,
     startDate: _propTypes.string,
     endDate: _propTypes.string,
+    cardDate: _propTypes.string,
     modifiedDate: _propTypes.string,
     bannerMap: (0, _propTypes.shape)(Object).isRequired,
     tags: (0, _propTypes.arrayOf)((0, _propTypes.shape)(_card.tagsType)),
@@ -46722,6 +46723,7 @@ var defaultProps = {
     hideCTA: false,
     startDate: '',
     endDate: '',
+    cardDate: '',
     modifiedDate: '',
     tags: [],
     origin: ''
@@ -46755,6 +46757,7 @@ var Card = function Card(props) {
         isBookmarked = props.isBookmarked,
         onClick = props.onClick,
         dateFormat = props.dateFormat,
+        cardDate = props.cardDate,
         modifiedDate = props.modifiedDate,
         _props$styles = props.styles,
         image = _props$styles.backgroundImage,
@@ -46840,10 +46843,13 @@ var Card = function Card(props) {
      * @type {String}
      */
     var detailText = prettyDate || label;
-    if (modifiedDate && detailsTextOption === 'modifiedDate') {
+    if (detailsTextOption === 'modifiedDate' && modifiedDate) {
         var localModifiedDate = new Date(modifiedDate);
-        // detailText = lastModified.replace('{date}', localModifiedDate.toLocaleDateString());
         detailText = lastModified && lastModified.replace('{date}', localModifiedDate.toLocaleDateString()) || localModifiedDate.toLocaleDateString();
+    } else if (detailsTextOption === 'createdDate' && cardDate) {
+        console.log('cardDate', cardDate);
+        var localCreatedDate = new Date(cardDate);
+        detailText = localCreatedDate.toLocaleDateString();
     }
 
     /**
