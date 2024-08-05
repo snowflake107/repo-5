@@ -1,5 +1,12 @@
 
 
+# [0.17.0](https://github.com/adobecom/caas/compare/0.16.0...0.17.0) (2024-08-05)
+
+
+### Features
+
+* **MWPW-154981:** adds a new Created Date option to details text ([4098688](https://github.com/adobecom/caas/commit/40986888d41fbb1e131bc59957bed80e52f9668a))
+
 # [0.16.0](https://github.com/adobecom/caas/compare/0.15.3...0.16.0) (2024-08-02)
 
 
