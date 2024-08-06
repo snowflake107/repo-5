@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.16.0 (8/5/2024, 09:58:28)
+ * Chimera UI Libraries - Build 0.17.0 (8/6/2024, 14:40:22)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -46847,7 +46847,6 @@ var Card = function Card(props) {
         var localModifiedDate = new Date(modifiedDate);
         detailText = lastModified && lastModified.replace('{date}', localModifiedDate.toLocaleDateString()) || localModifiedDate.toLocaleDateString();
     } else if (detailsTextOption === 'createdDate' && cardDate) {
-        console.log('cardDate', cardDate);
         var localCreatedDate = new Date(cardDate);
         detailText = localCreatedDate.toLocaleDateString();
     }

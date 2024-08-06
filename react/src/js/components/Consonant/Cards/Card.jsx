@@ -206,7 +206,6 @@ const Card = (props) => {
             && lastModified.replace('{date}', localModifiedDate.toLocaleDateString())
             || localModifiedDate.toLocaleDateString();
     } else if (detailsTextOption === 'createdDate' && cardDate) {
-        console.log('cardDate', cardDate);
         const localCreatedDate = new Date(cardDate);
         detailText = localCreatedDate.toLocaleDateString();
     }
