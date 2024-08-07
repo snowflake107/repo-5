@@ -177,6 +177,7 @@ const Card = (props) => {
     const registrationUrl = getConfig('collection', 'banner.register.url');
     const hideDateInterval = getConfig('collection', 'hideDateInterval');
     const showCardBadges = getConfig('collection', 'showCardBadges');
+    const altCta = getConfig('collection', 'altCtaOnLive');
 
     /**
      * Class name for the card:
@@ -486,6 +487,9 @@ const Card = (props) => {
                             extendFooterData(footerItem.left) : []}
                         center={showFooterCenter ? extendFooterData(footerItem.center) : []}
                         right={extendFooterData(footerItem.right)}
+                        altRight={altCta ? extendFooterData(footerItem.altCta) : []}
+                        startDate={startDate}
+                        endDate={endDate}
                         cardStyle={cardStyle}
                         onFocus={onFocus} />
                 ))}
