@@ -229,7 +229,8 @@ const Card = (props) => {
      * isInPerson
      * @type {Boolean}
      */
-    const isInPerson = hasTag(/events\/session-format\/in-person/, tags);
+    const isInPerson = hasTag(/events\/session-format\/in-person/, tags)
+        || hasTag(/e505\/3ssk/, tags);
 
     /**
      * Extends infobits with the configuration data
@@ -270,6 +271,11 @@ const Card = (props) => {
         });
     }
 
+    const getOriginSelection = (url) => {
+        const urlObj = new URL(url);
+        return urlObj.searchParams.get('originSelection');
+    };
+
     // Card styles
     const isOneHalf = cardStyle === 'one-half';
     const isThreeFourths = cardStyle === 'three-fourths';
@@ -291,10 +297,10 @@ const Card = (props) => {
     const showFooter = isOneHalf || isProduct || isText;
     const showFooterLeft = !isProduct;
     const showFooterCenter = !isProduct;
-    const isEventsCard = origin === 'Events';
     let hideBanner = false;
     let eventBanner = '';
     const hideOnDemandDates = hideDateInterval && isDateAfterInterval(getCurrentDate(), endDate);
+    const isEventsCard = getOriginSelection(getConfig('collection', 'endpoint')) === 'events';
 
     if (isHalfHeight && isGated && !isRegistered) {
         bannerDescriptionToUse = bannerMap.register.description;
@@ -320,7 +326,7 @@ const Card = (props) => {
     // Events card custom banners
     if (isEventsCard) {
         hideBanner = isInPerson && eventBanner === bannerMap.onDemand;
-        bannerDescriptionToUse = eventBanner === bannerMap.live
+        bannerDescriptionToUse = isInPerson && eventBanner === bannerMap.live
             ? 'Live Today'
             : bannerDescriptionToUse;
     }

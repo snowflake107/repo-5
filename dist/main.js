@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.17.0 (8/6/2024, 14:40:22)
+ * Chimera UI Libraries - Build 0.17.1 (8/8/2024, 21:30:19)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -46867,7 +46867,7 @@ var Card = function Card(props) {
      * isInPerson
      * @type {Boolean}
      */
-    var isInPerson = (0, _Helpers.hasTag)(/events\/session-format\/in-person/, tags);
+    var isInPerson = (0, _Helpers.hasTag)(/events\/session-format\/in-person/, tags) || (0, _Helpers.hasTag)(/e505\/3ssk/, tags);
 
     /**
      * Extends infobits with the configuration data
@@ -46905,6 +46905,11 @@ var Card = function Card(props) {
         });
     }
 
+    var getOriginSelection = function getOriginSelection(url) {
+        var urlObj = new URL(url);
+        return urlObj.searchParams.get('originSelection');
+    };
+
     // Card styles
     var isOneHalf = cardStyle === 'one-half';
     var isThreeFourths = cardStyle === 'three-fourths';
@@ -46926,10 +46931,10 @@ var Card = function Card(props) {
     var showFooter = isOneHalf || isProduct || isText;
     var showFooterLeft = !isProduct;
     var showFooterCenter = !isProduct;
-    var isEventsCard = origin === 'Events';
     var hideBanner = false;
     var eventBanner = '';
     var hideOnDemandDates = hideDateInterval && (0, _general.isDateAfterInterval)((0, _general.getCurrentDate)(), endDate);
+    var isEventsCard = getOriginSelection(getConfig('collection', 'endpoint')) === 'events';
 
     if (isHalfHeight && isGated && !isRegistered) {
         bannerDescriptionToUse = bannerMap.register.description;
@@ -46955,7 +46960,7 @@ var Card = function Card(props) {
     // Events card custom banners
     if (isEventsCard) {
         hideBanner = isInPerson && eventBanner === bannerMap.onDemand;
-        bannerDescriptionToUse = eventBanner === bannerMap.live ? 'Live Today' : bannerDescriptionToUse;
+        bannerDescriptionToUse = isInPerson && eventBanner === bannerMap.live ? 'Live Today' : bannerDescriptionToUse;
     }
 
     var hasBanner = bannerDescriptionToUse && bannerFontColorToUse && bannerBackgroundColorToUse && !hideBanner;
