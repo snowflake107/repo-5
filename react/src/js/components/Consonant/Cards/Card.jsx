@@ -13,7 +13,7 @@ import CardFooter from './CardFooter/CardFooter';
 import prettyFormatDate from '../Helpers/prettyFormat';
 import { INFOBIT_TYPE } from '../Helpers/constants';
 import { hasTag } from '../Helpers/Helpers';
-import { getEventBanner, getLinkTarget, isDateBeforeInterval, isDateAfterInterval, getCurrentDate } from '../Helpers/general';
+import { getEventBanner, getLinkTarget, isDateBeforeInterval, isDateAfterInterval, getCurrentDate, getSearchParam } from '../Helpers/general';
 import { useConfig, useRegistered } from '../Helpers/hooks';
 import {
     stylesType,
@@ -271,11 +271,6 @@ const Card = (props) => {
         });
     }
 
-    const getOriginSelection = (url) => {
-        const urlObj = new URL(url);
-        return urlObj.searchParams.get('originSelection');
-    };
-
     // Card styles
     const isOneHalf = cardStyle === 'one-half';
     const isThreeFourths = cardStyle === 'three-fourths';
@@ -300,7 +295,7 @@ const Card = (props) => {
     let hideBanner = false;
     let eventBanner = '';
     const hideOnDemandDates = hideDateInterval && isDateAfterInterval(getCurrentDate(), endDate);
-    const isEventsCard = getOriginSelection(getConfig('collection', 'endpoint')) === 'events';
+    const isEventsCard = getSearchParam(getConfig('collection', 'endpoint'), 'originSelection') === 'events';
 
     if (isHalfHeight && isGated && !isRegistered) {
         bannerDescriptionToUse = bannerMap.register.description;

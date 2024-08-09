@@ -548,3 +548,9 @@ export const getGlobalNavHeight = () => {
         ? header.offsetHeight + offSet
         : offSet;
 };
+
+export const getSearchParam = (url, param) => {
+    if (!url || !param) return null;
+    const urlObj = new URL(url);
+    return urlObj.searchParams.get(param);
+};

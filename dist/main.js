@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.17.1 (8/8/2024, 21:30:19)
+ * Chimera UI Libraries - Build 0.17.1 (8/9/2024, 12:53:39)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -276,7 +276,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.getGlobalNavHeight = exports.getLinkTarget = exports.getEventBanner = exports.getCurrentDate = exports.isDateAfterInterval = exports.isDateBeforeInterval = exports.isDateWithinInterval = exports.qs = exports.mergeDeep = exports.setByPath = exports.debounce = exports.getSelectedItemsCount = exports.getByPath = exports.template = exports.getEndNumber = exports.getStartNumber = exports.getPageStartEnd = exports.generateRange = exports.stopPropagation = exports.isAtleastOneFilterSelected = exports.isNullish = exports.parseToPrimitive = exports.isObject = exports.mapObject = exports.sanitizeText = exports.sortByKey = exports.intersection = exports.isSuperset = exports.chainFromIterable = exports.chain = exports.removeDuplicatesByKey = exports.truncateList = exports.truncateString = exports.readInclusionsFromLocalStorage = exports.readBookmarksFromLocalStorage = exports.saveBookmarksToLocalStorage = undefined;
+exports.getSearchParam = exports.getGlobalNavHeight = exports.getLinkTarget = exports.getEventBanner = exports.getCurrentDate = exports.isDateAfterInterval = exports.isDateBeforeInterval = exports.isDateWithinInterval = exports.qs = exports.mergeDeep = exports.setByPath = exports.debounce = exports.getSelectedItemsCount = exports.getByPath = exports.template = exports.getEndNumber = exports.getStartNumber = exports.getPageStartEnd = exports.generateRange = exports.stopPropagation = exports.isAtleastOneFilterSelected = exports.isNullish = exports.parseToPrimitive = exports.isObject = exports.mapObject = exports.sanitizeText = exports.sortByKey = exports.intersection = exports.isSuperset = exports.chainFromIterable = exports.chain = exports.removeDuplicatesByKey = exports.truncateList = exports.truncateString = exports.readInclusionsFromLocalStorage = exports.readBookmarksFromLocalStorage = exports.saveBookmarksToLocalStorage = undefined;
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -922,6 +922,12 @@ var getGlobalNavHeight = exports.getGlobalNavHeight = function getGlobalNavHeigh
     var headerWrapper = isBacom ? header : document.querySelector('.feds-header-wrapper');
 
     return isBacom || headerWrapper && headerWrapper.classList.contains('feds-header-wrapper--sticky') ? header.offsetHeight + offSet : offSet;
+};
+
+var getSearchParam = exports.getSearchParam = function getSearchParam(url, param) {
+    if (!url || !param) return null;
+    var urlObj = new URL(url);
+    return urlObj.searchParams.get(param);
 };
 
 /***/ }),
@@ -46905,11 +46911,6 @@ var Card = function Card(props) {
         });
     }
 
-    var getOriginSelection = function getOriginSelection(url) {
-        var urlObj = new URL(url);
-        return urlObj.searchParams.get('originSelection');
-    };
-
     // Card styles
     var isOneHalf = cardStyle === 'one-half';
     var isThreeFourths = cardStyle === 'three-fourths';
@@ -46934,7 +46935,7 @@ var Card = function Card(props) {
     var hideBanner = false;
     var eventBanner = '';
     var hideOnDemandDates = hideDateInterval && (0, _general.isDateAfterInterval)((0, _general.getCurrentDate)(), endDate);
-    var isEventsCard = getOriginSelection(getConfig('collection', 'endpoint')) === 'events';
+    var isEventsCard = (0, _general.getSearchParam)(getConfig('collection', 'endpoint'), 'originSelection') === 'events';
 
     if (isHalfHeight && isGated && !isRegistered) {
         bannerDescriptionToUse = bannerMap.register.description;
