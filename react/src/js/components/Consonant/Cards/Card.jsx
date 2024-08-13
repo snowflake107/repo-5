@@ -292,7 +292,7 @@ const Card = (props) => {
     const showText = !isHalfHeight && !isFull;
     const showFooter = isOneHalf || isProduct || isText;
     const showFooterLeft = !isProduct;
-    const showFooterCenter = !isProduct;
+    const showFooterCenter = !isProduct && !altCta;
     let hideBanner = false;
     let eventBanner = '';
     const hideOnDemandDates = hideDateInterval && isDateAfterInterval(getCurrentDate(), endDate);
