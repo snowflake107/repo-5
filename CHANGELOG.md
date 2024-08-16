@@ -1,5 +1,9 @@
 # Releases
 
+## 2.6.1
+
+* Updated WordPress Blue with the new blueberry shades
+
 ## 2.6.0
 
 * Added a new color palette: Automattic Blue.
