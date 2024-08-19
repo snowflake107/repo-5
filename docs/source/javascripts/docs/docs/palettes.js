@@ -1,27 +1,22 @@
 const uniqBy = require('lodash/uniqBy')
-const versionLowerThan = require('semver/functions/lt')
 const satisfies = require('semver/functions/satisfies')
 const extend = require('../../../../../utilities/extend')
 const determineContrast = require('./contrast')
 
 module.exports = formatPalettes([
   require('../../../../../dist/colors.meta.json'),
+  require('../../../../../dist-archive/colors.meta-2.6.0.json'),
+  require('../../../../../dist-archive/colors.meta-2.5.0.json'),
   require('../../../../../dist-archive/colors.meta-2.4.0.json'),
   require('../../../../../dist-archive/colors.meta-2.3.1.json'),
   require('../../../../../dist-archive/colors.meta-2.2.1.json'),
   require('../../../../../dist-archive/colors.meta-2.1.0.json'),
   require('../../../../../dist-archive/colors.meta-2.0.1.json'),
-  require('../../../../../dist-archive/colors.meta-1.0.6.json'),
 ])
 
 function formatPalettes(paletteArray) {
   const palettes = paletteArray.map((palette, index) => {
-    if (index === 0) {
-      return formatMostRecentPalette(palette)
-    }
-
-    const isLegacy = versionLowerThan(palette.version, '2.0.0')
-    const format = isLegacy ? formatDeprecatedPaletteVersion1 : formatDeprecatedPalette
+    const format = index === 0 ? formatMostRecentPalette : formatDeprecatedPalette
     return format(palette)
   })
 
@@ -38,13 +33,6 @@ function formatMostRecentPalette(palette) {
 function formatDeprecatedPalette(palette) {
   return extend(formatMostRecentPalette(palette), {
     label: 'Deprecated',
-  })
-}
-
-function formatDeprecatedPaletteVersion1(palette) {
-  return extend(palette, formatDisplayProperties(palette), {
-    label: 'Deprecated',
-    colors: palette.colors.map(colorArray => formatColorArray(colorArray, palette.version, 500).concat(createEmptyColor())),
   })
 }
 
@@ -88,10 +76,4 @@ function formatColorProperties(colorObject, colorArray, defaultShadeIndex, featu
 
 function isColorDeprecated(colorObject, paletteVersion) {
   return Boolean(colorObject._meta.baseName === 'WordPress Blue' && satisfies(paletteVersion, '>=2.4.0 <2.6.1'))
-}
-
-function createEmptyColor() {
-  return {
-    _empty: true,
-  }
 }
