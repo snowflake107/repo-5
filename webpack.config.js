@@ -109,4 +109,5 @@ module.exports = {
   performance: {
     hints: false,
   },
+  ignoreWarnings: [_ => true],
 }

@@ -81,7 +81,7 @@
     "palette:clean": "git checkout HEAD -- dist",
     "palette:test": "jest test/palette.test.js",
     "palette:watch": "onchange builders/json.js data/color-definitions.js -- yarn palette:build:_watch",
-    "prepare": "husky install",
+    "prepare": "husky",
     "sketch": "yarn sketch:build && skpm-link",
     "sketch:build": "skpm-build",
     "sketch:watch": "skpm-build --watch",

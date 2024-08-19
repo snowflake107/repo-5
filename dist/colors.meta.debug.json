@@ -1703,8 +1703,8 @@
         "_meta": {
           "_debug": {
             "hue": 220,
-            "saturation": 0.0125,
-            "luminosity": 0.996
+            "saturation": 0.01,
+            "luminosity": 0.995
           },
           "baseName": "WordPress Blue",
           "index": 0
@@ -1715,9 +1715,9 @@
         "value": "#f7f8fe",
         "_meta": {
           "_debug": {
-            "hue": 231.43,
-            "saturation": 0.0276,
-            "luminosity": 0.9961
+            "hue": 231,
+            "saturation": 0.027999999999999997,
+            "luminosity": 0.995
           },
           "baseName": "WordPress Blue",
           "index": 5
@@ -1729,8 +1729,8 @@
         "_meta": {
           "_debug": {
             "hue": 228,
-            "saturation": 0.1406,
-            "luminosity": 0.9765
+            "saturation": 0.14,
+            "luminosity": 0.975
           },
           "baseName": "WordPress Blue",
           "index": 10
@@ -1741,9 +1741,9 @@
         "value": "#adbaf3",
         "_meta": {
           "_debug": {
-            "hue": 228.86,
-            "saturation": 0.28809999999999997,
-            "luminosity": 0.9529000000000001
+            "hue": 228.5,
+            "saturation": 0.29,
+            "luminosity": 0.953
           },
           "baseName": "WordPress Blue",
           "index": 20
@@ -1754,8 +1754,8 @@
         "value": "#7b90ff",
         "_meta": {
           "_debug": {
-            "hue": 230.45,
-            "saturation": 0.5176,
+            "hue": 230.5,
+            "saturation": 0.518,
             "luminosity": 1
           },
           "baseName": "WordPress Blue",
@@ -1767,9 +1767,9 @@
         "value": "#546ff3",
         "_meta": {
           "_debug": {
-            "hue": 229.81,
-            "saturation": 0.6543000000000001,
-            "luminosity": 0.9529000000000001
+            "hue": 230,
+            "saturation": 0.654,
+            "luminosity": 0.953
           },
           "baseName": "WordPress Blue",
           "index": 40
@@ -1780,9 +1780,9 @@
         "value": "#3858e9",
         "_meta": {
           "_debug": {
-            "hue": 229.15,
-            "saturation": 0.7597,
-            "luminosity": 0.9137000000000001
+            "hue": 229,
+            "saturation": 0.76,
+            "luminosity": 0.914
           },
           "baseName": "WordPress Blue",
           "index": 50
@@ -1793,9 +1793,9 @@
         "value": "#2a46ce",
         "_meta": {
           "_debug": {
-            "hue": 229.76,
-            "saturation": 0.7961,
-            "luminosity": 0.8078
+            "hue": 229.8,
+            "saturation": 0.795,
+            "luminosity": 0.8079999999999999
           },
           "baseName": "WordPress Blue",
           "index": 60
@@ -1806,9 +1806,9 @@
         "value": "#1d35b4",
         "_meta": {
           "_debug": {
-            "hue": 230.46,
-            "saturation": 0.8389,
-            "luminosity": 0.7059000000000001
+            "hue": 230.5,
+            "saturation": 0.84,
+            "luminosity": 0.705
           },
           "baseName": "WordPress Blue",
           "index": 70
@@ -1819,9 +1819,9 @@
         "value": "#1f3286",
         "_meta": {
           "_debug": {
-            "hue": 228.93,
-            "saturation": 0.7687,
-            "luminosity": 0.5255
+            "hue": 229,
+            "saturation": 0.77,
+            "luminosity": 0.525
           },
           "baseName": "WordPress Blue",
           "index": 80
@@ -1832,9 +1832,9 @@
         "value": "#14215a",
         "_meta": {
           "_debug": {
-            "hue": 228.86,
-            "saturation": 0.7778,
-            "luminosity": 0.3529
+            "hue": 229,
+            "saturation": 0.78,
+            "luminosity": 0.353
           },
           "baseName": "WordPress Blue",
           "index": 90
@@ -1846,8 +1846,8 @@
         "_meta": {
           "_debug": {
             "hue": 228,
-            "saturation": 0.7778,
-            "luminosity": 0.1765
+            "saturation": 0.78,
+            "luminosity": 0.177
           },
           "baseName": "WordPress Blue",
           "index": 100
