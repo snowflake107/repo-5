@@ -550,7 +550,7 @@ export const getGlobalNavHeight = () => {
 };
 
 export const getSearchParam = (url, param) => {
-    if (!url || !param) return null;
+    if (!url || !url.startsWith('http') || !param) return null;
     const urlObj = new URL(url);
     return urlObj.searchParams.get(param);
 };

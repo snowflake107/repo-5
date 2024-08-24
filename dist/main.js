@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.17.1 (8/9/2024, 12:53:39)
+ * Chimera UI Libraries - Build 0.17.1 (8/24/2024, 10:17:04)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -925,7 +925,7 @@ var getGlobalNavHeight = exports.getGlobalNavHeight = function getGlobalNavHeigh
 };
 
 var getSearchParam = exports.getSearchParam = function getSearchParam(url, param) {
-    if (!url || !param) return null;
+    if (!url || !url.startsWith('http') || !param) return null;
     var urlObj = new URL(url);
     return urlObj.searchParams.get(param);
 };
