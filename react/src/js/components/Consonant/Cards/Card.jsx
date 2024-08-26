@@ -13,7 +13,7 @@ import CardFooter from './CardFooter/CardFooter';
 import prettyFormatDate from '../Helpers/prettyFormat';
 import { INFOBIT_TYPE } from '../Helpers/constants';
 import { hasTag } from '../Helpers/Helpers';
-import { getEventBanner, getLinkTarget, isDateBeforeInterval, isDateAfterInterval, getCurrentDate } from '../Helpers/general';
+import { getEventBanner, getLinkTarget, isDateBeforeInterval, isDateAfterInterval, getCurrentDate, getSearchParam } from '../Helpers/general';
 import { useConfig, useRegistered } from '../Helpers/hooks';
 import {
     stylesType,
@@ -229,7 +229,8 @@ const Card = (props) => {
      * isInPerson
      * @type {Boolean}
      */
-    const isInPerson = hasTag(/events\/session-format\/in-person/, tags);
+    const isInPerson = hasTag(/events\/session-format\/in-person/, tags)
+        || hasTag(/e505\/3ssk/, tags);
 
     /**
      * Extends infobits with the configuration data
@@ -291,10 +292,10 @@ const Card = (props) => {
     const showFooter = isOneHalf || isProduct || isText;
     const showFooterLeft = !isProduct;
     const showFooterCenter = !isProduct;
-    const isEventsCard = origin === 'Events';
     let hideBanner = false;
     let eventBanner = '';
     const hideOnDemandDates = hideDateInterval && isDateAfterInterval(getCurrentDate(), endDate);
+    const isEventsCard = getSearchParam(getConfig('collection', 'endpoint'), 'originSelection') === 'events';
 
     if (isHalfHeight && isGated && !isRegistered) {
         bannerDescriptionToUse = bannerMap.register.description;
@@ -320,7 +321,7 @@ const Card = (props) => {
     // Events card custom banners
     if (isEventsCard) {
         hideBanner = isInPerson && eventBanner === bannerMap.onDemand;
-        bannerDescriptionToUse = eventBanner === bannerMap.live
+        bannerDescriptionToUse = isInPerson && eventBanner === bannerMap.live
             ? 'Live Today'
             : bannerDescriptionToUse;
     }

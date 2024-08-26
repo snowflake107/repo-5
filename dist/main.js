@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.17.0 (8/6/2024, 14:40:22)
+ * Chimera UI Libraries - Build 0.17.1 (8/24/2024, 10:17:04)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -276,7 +276,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.getGlobalNavHeight = exports.getLinkTarget = exports.getEventBanner = exports.getCurrentDate = exports.isDateAfterInterval = exports.isDateBeforeInterval = exports.isDateWithinInterval = exports.qs = exports.mergeDeep = exports.setByPath = exports.debounce = exports.getSelectedItemsCount = exports.getByPath = exports.template = exports.getEndNumber = exports.getStartNumber = exports.getPageStartEnd = exports.generateRange = exports.stopPropagation = exports.isAtleastOneFilterSelected = exports.isNullish = exports.parseToPrimitive = exports.isObject = exports.mapObject = exports.sanitizeText = exports.sortByKey = exports.intersection = exports.isSuperset = exports.chainFromIterable = exports.chain = exports.removeDuplicatesByKey = exports.truncateList = exports.truncateString = exports.readInclusionsFromLocalStorage = exports.readBookmarksFromLocalStorage = exports.saveBookmarksToLocalStorage = undefined;
+exports.getSearchParam = exports.getGlobalNavHeight = exports.getLinkTarget = exports.getEventBanner = exports.getCurrentDate = exports.isDateAfterInterval = exports.isDateBeforeInterval = exports.isDateWithinInterval = exports.qs = exports.mergeDeep = exports.setByPath = exports.debounce = exports.getSelectedItemsCount = exports.getByPath = exports.template = exports.getEndNumber = exports.getStartNumber = exports.getPageStartEnd = exports.generateRange = exports.stopPropagation = exports.isAtleastOneFilterSelected = exports.isNullish = exports.parseToPrimitive = exports.isObject = exports.mapObject = exports.sanitizeText = exports.sortByKey = exports.intersection = exports.isSuperset = exports.chainFromIterable = exports.chain = exports.removeDuplicatesByKey = exports.truncateList = exports.truncateString = exports.readInclusionsFromLocalStorage = exports.readBookmarksFromLocalStorage = exports.saveBookmarksToLocalStorage = undefined;
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -922,6 +922,12 @@ var getGlobalNavHeight = exports.getGlobalNavHeight = function getGlobalNavHeigh
     var headerWrapper = isBacom ? header : document.querySelector('.feds-header-wrapper');
 
     return isBacom || headerWrapper && headerWrapper.classList.contains('feds-header-wrapper--sticky') ? header.offsetHeight + offSet : offSet;
+};
+
+var getSearchParam = exports.getSearchParam = function getSearchParam(url, param) {
+    if (!url || !url.startsWith('http') || !param) return null;
+    var urlObj = new URL(url);
+    return urlObj.searchParams.get(param);
 };
 
 /***/ }),
@@ -46867,7 +46873,7 @@ var Card = function Card(props) {
      * isInPerson
      * @type {Boolean}
      */
-    var isInPerson = (0, _Helpers.hasTag)(/events\/session-format\/in-person/, tags);
+    var isInPerson = (0, _Helpers.hasTag)(/events\/session-format\/in-person/, tags) || (0, _Helpers.hasTag)(/e505\/3ssk/, tags);
 
     /**
      * Extends infobits with the configuration data
@@ -46926,10 +46932,10 @@ var Card = function Card(props) {
     var showFooter = isOneHalf || isProduct || isText;
     var showFooterLeft = !isProduct;
     var showFooterCenter = !isProduct;
-    var isEventsCard = origin === 'Events';
     var hideBanner = false;
     var eventBanner = '';
     var hideOnDemandDates = hideDateInterval && (0, _general.isDateAfterInterval)((0, _general.getCurrentDate)(), endDate);
+    var isEventsCard = (0, _general.getSearchParam)(getConfig('collection', 'endpoint'), 'originSelection') === 'events';
 
     if (isHalfHeight && isGated && !isRegistered) {
         bannerDescriptionToUse = bannerMap.register.description;
@@ -46955,7 +46961,7 @@ var Card = function Card(props) {
     // Events card custom banners
     if (isEventsCard) {
         hideBanner = isInPerson && eventBanner === bannerMap.onDemand;
-        bannerDescriptionToUse = eventBanner === bannerMap.live ? 'Live Today' : bannerDescriptionToUse;
+        bannerDescriptionToUse = isInPerson && eventBanner === bannerMap.live ? 'Live Today' : bannerDescriptionToUse;
     }
 
     var hasBanner = bannerDescriptionToUse && bannerFontColorToUse && bannerBackgroundColorToUse && !hideBanner;
