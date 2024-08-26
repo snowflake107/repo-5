@@ -1,5 +1,13 @@
 
 
+## [0.17.2](https://github.com/adobecom/caas/compare/0.17.1...0.17.2) (2024-08-26)
+
+
+### Bug Fixes
+
+* **MWPW-155709:** Fixes events in-person live banner ([a0e9fe1](https://github.com/adobecom/caas/commit/a0e9fe1c0ba40d73c462e6a6e30c90ece9957125))
+* **MWPW-155709:** Fixes events in-person live banner ([0c77957](https://github.com/adobecom/caas/commit/0c779575b0199c6e0483e1fce3dcf648c270017b))
+
 ## [0.17.1](https://github.com/adobecom/caas/compare/0.17.0...0.17.1) (2024-08-07)
 
 # [0.17.0](https://github.com/adobecom/caas/compare/0.16.0...0.17.0) (2024-08-05)
