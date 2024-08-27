@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.17.1 (8/24/2024, 10:17:04)
+ * Chimera UI Libraries - Build 0.17.2 (8/27/2024, 10:55:04)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -184,90 +184,6 @@ $exports.store = store;
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	Copyright (c) 2018 Jed Watson.
-	Licensed under the MIT License (MIT), see
-	http://jedwatson.github.io/classnames
-*/
-/* global define */
-
-(function () {
-	'use strict';
-
-	var hasOwn = {}.hasOwnProperty;
-
-	function classNames () {
-		var classes = '';
-
-		for (var i = 0; i < arguments.length; i++) {
-			var arg = arguments[i];
-			if (arg) {
-				classes = appendClass(classes, parseValue(arg));
-			}
-		}
-
-		return classes;
-	}
-
-	function parseValue (arg) {
-		if (typeof arg === 'string' || typeof arg === 'number') {
-			return arg;
-		}
-
-		if (typeof arg !== 'object') {
-			return '';
-		}
-
-		if (Array.isArray(arg)) {
-			return classNames.apply(null, arg);
-		}
-
-		if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
-			return arg.toString();
-		}
-
-		var classes = '';
-
-		for (var key in arg) {
-			if (hasOwn.call(arg, key) && arg[key]) {
-				classes = appendClass(classes, key);
-			}
-		}
-
-		return classes;
-	}
-
-	function appendClass (value, newClass) {
-		if (!newClass) {
-			return value;
-		}
-	
-		if (value) {
-			return value + ' ' + newClass;
-		}
-	
-		return value + newClass;
-	}
-
-	if (typeof module !== 'undefined' && module.exports) {
-		classNames.default = classNames;
-		module.exports = classNames;
-	} else if (true) {
-		// register as 'classnames', consistent with npm package name
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
-			return classNames;
-		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else {
-		window.classNames = classNames;
-	}
-}());
-
-
-/***/ }),
-/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -931,6 +847,90 @@ var getSearchParam = exports.getSearchParam = function getSearchParam(url, param
 };
 
 /***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	Copyright (c) 2018 Jed Watson.
+	Licensed under the MIT License (MIT), see
+	http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = '';
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (arg) {
+				classes = appendClass(classes, parseValue(arg));
+			}
+		}
+
+		return classes;
+	}
+
+	function parseValue (arg) {
+		if (typeof arg === 'string' || typeof arg === 'number') {
+			return arg;
+		}
+
+		if (typeof arg !== 'object') {
+			return '';
+		}
+
+		if (Array.isArray(arg)) {
+			return classNames.apply(null, arg);
+		}
+
+		if (arg.toString !== Object.prototype.toString && !arg.toString.toString().includes('[native code]')) {
+			return arg.toString();
+		}
+
+		var classes = '';
+
+		for (var key in arg) {
+			if (hasOwn.call(arg, key) && arg[key]) {
+				classes = appendClass(classes, key);
+			}
+		}
+
+		return classes;
+	}
+
+	function appendClass (value, newClass) {
+		if (!newClass) {
+			return value;
+		}
+	
+		if (value) {
+			return value + ' ' + newClass;
+		}
+	
+		return value + newClass;
+	}
+
+	if (typeof module !== 'undefined' && module.exports) {
+		classNames.default = classNames;
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+			return classNames;
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {
+		window.classNames = classNames;
+	}
+}());
+
+
+/***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -948,7 +948,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _react = __webpack_require__(0);
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 var _consonant = __webpack_require__(110);
 
@@ -1944,7 +1944,7 @@ var _immer2 = _interopRequireDefault(_immer);
 
 var _rendering = __webpack_require__(40);
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 var _constants = __webpack_require__(15);
 
@@ -6076,7 +6076,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -6098,7 +6098,7 @@ var _Loader = __webpack_require__(235);
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 var _config = __webpack_require__(20);
 
@@ -7948,7 +7948,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.makeConfigGetter = exports.getNumSelectedFilterItems = undefined;
 exports.getDefaultSortOption = getDefaultSortOption;
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 var _constants = __webpack_require__(15);
 
@@ -8056,7 +8056,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -8068,7 +8068,7 @@ var _htmlReactParser2 = _interopRequireDefault(_htmlReactParser);
 
 var _card = __webpack_require__(39);
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 var _hooks = __webpack_require__(7);
 
@@ -9263,7 +9263,7 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactDomComponents = __webpack_require__(107);
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 var _lana = __webpack_require__(68);
 
@@ -43618,7 +43618,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -43944,7 +43944,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -44027,7 +44027,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -46647,7 +46647,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -46669,7 +46669,7 @@ var _constants = __webpack_require__(15);
 
 var _Helpers = __webpack_require__(22);
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 var _hooks = __webpack_require__(7);
 
@@ -46826,6 +46826,7 @@ var Card = function Card(props) {
     var registrationUrl = getConfig('collection', 'banner.register.url');
     var hideDateInterval = getConfig('collection', 'hideDateInterval');
     var showCardBadges = getConfig('collection', 'showCardBadges');
+    var altCta = getConfig('collection', 'altCtaOnLive');
 
     /**
      * Class name for the card:
@@ -46931,7 +46932,7 @@ var Card = function Card(props) {
     var showText = !isHalfHeight && !isFull;
     var showFooter = isOneHalf || isProduct || isText;
     var showFooterLeft = !isProduct;
-    var showFooterCenter = !isProduct;
+    var showFooterCenter = !isProduct && !altCta;
     var hideBanner = false;
     var eventBanner = '';
     var hideOnDemandDates = hideDateInterval && (0, _general.isDateAfterInterval)((0, _general.getCurrentDate)(), endDate);
@@ -47110,6 +47111,9 @@ var Card = function Card(props) {
                     left: showFooterLeft && !hideOnDemandDates ? extendFooterData(footerItem.left) : [],
                     center: showFooterCenter ? extendFooterData(footerItem.center) : [],
                     right: extendFooterData(footerItem.right),
+                    altRight: altCta ? extendFooterData(footerItem.altCta) : [],
+                    startDate: startDate,
+                    endDate: endDate,
                     cardStyle: cardStyle,
                     onFocus: onFocus });
             }),
@@ -47181,7 +47185,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -47193,12 +47197,15 @@ var _card = __webpack_require__(39);
 
 var _constants = __webpack_require__(15);
 
+var _general = __webpack_require__(5);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var defaultProps = {
     left: [],
     center: [],
     right: [],
+    altRight: [],
     divider: false,
     isFluid: false
 };
@@ -47224,15 +47231,24 @@ var CardFooter = function CardFooter(props) {
         left = props.left,
         center = props.center,
         right = props.right,
+        altRight = props.altRight,
+        startDate = props.startDate,
+        endDate = props.endDate,
         isFluid = props.isFluid,
         onFocus = props.onFocus;
+
+    /**
+     * Is the card currently live?
+     * @type {Boolean}
+     */
+
+    var isLive = (0, _general.isDateWithinInterval)((0, _general.getCurrentDate)(), startDate, endDate);
 
     /**
      * Class name for the card footer:
      * whether the card footer should have a horizontal divider
      * @type {Number}
      */
-
     var footerClassName = (0, _classnames2.default)({
         'consonant-CardFooter': true,
         'consonant-CardFooter--divider': divider
@@ -47270,10 +47286,16 @@ var CardFooter = function CardFooter(props) {
     var shouldRenderCenter = center && center.length > 0;
 
     /**
-     * Whether the center footer infobits should render
+     * Whether the right footer infobits should render
      * @type {Boolean}
      */
-    var shouldRenderRight = right && right.length > 0;
+    var shouldRenderRight = right && right.length > 0 && (!isLive || altRight.length === 0);
+
+    /**
+     * Whether an alternate right footer infobits should render
+     * @type {Boolean}
+     */
+    var shouldRenderAltRight = altRight && altRight.length > 0 && isLive;
 
     return _react2.default.createElement(
         'div',
@@ -47302,6 +47324,12 @@ var CardFooter = function CardFooter(props) {
                 {
                     className: 'consonant-CardFooter-cell consonant-CardFooter-cell--right' },
                 _react2.default.createElement(_Group2.default, { renderList: right, onFocus: onFocus })
+            ),
+            shouldRenderAltRight && _react2.default.createElement(
+                'div',
+                {
+                    className: 'consonant-CardFooter-cell consonant-CardFooter-cell--right' },
+                _react2.default.createElement(_Group2.default, { renderList: altRight, onFocus: onFocus })
             )
         )
     );
@@ -47385,7 +47413,7 @@ var _Gated2 = _interopRequireDefault(_Gated);
 
 var _constants = __webpack_require__(15);
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 var _card = __webpack_require__(39);
 
@@ -47676,7 +47704,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -47684,7 +47712,7 @@ var _propTypes = __webpack_require__(1);
 
 var _hooks = __webpack_require__(7);
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -47842,7 +47870,7 @@ var _propTypes = __webpack_require__(1);
 
 var _hooks = __webpack_require__(7);
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -47917,7 +47945,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -48372,7 +48400,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -48618,7 +48646,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _Helpers = __webpack_require__(22);
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 /* eslint-disable */
 function fixSpaceInDate(date) {
@@ -52223,7 +52251,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _propTypes = __webpack_require__(1);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -52319,7 +52347,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -52449,7 +52477,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -52582,7 +52610,7 @@ var _propTypes = __webpack_require__(1);
 
 var _hooks = __webpack_require__(7);
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52792,7 +52820,7 @@ var _constants = __webpack_require__(15);
 
 var _cards = __webpack_require__(293);
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -53019,7 +53047,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.filterCardsByDateRange = exports.getCardDate = undefined;
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 /**
  * Converts date to milliseconds
@@ -53071,7 +53099,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -53087,7 +53115,7 @@ var _Group = __webpack_require__(296);
 
 var _rendering = __webpack_require__(40);
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 var _hooks = __webpack_require__(7);
 
@@ -53504,7 +53532,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -53516,7 +53544,7 @@ var _Footer = __webpack_require__(298);
 
 var _config = __webpack_require__(20);
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 var _hooks = __webpack_require__(7);
 
@@ -53803,7 +53831,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -54047,7 +54075,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -54073,7 +54101,7 @@ var _PanelFooter = __webpack_require__(307);
 
 var _ClearButton = __webpack_require__(308);
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -54333,7 +54361,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -55297,7 +55325,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 var _Helpers = __webpack_require__(22);
 
@@ -55427,7 +55455,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -55633,7 +55661,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _classnames = __webpack_require__(5);
+var _classnames = __webpack_require__(6);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -55784,7 +55812,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _general = __webpack_require__(6);
+var _general = __webpack_require__(5);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

@@ -4,11 +4,13 @@ import classNames from 'classnames';
 import Group from '../../Infobit/Group';
 import { footerType } from '../../types/card';
 import { INFOBIT_TYPE } from '../../Helpers/constants';
+import { isDateWithinInterval, getCurrentDate } from '../../Helpers/general';
 
 const defaultProps = {
     left: [],
     center: [],
     right: [],
+    altRight: [],
     divider: false,
     isFluid: false,
 };
@@ -35,9 +37,18 @@ const CardFooter = (props) => {
         left,
         center,
         right,
+        altRight,
+        startDate,
+        endDate,
         isFluid,
         onFocus,
     } = props;
+
+    /**
+     * Is the card currently live?
+     * @type {Boolean}
+     */
+    const isLive = isDateWithinInterval(getCurrentDate(), startDate, endDate);
 
     /**
      * Class name for the card footer:
@@ -78,10 +89,17 @@ const CardFooter = (props) => {
     const shouldRenderCenter = center && center.length > 0;
 
     /**
-     * Whether the center footer infobits should render
+     * Whether the right footer infobits should render
      * @type {Boolean}
      */
-    const shouldRenderRight = right && right.length > 0;
+    const shouldRenderRight = right && right.length > 0 &&
+        (!isLive || altRight.length === 0);
+
+    /**
+     * Whether an alternate right footer infobits should render
+     * @type {Boolean}
+     */
+    const shouldRenderAltRight = altRight && altRight.length > 0 && isLive;
 
     return (
         <div
@@ -106,6 +124,12 @@ const CardFooter = (props) => {
                 <div
                     className="consonant-CardFooter-cell consonant-CardFooter-cell--right">
                     <Group renderList={right} onFocus={onFocus} />
+                </div>
+                }
+                {shouldRenderAltRight &&
+                <div
+                    className="consonant-CardFooter-cell consonant-CardFooter-cell--right">
+                    <Group renderList={altRight} onFocus={onFocus} />
                 </div>
                 }
             </div>
