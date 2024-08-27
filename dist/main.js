@@ -1,5 +1,9 @@
 /*!
+ * Chimera UI Libraries - Build 0.17.2 (8/27/2024, 10:55:04)
  *         
+ */
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
 /******/ 	// The require function
@@ -8,7 +12,7 @@
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/ 		}ß
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -46928,7 +46932,7 @@ var Card = function Card(props) {
     var showText = !isHalfHeight && !isFull;
     var showFooter = isOneHalf || isProduct || isText;
     var showFooterLeft = !isProduct;
-    var showFooterCenter = !isProduct;
+    var showFooterCenter = !isProduct && !altCta;
     var hideBanner = false;
     var eventBanner = '';
     var hideOnDemandDates = hideDateInterval && (0, _general.isDateAfterInterval)((0, _general.getCurrentDate)(), endDate);
