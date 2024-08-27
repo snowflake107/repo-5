@@ -1,5 +1,14 @@
 
 
+# [0.18.0](https://github.com/adobecom/caas/compare/0.17.2...0.18.0) (2024-08-27)
+
+
+### Features
+
+* **mwpw-145727:** event cards live ctas ([5e71587](https://github.com/adobecom/caas/commit/5e715874c44776863fa8a5f4b550f2ed3383318c))
+* **mwpw-145727:** event cards with different live ctas ([d533470](https://github.com/adobecom/caas/commit/d53347012e115bf6f89a157aafdd9d0a85fb5246))
+* **mwpw-145727:** event cards with live ctas ([4c4a386](https://github.com/adobecom/caas/commit/4c4a38656f5a5af9c7b0fc98f7c18792399a1bc6))
+
 ## [0.17.2](https://github.com/adobecom/caas/compare/0.17.1...0.17.2) (2024-08-26)
 
 
