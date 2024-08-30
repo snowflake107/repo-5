@@ -1,5 +1,15 @@
 
 
+# [0.19.0](https://github.com/adobecom/caas/compare/0.18.0...0.19.0) (2024-08-30)
+
+
+### Features
+
+* **mwpw-145727:** build files ([2f53550](https://github.com/adobecom/caas/commit/2f5355010b06c41522fa8cd4a57c7b6bbddf0dc2))
+* **mwpw-145727:** chromedriver correctly ([831ee8f](https://github.com/adobecom/caas/commit/831ee8fe711f366398b77f7a036361a2bf01dfe9))
+* **mwpw-145727:** new variable name for live ctas ([1afa1b2](https://github.com/adobecom/caas/commit/1afa1b253968282f9b786ee53cd6e4f7570f4def))
+* **mwpw-145727:** update chromedriver ([aa777bc](https://github.com/adobecom/caas/commit/aa777bc1319711664615117e3a0fb1d0bff93503))
+
 # [0.18.0](https://github.com/adobecom/caas/compare/0.17.2...0.18.0) (2024-08-27)
 
 
