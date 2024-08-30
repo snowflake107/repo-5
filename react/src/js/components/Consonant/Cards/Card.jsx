@@ -177,7 +177,7 @@ const Card = (props) => {
     const registrationUrl = getConfig('collection', 'banner.register.url');
     const hideDateInterval = getConfig('collection', 'hideDateInterval');
     const showCardBadges = getConfig('collection', 'showCardBadges');
-    const altCta = getConfig('collection', 'altCtaOnLive');
+    const altCta = getConfig('collection', 'dynamicCTAForLiveEvents');
 
     /**
      * Class name for the card:

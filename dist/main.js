@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.17.2 (8/27/2024, 10:55:04)
+ * Chimera UI Libraries - Build 0.18.0 (8/30/2024, 10:42:43)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -46826,7 +46826,7 @@ var Card = function Card(props) {
     var registrationUrl = getConfig('collection', 'banner.register.url');
     var hideDateInterval = getConfig('collection', 'hideDateInterval');
     var showCardBadges = getConfig('collection', 'showCardBadges');
-    var altCta = getConfig('collection', 'altCtaOnLive');
+    var altCta = getConfig('collection', 'dynamicCTAForLiveEvents');
 
     /**
      * Class name for the card:
