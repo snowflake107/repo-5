@@ -1,5 +1,10 @@
 # Releases
 
+## 3.0.2
+
+* _No changes to color values._
+* The package now includes Swift distribution files.
+
 ## 3.0.1
 
 * _No changes to color values._
