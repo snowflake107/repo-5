@@ -1,10 +1,7 @@
 node_modules
 yarn-error.log
 
-docs/dist/assets
-
-.DS_Store
-
-# Swift
 .build
 .swiftpm
+
+docs/dist/assets
