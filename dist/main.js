@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.18.0 (8/30/2024, 11:06:20)
+ * Chimera UI Libraries - Build 0.19.0 (9/6/2024, 12:44:32)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -46827,6 +46827,7 @@ var Card = function Card(props) {
     var hideDateInterval = getConfig('collection', 'hideDateInterval');
     var showCardBadges = getConfig('collection', 'showCardBadges');
     var altCta = getConfig('collection', 'dynamicCTAForLiveEvents');
+    var ctaAction = getConfig('collection', 'ctaAction');
 
     /**
      * Class name for the card:
@@ -46974,7 +46975,7 @@ var Card = function Card(props) {
         ariaText = bannerDescriptionToUse + ' | ' + ariaText;
     }
 
-    var linkBlockerTarget = (0, _general.getLinkTarget)(overlayLink);
+    var linkBlockerTarget = (0, _general.getLinkTarget)(overlayLink, ctaAction);
     var addParams = new URLSearchParams(additionalParams);
     var overlay = additionalParams && addParams.keys().next().value ? overlayLink + '?' + addParams.toString() : overlayLink;
 
