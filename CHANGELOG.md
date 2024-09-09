@@ -1,5 +1,12 @@
 
 
+# [0.20.0](https://github.com/adobecom/caas/compare/0.19.0...0.20.0) (2024-09-09)
+
+
+### Features
+
+* **mwpw-157492:** enable cta actions for icon cards ([1eaddb3](https://github.com/adobecom/caas/commit/1eaddb3af2655eae92da6973c239f1d471c4e9ce))
+
 # [0.19.0](https://github.com/adobecom/caas/compare/0.18.0...0.19.0) (2024-08-30)
 
 
