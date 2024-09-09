@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import Group from '../../Infobit/Group';
 import { footerType } from '../../types/card';
 import { INFOBIT_TYPE } from '../../Helpers/constants';
-import { isDateWithinInterval, getCurrentDate } from '../../Helpers/general';
+import { isDateWithinInterval, getCurrentDate, isDateBeforeInterval } from '../../Helpers/general';
 
 const defaultProps = {
     left: [],
@@ -49,6 +49,7 @@ const CardFooter = (props) => {
      * @type {Boolean}
      */
     const isLive = isDateWithinInterval(getCurrentDate(), startDate, endDate);
+    const isUpcoming = isDateBeforeInterval(getCurrentDate(), startDate);
 
     /**
      * Class name for the card footer:
@@ -93,13 +94,38 @@ const CardFooter = (props) => {
      * @type {Boolean}
      */
     const shouldRenderRight = right && right.length > 0 &&
-        (!isLive || altRight.length === 0);
+        (!isLive || altRight.length === 0) && (!isUpcoming || altRight.length === 0);
 
     /**
-     * Whether an alternate right footer infobits should render
+     * Whether an alternate right footer infobits should render for upcoming
      * @type {Boolean}
      */
-    const shouldRenderAltRight = altRight && altRight.length > 0 && isLive;
+    const shouldRenderAltRightUpcoming = altRight && altRight.length > 0 && isUpcoming;
+
+    /**
+     * Whether an alternate right footer infobets should render for live events
+     */
+    const shouldRenderAltRightLive = altRight && altRight.length > 0 && isLive;
+
+    /**
+     * This is some franken logic to make one alt cta space work for two different card states
+     */
+    const altRightUpcoming = []; // isUpcoming
+    const altRightLive = []; // isLive
+    if (altRight && altRight.length > 0 && right && right.length > 0) {
+        const upcoming = {
+            href: right[0].href,
+            text: altRight[0].text,
+            type: right[0].type,
+        };
+        const live = {
+            href: altRight[0].href,
+            text: right[0].text,
+            type: altRight[0].type,
+        };
+        altRightUpcoming.push(upcoming);
+        altRightLive.push(live);
+    }
 
     return (
         <div
@@ -126,10 +152,16 @@ const CardFooter = (props) => {
                     <Group renderList={right} onFocus={onFocus} />
                 </div>
                 }
-                {shouldRenderAltRight &&
+                {shouldRenderAltRightUpcoming &&
                 <div
                     className="consonant-CardFooter-cell consonant-CardFooter-cell--right">
-                    <Group renderList={altRight} onFocus={onFocus} />
+                    <Group renderList={altRightUpcoming} onFocus={onFocus} />
+                </div>
+                }
+                {shouldRenderAltRightLive &&
+                <div
+                    className="consonant-CardFooter-cell consonant-CardFooter-cell--right">
+                    <Group renderList={altRightLive} onFocus={onFocus} />
                 </div>
                 }
             </div>
