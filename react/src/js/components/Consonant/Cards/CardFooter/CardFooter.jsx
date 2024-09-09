@@ -100,18 +100,18 @@ const CardFooter = (props) => {
      * Whether an alternate right footer infobits should render for upcoming
      * @type {Boolean}
      */
-    const shouldRenderAltRightA = altRight && altRight.length > 0 && isUpcoming;
+    const shouldRenderAltRightUpcoming = altRight && altRight.length > 0 && isUpcoming;
 
     /**
      * Whether an alternate right footer infobets should render for live events
      */
-    const shouldRenderAltRightB = altRight && altRight.length > 0 && isLive;
+    const shouldRenderAltRightLive = altRight && altRight.length > 0 && isLive;
 
     /**
      * This is some franken logic to make one alt cta space work for two different card states
      */
-    const altRightA = []; // isUpcoming
-    const altRightB = []; // isLive
+    const altRightUpcoming = []; // isUpcoming
+    const altRightLive = []; // isLive
     if (altRight && altRight.length > 0 && right && right.length > 0) {
         const upcoming = {
             href: right[0].href,
@@ -123,8 +123,8 @@ const CardFooter = (props) => {
             text: right[0].text,
             type: altRight[0].type,
         };
-        altRightA.push(upcoming);
-        altRightB.push(live);
+        altRightUpcoming.push(upcoming);
+        altRightLive.push(live);
     }
 
     return (
@@ -152,16 +152,16 @@ const CardFooter = (props) => {
                     <Group renderList={right} onFocus={onFocus} />
                 </div>
                 }
-                {shouldRenderAltRightA &&
+                {shouldRenderAltRightUpcoming &&
                 <div
                     className="consonant-CardFooter-cell consonant-CardFooter-cell--right">
-                    <Group renderList={altRightA} onFocus={onFocus} />
+                    <Group renderList={altRightUpcoming} onFocus={onFocus} />
                 </div>
                 }
-                {shouldRenderAltRightB &&
+                {shouldRenderAltRightLive &&
                 <div
                     className="consonant-CardFooter-cell consonant-CardFooter-cell--right">
-                    <Group renderList={altRightB} onFocus={onFocus} />
+                    <Group renderList={altRightLive} onFocus={onFocus} />
                 </div>
                 }
             </div>

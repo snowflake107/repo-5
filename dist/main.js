@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.20.0 (9/9/2024, 13:18:48)
+ * Chimera UI Libraries - Build 0.20.0 (9/9/2024, 13:21:45)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -47297,18 +47297,18 @@ var CardFooter = function CardFooter(props) {
      * Whether an alternate right footer infobits should render for upcoming
      * @type {Boolean}
      */
-    var shouldRenderAltRightA = altRight && altRight.length > 0 && isUpcoming;
+    var shouldRenderAltRightUpcoming = altRight && altRight.length > 0 && isUpcoming;
 
     /**
      * Whether an alternate right footer infobets should render for live events
      */
-    var shouldRenderAltRightB = altRight && altRight.length > 0 && isLive;
+    var shouldRenderAltRightLive = altRight && altRight.length > 0 && isLive;
 
     /**
      * This is some franken logic to make one alt cta space work for two different card states
      */
-    var altRightA = []; // isUpcoming
-    var altRightB = []; // isLive
+    var altRightUpcoming = []; // isUpcoming
+    var altRightLive = []; // isLive
     if (altRight && altRight.length > 0 && right && right.length > 0) {
         var upcoming = {
             href: right[0].href,
@@ -47320,8 +47320,8 @@ var CardFooter = function CardFooter(props) {
             text: right[0].text,
             type: altRight[0].type
         };
-        altRightA.push(upcoming);
-        altRightB.push(live);
+        altRightUpcoming.push(upcoming);
+        altRightLive.push(live);
     }
 
     return _react2.default.createElement(
@@ -47352,17 +47352,17 @@ var CardFooter = function CardFooter(props) {
                     className: 'consonant-CardFooter-cell consonant-CardFooter-cell--right' },
                 _react2.default.createElement(_Group2.default, { renderList: right, onFocus: onFocus })
             ),
-            shouldRenderAltRightA && _react2.default.createElement(
+            shouldRenderAltRightUpcoming && _react2.default.createElement(
                 'div',
                 {
                     className: 'consonant-CardFooter-cell consonant-CardFooter-cell--right' },
-                _react2.default.createElement(_Group2.default, { renderList: altRightA, onFocus: onFocus })
+                _react2.default.createElement(_Group2.default, { renderList: altRightUpcoming, onFocus: onFocus })
             ),
-            shouldRenderAltRightB && _react2.default.createElement(
+            shouldRenderAltRightLive && _react2.default.createElement(
                 'div',
                 {
                     className: 'consonant-CardFooter-cell consonant-CardFooter-cell--right' },
-                _react2.default.createElement(_Group2.default, { renderList: altRightB, onFocus: onFocus })
+                _react2.default.createElement(_Group2.default, { renderList: altRightLive, onFocus: onFocus })
             )
         )
     );
