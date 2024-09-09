@@ -178,6 +178,7 @@ const Card = (props) => {
     const hideDateInterval = getConfig('collection', 'hideDateInterval');
     const showCardBadges = getConfig('collection', 'showCardBadges');
     const altCta = getConfig('collection', 'dynamicCTAForLiveEvents');
+    const ctaAction = getConfig('collection', 'ctaAction');
 
     /**
      * Class name for the card:
@@ -340,7 +341,7 @@ const Card = (props) => {
         ariaText = `${bannerDescriptionToUse} | ${ariaText}`;
     }
 
-    const linkBlockerTarget = getLinkTarget(overlayLink);
+    const linkBlockerTarget = getLinkTarget(overlayLink, ctaAction);
     const addParams = new URLSearchParams(additionalParams);
     const overlay = (additionalParams && addParams.keys().next().value) ? `${overlayLink}?${addParams.toString()}` : overlayLink;
 
