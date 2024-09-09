@@ -1,5 +1,14 @@
 
 
+# [0.21.0](https://github.com/adobecom/caas/compare/0.20.0...0.21.0) (2024-09-09)
+
+
+### Features
+
+* **mwpw-157435:** alt cta links/texts + rebase ([a9ba825](https://github.com/adobecom/caas/commit/a9ba825b65ff50d0ab221d2972536e0464dcaa99))
+* **mwpw-157435:** good note about variable names ([39ab8db](https://github.com/adobecom/caas/commit/39ab8db8aae9becc19e18495245d01075612eba7))
+* **mwpw-157435:** rebuild dist files ([bc4bc05](https://github.com/adobecom/caas/commit/bc4bc053d270c6c9adc35c67a021b60dce87b5ef))
+
 # [0.20.0](https://github.com/adobecom/caas/compare/0.19.0...0.20.0) (2024-09-09)
 
 
