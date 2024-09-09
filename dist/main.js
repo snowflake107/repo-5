@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.19.0 (9/6/2024, 12:44:32)
+ * Chimera UI Libraries - Build 0.19.0 (9/9/2024, 10:26:21)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -47244,6 +47244,7 @@ var CardFooter = function CardFooter(props) {
      */
 
     var isLive = (0, _general.isDateWithinInterval)((0, _general.getCurrentDate)(), startDate, endDate);
+    var isUpcoming = (0, _general.isDateBeforeInterval)((0, _general.getCurrentDate)(), startDate);
 
     /**
      * Class name for the card footer:
@@ -47290,13 +47291,38 @@ var CardFooter = function CardFooter(props) {
      * Whether the right footer infobits should render
      * @type {Boolean}
      */
-    var shouldRenderRight = right && right.length > 0 && (!isLive || altRight.length === 0);
+    var shouldRenderRight = right && right.length > 0 && (!isLive || altRight.length === 0) && (!isUpcoming || altRight.length === 0);
 
     /**
-     * Whether an alternate right footer infobits should render
+     * Whether an alternate right footer infobits should render for upcoming
      * @type {Boolean}
      */
-    var shouldRenderAltRight = altRight && altRight.length > 0 && isLive;
+    var shouldRenderAltRightA = altRight && altRight.length > 0 && isUpcoming;
+
+    /**
+     * Whether an alternate right footer infobets should render for live events
+     */
+    var shouldRenderAltRightB = altRight && altRight.length > 0 && isLive;
+
+    /**
+     * This is some franken logic to make one alt cta space work for two different card states
+     */
+    var altRightA = []; // isUpcoming
+    var altRightB = []; // isLive
+    if (altRight && altRight.length > 0 && right && right.length > 0) {
+        var upcoming = {
+            href: right[0].href,
+            text: altRight[0].text,
+            type: right[0].type
+        };
+        var live = {
+            href: altRight[0].href,
+            text: right[0].text,
+            type: altRight[0].type
+        };
+        altRightA.push(upcoming);
+        altRightB.push(live);
+    }
 
     return _react2.default.createElement(
         'div',
@@ -47326,11 +47352,17 @@ var CardFooter = function CardFooter(props) {
                     className: 'consonant-CardFooter-cell consonant-CardFooter-cell--right' },
                 _react2.default.createElement(_Group2.default, { renderList: right, onFocus: onFocus })
             ),
-            shouldRenderAltRight && _react2.default.createElement(
+            shouldRenderAltRightA && _react2.default.createElement(
                 'div',
                 {
                     className: 'consonant-CardFooter-cell consonant-CardFooter-cell--right' },
-                _react2.default.createElement(_Group2.default, { renderList: altRight, onFocus: onFocus })
+                _react2.default.createElement(_Group2.default, { renderList: altRightA, onFocus: onFocus })
+            ),
+            shouldRenderAltRightB && _react2.default.createElement(
+                'div',
+                {
+                    className: 'consonant-CardFooter-cell consonant-CardFooter-cell--right' },
+                _react2.default.createElement(_Group2.default, { renderList: altRightB, onFocus: onFocus })
             )
         )
     );
