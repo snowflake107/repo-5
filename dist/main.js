@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.20.0 (9/9/2024, 13:21:45)
+ * Chimera UI Libraries - Build 0.21.0 (9/9/2024, 20:46:25)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -44064,18 +44064,20 @@ function CardsCarousel() {
     var showTotalResults = getConfig('collection', 'showTotalResults');
     var showTotalResultsText = getConfig('collection', 'i18n.totalResultsText');
     var useLightText = getConfig('collection', 'useLightText');
+    var isIncremental = getConfig('pagination', 'animationStyle') === 'incremental';
+
     if (cardsUp.includes('2up')) {
         cardWidth = 500;
-        cardsShiftedPerClick = 1;
+        cardsShiftedPerClick = isIncremental ? 1 : 2;
     } else if (cardsUp.includes('3up')) {
         cardWidth = 378;
-        cardsShiftedPerClick = 1;
+        cardsShiftedPerClick = isIncremental ? 1 : 3;
     } else if (cardsUp.includes('4up')) {
         cardWidth = 276;
-        cardsShiftedPerClick = 4;
+        cardsShiftedPerClick = isIncremental ? 1 : 4;
     } else if (cardsUp.includes('5up')) {
         cardWidth = 228;
-        cardsShiftedPerClick = 4;
+        cardsShiftedPerClick = isIncremental ? 1 : 5;
     }
     var HeadingLevel = getConfig('collection', 'i18n.titleHeadingLevel');
     var cardsPerPage = parseInt(cardsUp, 10);
