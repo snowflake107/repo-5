@@ -24,18 +24,20 @@ function CardsCarousel({
     const showTotalResults = getConfig('collection', 'showTotalResults');
     const showTotalResultsText = getConfig('collection', 'i18n.totalResultsText');
     const useLightText = getConfig('collection', 'useLightText');
+    const isIncremental = getConfig('pagination', 'animationStyle') === 'incremental';
+
     if (cardsUp.includes('2up')) {
         cardWidth = 500;
-        cardsShiftedPerClick = 1;
+        cardsShiftedPerClick = isIncremental ? 1 : 2;
     } else if (cardsUp.includes('3up')) {
         cardWidth = 378;
-        cardsShiftedPerClick = 1;
+        cardsShiftedPerClick = isIncremental ? 1 : 3;
     } else if (cardsUp.includes('4up')) {
         cardWidth = 276;
-        cardsShiftedPerClick = 4;
+        cardsShiftedPerClick = isIncremental ? 1 : 4;
     } else if (cardsUp.includes('5up')) {
         cardWidth = 228;
-        cardsShiftedPerClick = 4;
+        cardsShiftedPerClick = isIncremental ? 1 : 5;
     }
     const HeadingLevel = getConfig('collection', 'i18n.titleHeadingLevel');
     const cardsPerPage = parseInt(cardsUp, 10);
