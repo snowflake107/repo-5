@@ -1,5 +1,12 @@
 
 
+## [0.21.1](https://github.com/adobecom/caas/compare/0.21.0...0.21.1) (2024-09-11)
+
+
+### Bug Fixes
+
+* **mwpw-157434:** Fixes Carousel pagination issues ([956c1f4](https://github.com/adobecom/caas/commit/956c1f49eddb904bd075de1d4bac868c24ff4e43))
+
 # [0.21.0](https://github.com/adobecom/caas/compare/0.20.0...0.21.0) (2024-09-09)
 
 
