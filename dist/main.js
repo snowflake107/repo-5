@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.21.0 (9/9/2024, 20:46:25)
+ * Chimera UI Libraries - Build 0.21.1 (9/11/2024, 21:29:50)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -6106,19 +6106,19 @@ var _CardsCarousel = __webpack_require__(236);
 
 var _CardsCarousel2 = _interopRequireDefault(_CardsCarousel);
 
-var _View = __webpack_require__(288);
+var _View = __webpack_require__(289);
 
 var _View2 = _interopRequireDefault(_View);
 
-var _LoadMore = __webpack_require__(289);
+var _LoadMore = __webpack_require__(290);
 
 var _LoadMore2 = _interopRequireDefault(_LoadMore);
 
-var _Bookmarks = __webpack_require__(290);
+var _Bookmarks = __webpack_require__(291);
 
 var _Bookmarks2 = _interopRequireDefault(_Bookmarks);
 
-var _Paginator = __webpack_require__(291);
+var _Paginator = __webpack_require__(292);
 
 var _Paginator2 = _interopRequireDefault(_Paginator);
 
@@ -6126,25 +6126,25 @@ var _Grid = __webpack_require__(112);
 
 var _Grid2 = _interopRequireDefault(_Grid);
 
-var _CardFilterer = __webpack_require__(292);
+var _CardFilterer = __webpack_require__(293);
 
 var _CardFilterer2 = _interopRequireDefault(_CardFilterer);
 
-var _Panel = __webpack_require__(294);
+var _Panel = __webpack_require__(295);
 
 var _Panel2 = _interopRequireDefault(_Panel);
 
-var _Panel3 = __webpack_require__(299);
+var _Panel3 = __webpack_require__(300);
 
 var _Panel4 = _interopRequireDefault(_Panel3);
 
-var _JsonProcessor = __webpack_require__(309);
+var _JsonProcessor = __webpack_require__(310);
 
 var _JsonProcessor2 = _interopRequireDefault(_JsonProcessor);
 
 var _hooks = __webpack_require__(7);
 
-var _Info = __webpack_require__(310);
+var _Info = __webpack_require__(311);
 
 var _constants = __webpack_require__(15);
 
@@ -8076,9 +8076,15 @@ var _Card = __webpack_require__(252);
 
 var _Card2 = _interopRequireDefault(_Card);
 
+var _withLinkTransformer = __webpack_require__(288);
+
+var _withLinkTransformer2 = _interopRequireDefault(_withLinkTransformer);
+
 var _constants = __webpack_require__(15);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TransformedCard = (0, _withLinkTransformer2.default)(_Card2.default);
 
 var cardsGridType = {
     pages: _propTypes.number,
@@ -8283,7 +8289,7 @@ var Grid = function Grid(props) {
                 case _constants.CARD_STYLES.CUSTOM:
                     return (0, _htmlReactParser2.default)(customCard(card));
                 default:
-                    return _react2.default.createElement(_Card2.default, _extends({
+                    return _react2.default.createElement(TransformedCard, _extends({
                         cardStyle: cardStyle,
                         lh: 'Card ' + cardNumber + ' | ' + cleanTitle(title) + ' | ' + id,
                         key: card.id
@@ -9236,7 +9242,7 @@ exports.default = getPrettyDateInterval;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(120);
-module.exports = __webpack_require__(314);
+module.exports = __webpack_require__(315);
 
 
 /***/ }),
@@ -9271,7 +9277,7 @@ var _Container = __webpack_require__(108);
 
 var _Container2 = _interopRequireDefault(_Container);
 
-var _ConsonantPageDOM = __webpack_require__(312);
+var _ConsonantPageDOM = __webpack_require__(313);
 
 var _ConsonantPageDOM2 = _interopRequireDefault(_ConsonantPageDOM);
 
@@ -52280,6 +52286,137 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /* eslint-disable */
+
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _hooks = __webpack_require__(7);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function isValidURL(string) {
+    try {
+        new URL(string);
+        return true;
+    } catch (_) {
+        return false;
+    }
+}
+
+function transformLink(url, patterns) {
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+        for (var _iterator = patterns[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var pattern = _step.value;
+
+            var regex = new RegExp(pattern.from);
+            if (regex.test(url)) {
+                return url.replace(regex, pattern.to);
+            }
+        }
+    } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+                _iterator.return();
+            }
+        } finally {
+            if (_didIteratorError) {
+                throw _iteratorError;
+            }
+        }
+    }
+
+    return url;
+}
+
+function transformNestedProps(obj, hostnameTransforms) {
+    if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) !== 'object' || obj === null) {
+        return obj;
+    }
+    if (Array.isArray(obj)) {
+        return obj.map(function (item) {
+            return transformNestedProps(item, hostnameTransforms);
+        });
+    }
+
+    var newObj = {};
+    var _iteratorNormalCompletion2 = true;
+    var _didIteratorError2 = false;
+    var _iteratorError2 = undefined;
+
+    try {
+        for (var _iterator2 = Object.entries(obj)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var _ref = _step2.value;
+
+            var _ref2 = _slicedToArray(_ref, 2);
+
+            var key = _ref2[0];
+            var value = _ref2[1];
+
+            if (typeof value === 'string' && isValidURL(value)) {
+                newObj[key] = transformLink(value, hostnameTransforms);
+            } else if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' && value !== null) {
+                newObj[key] = transformNestedProps(value, hostnameTransforms);
+            } else {
+                newObj[key] = value;
+            }
+        }
+    } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                _iterator2.return();
+            }
+        } finally {
+            if (_didIteratorError2) {
+                throw _iteratorError2;
+            }
+        }
+    }
+
+    return newObj;
+}
+
+function withLinkTransformer(Component) {
+    return function WrappedComponent(props) {
+        var getConfig = (0, _hooks.useConfig)();
+        var enabled = getConfig('linkTransformer', 'enabled');
+        var hostnameTransforms = getConfig('linkTransformer', 'hostnameTransforms');
+        var transformedProps = _react2.default.useMemo(function () {
+            if (!enabled) return props;
+            return transformNestedProps(props, hostnameTransforms);
+        }, [enabled, hostnameTransforms, props]);
+
+        return _react2.default.createElement(Component, transformedProps);
+    };
+}
+
+exports.default = withLinkTransformer;
+
+/***/ }),
+/* 289 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
@@ -52368,7 +52505,7 @@ View.defaultProps = defaultProps;
 exports.default = View;
 
 /***/ }),
-/* 289 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52498,7 +52635,7 @@ LoadMore.propTypes = loadMoreType;
 exports.default = LoadMore;
 
 /***/ }),
-/* 290 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52625,7 +52762,7 @@ Bookmarks.defaultProps = defaultProps;
 exports.default = Bookmarks;
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52837,7 +52974,7 @@ Paginator.propTypes = paginatorType;
 exports.default = Paginator;
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52853,7 +52990,7 @@ var _Helpers = __webpack_require__(22);
 
 var _constants = __webpack_require__(15);
 
-var _cards = __webpack_require__(293);
+var _cards = __webpack_require__(294);
 
 var _general = __webpack_require__(5);
 
@@ -53071,7 +53208,7 @@ var CardFilterer = function () {
 exports.default = CardFilterer;
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53118,7 +53255,7 @@ var filterCardsByDateRange = exports.filterCardsByDateRange = function filterCar
 };
 
 /***/ }),
-/* 294 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53142,11 +53279,11 @@ var _propTypes = __webpack_require__(1);
 
 var _config = __webpack_require__(20);
 
-var _SearchIcon = __webpack_require__(295);
+var _SearchIcon = __webpack_require__(296);
 
 var _SearchIcon2 = _interopRequireDefault(_SearchIcon);
 
-var _Group = __webpack_require__(296);
+var _Group = __webpack_require__(297);
 
 var _rendering = __webpack_require__(40);
 
@@ -53493,7 +53630,7 @@ FiltersPanelTop.defaultProps = defaultProps;
 exports.default = FiltersPanelTop;
 
 /***/ }),
-/* 295 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53550,7 +53687,7 @@ SearchIcon.propTypes = searchIconType;
 exports.default = SearchIcon;
 
 /***/ }),
-/* 296 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53573,9 +53710,9 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _propTypes = __webpack_require__(1);
 
-var _Items = __webpack_require__(297);
+var _Items = __webpack_require__(298);
 
-var _Footer = __webpack_require__(298);
+var _Footer = __webpack_require__(299);
 
 var _config = __webpack_require__(20);
 
@@ -53851,7 +53988,7 @@ Group.defaultProps = defaultProps;
 exports.Group = Group;
 
 /***/ }),
-/* 297 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53986,7 +54123,7 @@ Items.propTypes = itemsType;
 exports.Items = Items;
 
 /***/ }),
-/* 298 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54096,7 +54233,7 @@ Footer.defaultProps = defaultProps;
 exports.Footer = Footer;
 
 /***/ }),
-/* 299 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54116,7 +54253,7 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _propTypes = __webpack_require__(1);
 
-var _Item = __webpack_require__(300);
+var _Item = __webpack_require__(301);
 
 var _Item2 = _interopRequireDefault(_Item);
 
@@ -54124,17 +54261,17 @@ var _hooks = __webpack_require__(7);
 
 var _config = __webpack_require__(20);
 
-var _ChosenItem = __webpack_require__(304);
+var _ChosenItem = __webpack_require__(305);
 
 var _ChosenItem2 = _interopRequireDefault(_ChosenItem);
 
-var _Title = __webpack_require__(305);
+var _Title = __webpack_require__(306);
 
-var _Title2 = __webpack_require__(306);
+var _Title2 = __webpack_require__(307);
 
-var _PanelFooter = __webpack_require__(307);
+var _PanelFooter = __webpack_require__(308);
 
-var _ClearButton = __webpack_require__(308);
+var _ClearButton = __webpack_require__(309);
 
 var _general = __webpack_require__(5);
 
@@ -54382,7 +54519,7 @@ LeftFilterPanel.defaultProps = defaultProps;
 exports.default = LeftFilterPanel;
 
 /***/ }),
-/* 300 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54402,15 +54539,15 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _propTypes = __webpack_require__(1);
 
-var _Items = __webpack_require__(301);
+var _Items = __webpack_require__(302);
 
 var _hooks = __webpack_require__(7);
 
 var _config = __webpack_require__(20);
 
-var _GroupFooter = __webpack_require__(302);
+var _GroupFooter = __webpack_require__(303);
 
-var _SelectedItem = __webpack_require__(303);
+var _SelectedItem = __webpack_require__(304);
 
 var _Helpers = __webpack_require__(22);
 
@@ -54641,7 +54778,7 @@ Item.defaultProps = defaultProps;
 exports.default = Item;
 
 /***/ }),
-/* 301 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54734,7 +54871,7 @@ Items.propTypes = ItemsType;
 exports.Items = Items;
 
 /***/ }),
-/* 302 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54831,7 +54968,7 @@ GroupFooter.defaultProps = defaultProps;
 exports.GroupFooter = GroupFooter;
 
 /***/ }),
-/* 303 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54903,7 +55040,7 @@ SelectedItem.defaultProps = defaultProps;
 exports.SelectedItem = SelectedItem;
 
 /***/ }),
-/* 304 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54979,7 +55116,7 @@ ChosenFilterItem.propTypes = chosenFilterItemType;
 exports.default = ChosenFilterItem;
 
 /***/ }),
-/* 305 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55079,7 +55216,7 @@ Title.defaultProps = defaultProps;
 exports.Title = Title;
 
 /***/ }),
-/* 306 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55136,7 +55273,7 @@ Title.defaultProps = defaultProps;
 exports.Title = Title;
 
 /***/ }),
-/* 307 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55276,7 +55413,7 @@ PanelFooter.defaultProps = defaultProps;
 exports.PanelFooter = PanelFooter;
 
 /***/ }),
-/* 308 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55346,7 +55483,7 @@ ClearBtn.defaultProps = defaultProps;
 exports.ClearBtn = ClearBtn;
 
 /***/ }),
-/* 309 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55475,7 +55612,7 @@ var JsonProcessor = function () {
 exports.default = JsonProcessor;
 
 /***/ }),
-/* 310 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55500,7 +55637,7 @@ var _hooks = __webpack_require__(7);
 
 var _config = __webpack_require__(20);
 
-var _Info = __webpack_require__(311);
+var _Info = __webpack_require__(312);
 
 var _rendering = __webpack_require__(40);
 
@@ -55681,7 +55818,7 @@ Info.defaultProps = defaultProps;
 exports.Info = Info;
 
 /***/ }),
-/* 311 */
+/* 312 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55786,7 +55923,7 @@ Info.defaultProps = defaultProps;
 exports.Info = Info;
 
 /***/ }),
-/* 312 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55802,7 +55939,7 @@ var _Container = __webpack_require__(108);
 
 var _Container2 = _interopRequireDefault(_Container);
 
-var _decorators = __webpack_require__(313);
+var _decorators = __webpack_require__(314);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -55832,7 +55969,7 @@ var consonantPageRDC = (0, _reactDomComponents.createRDC)('consonant-card-collec
 exports.default = consonantPageRDC;
 
 /***/ }),
-/* 313 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55864,7 +56001,7 @@ var parseDataConfig = exports.parseDataConfig = function parseDataConfig(Compone
 };
 
 /***/ }),
-/* 314 */
+/* 315 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
