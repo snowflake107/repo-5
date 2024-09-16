@@ -41,12 +41,29 @@ function transformNestedProps(obj, hostnameTransforms) {
     }
     return newObj;
 }
+function getLocalStorageSettings() {
+    try {
+        const settings = localStorage.getItem('linkTransformerSettings');
+        return settings ? JSON.parse(settings) : {};
+    } catch (error) {
+        lana.error('Error reading from localStorage:', error);
+        return {};
+    }
+}
 
 function withLinkTransformer(Component) {
     return function WrappedComponent(props) {
         const getConfig = useConfig();
-        const enabled = getConfig('linkTransformer', 'enabled');
-        const hostnameTransforms = getConfig('linkTransformer', 'hostnameTransforms');
+        const configEnabled = getConfig('linkTransformer', 'enabled') || false;
+        const configHostnameTransforms = getConfig('linkTransformer', 'hostnameTransforms') || [];
+
+        const localStorageSettings = getLocalStorageSettings();
+        const localStorageEnabled = localStorageSettings && localStorageSettings.enabled !== undefined ? localStorageSettings.enabled : false;
+
+        const enabled = configEnabled || localStorageEnabled;
+        const haveLocalStorageHostnameTransforms = localStorageEnabled && localStorageSettings.hostnameTransforms;
+        const hostnameTransforms = haveLocalStorageHostnameTransforms ? localStorageSettings.hostnameTransforms : configHostnameTransforms;
+
         const transformedProps = React.useMemo(() => {
             if (!enabled) return props;
             return transformNestedProps(props, hostnameTransforms);

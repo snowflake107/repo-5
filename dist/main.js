@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.21.1 (9/11/2024, 21:29:50)
+ * Chimera UI Libraries - Build 0.21.1 (9/16/2024, 15:02:43)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -52389,12 +52389,29 @@ function transformNestedProps(obj, hostnameTransforms) {
 
     return newObj;
 }
+function getLocalStorageSettings() {
+    try {
+        var settings = localStorage.getItem('linkTransformerSettings');
+        return settings ? JSON.parse(settings) : {};
+    } catch (error) {
+        lana.error('Error reading from localStorage:', error);
+        return {};
+    }
+}
 
 function withLinkTransformer(Component) {
     return function WrappedComponent(props) {
         var getConfig = (0, _hooks.useConfig)();
-        var enabled = getConfig('linkTransformer', 'enabled');
-        var hostnameTransforms = getConfig('linkTransformer', 'hostnameTransforms');
+        var configEnabled = getConfig('linkTransformer', 'enabled') || false;
+        var configHostnameTransforms = getConfig('linkTransformer', 'hostnameTransforms') || [];
+
+        var localStorageSettings = getLocalStorageSettings();
+        var localStorageEnabled = localStorageSettings && localStorageSettings.enabled !== undefined ? localStorageSettings.enabled : false;
+
+        var enabled = configEnabled || localStorageEnabled;
+        var haveLocalStorageHostnameTransforms = localStorageEnabled && localStorageSettings.hostnameTransforms;
+        var hostnameTransforms = haveLocalStorageHostnameTransforms ? localStorageSettings.hostnameTransforms : configHostnameTransforms;
+
         var transformedProps = _react2.default.useMemo(function () {
             if (!enabled) return props;
             return transformNestedProps(props, hostnameTransforms);
