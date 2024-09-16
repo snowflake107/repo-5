@@ -23,10 +23,10 @@ function transformLink(url, patterns) {
 
 function transformNestedProps(obj, hostnameTransforms) {
     if (typeof obj !== 'object' || obj === null) {
-        return obj;
+        return obj; // here
     }
     if (Array.isArray(obj)) {
-        return obj.map(item => transformNestedProps(item, hostnameTransforms));
+        return obj.map(item => transformNestedProps(item, hostnameTransforms)); // here
     }
 
     const newObj = {};
@@ -46,8 +46,8 @@ function getLocalStorageSettings() {
         const settings = localStorage.getItem('linkTransformerSettings');
         return settings ? JSON.parse(settings) : {};
     } catch (error) {
-        lana.error('Error reading from localStorage:', error);
-        return {};
+        lana.error('Error reading from localStorage:', error); // here
+        return {}; // here
     }
 }
 
