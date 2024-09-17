@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import { useConfig } from '../Helpers/hooks';
+import { logLana } from '../Helpers/lana';
 
 function isValidURL(string) {
     try {
@@ -23,10 +24,10 @@ function transformLink(url, patterns) {
 
 function transformNestedProps(obj, hostnameTransforms) {
     if (typeof obj !== 'object' || obj === null) {
-        return obj; // here
+        return typeof obj === 'string' && isValidURL(obj) ? transformLink(obj, hostnameTransforms) : obj;
     }
     if (Array.isArray(obj)) {
-        return obj.map(item => transformNestedProps(item, hostnameTransforms)); // here
+        return obj.map(item => transformNestedProps(item, hostnameTransforms));
     }
 
     const newObj = {};
@@ -41,12 +42,13 @@ function transformNestedProps(obj, hostnameTransforms) {
     }
     return newObj;
 }
+
 function getLocalStorageSettings() {
     try {
         const settings = localStorage.getItem('linkTransformerSettings');
         return settings ? JSON.parse(settings) : {};
     } catch (error) {
-        lana.error('Error reading from localStorage:', error); // here
+        logLana({message: 'Error reading from localStorage:', tags: 'linkTransformer', e: error}); // here
         return {}; // here
     }
 }

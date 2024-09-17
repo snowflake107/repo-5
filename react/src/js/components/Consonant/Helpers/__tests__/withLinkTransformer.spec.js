@@ -3,6 +3,11 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import withLinkTransformer from '../withLinkTransformer';
 import { ConfigContext } from '../contexts';
+import { logLana } from '../lana';
+
+jest.mock('../lana', () => ({
+    logLana: jest.fn(),
+}));
 
 // Mock component to test link transformation
 // eslint-disable-next-line react/prop-types
@@ -139,6 +144,52 @@ describe('withLinkTransformer', () => {
         const image = screen.getByRole('img', { name: /Test/i });
         expect(image).toHaveAttribute('src', 'https://www.adobe.com/content/dam/cc/us/en/creative-cloud/photography/discover/landscape-photography/CODERED_B1_landscape_P2d_690x455.jpg.img.jpg');
     });
+
+    describe('Edge cases and error handling', () => {
+        test('handles non-object props correctly', () => {
+            const StringComponent = withLinkTransformer(({ value }) => <span>{value}</span>);
+            renderWithConfig(<StringComponent value="Just a string" />, mockConfig);
+            expect(screen.getByText('Just a string')).toBeInTheDocument();
+        });
+
+
+        test('handles array props correctly', () => {
+            const ArrayComponent = withLinkTransformer(({ items }) => (
+                <ul>
+                    {items.map((item, index) => (
+                        <li key={index}><a href={item}>{item}</a></li>
+                    ))}
+                </ul>
+            ));
+            renderWithConfig(<ArrayComponent items={['https://business.adobe.com', 'https://www.adobe.com/max']} />, mockConfig);
+            const links = screen.getAllByRole('link');
+            expect(links[0]).toHaveAttribute('href', 'https://business.stage.adobe.com');
+            expect(links[1]).toHaveAttribute('href', 'https://www.stage.adobe.com/max');
+        });
+
+
+        test('handles localStorage errors gracefully', () => {
+            const mockGetItem = jest.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
+                throw new Error('localStorage error');
+            });
+
+            renderWithConfig(
+                <TransformedComponent
+                    href="https://business.adobe.com/products/magento/magento-commerce.html"
+                    text="Magento Commerce"
+                />,
+                mockConfig,
+            );
+
+            const link = screen.getByRole('link', { name: /Magento Commerce/i });
+            expect(link).toHaveAttribute('href', 'https://business.stage.adobe.com/products/magento/magento-commerce.html');
+            expect(logLana).toHaveBeenCalledWith({ message: 'Error reading from localStorage:', tags: 'linkTransformer', e: expect.any(Error) });
+
+            mockGetItem.mockRestore();
+        });
+
+    });
+
 });
 
 const settings = {
