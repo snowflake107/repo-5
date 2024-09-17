@@ -43,8 +43,7 @@ describe('withLinkTransformer', () => {
         renderWithConfig(
             <TransformedComponent
                 href="https://business.adobe.com/products/magento/magento-commerce.html"
-                text="Magento Commerce"
-            />,
+                text="Magento Commerce" />,
             mockConfig,
         );
         const link = screen.getByRole('link', { name: /Magento Commerce/i });
@@ -55,8 +54,7 @@ describe('withLinkTransformer', () => {
         renderWithConfig(
             <TransformedComponent
                 href="https://www.adobe.com/max/2023.html"
-                text="Adobe MAX 2023"
-            />,
+                text="Adobe MAX 2023" />,
             mockConfig,
         );
         const link = screen.getByRole('link', { name: /Adobe MAX 2023/i });
@@ -72,8 +70,7 @@ describe('withLinkTransformer', () => {
         renderWithConfig(
             <TransformedComponent
                 href="https://business.adobe.com/products/magento/magento-commerce.html"
-                text="Magento Commerce"
-            />,
+                text="Magento Commerce" />,
             disabledConfig,
         );
         const link = screen.getByRole('link', { name: /Magento Commerce/i });
@@ -94,8 +91,7 @@ describe('withLinkTransformer', () => {
         renderWithConfig(
             <TransformedComponent
                 href="https://www.adobe.com/products/photoshop.html"
-                text="Photoshop"
-            />,
+                text="Photoshop" />,
             { linkTransformer: { enabled: false } },
         );
         const link = screen.getByRole('link', { name: /Photoshop/i });
@@ -106,8 +102,7 @@ describe('withLinkTransformer', () => {
         renderWithConfig(
             <TransformedComponent
                 href="https://example.com"
-                text="Example"
-            />,
+                text="Example" />,
             mockConfig,
         );
         const link = screen.getByRole('link', { name: /Example/i });
@@ -133,8 +128,7 @@ describe('withLinkTransformer', () => {
                     link: 'https://business.adobe.com/products/magento/magento-commerce.html',
                     text: 'Magento Commerce',
                     image: 'https://www.adobe.com/content/dam/cc/us/en/creative-cloud/photography/discover/landscape-photography/CODERED_B1_landscape_P2d_690x455.jpg.img.jpg',
-                }}
-            />,
+                }} />,
             mockConfig,
         );
 
@@ -157,6 +151,7 @@ describe('withLinkTransformer', () => {
             const ArrayComponent = withLinkTransformer(({ items }) => (
                 <ul>
                     {items.map((item, index) => (
+                        // eslint-disable-next-line react/no-array-index-key
                         <li key={index}><a href={item}>{item}</a></li>
                     ))}
                 </ul>
@@ -176,8 +171,7 @@ describe('withLinkTransformer', () => {
             renderWithConfig(
                 <TransformedComponent
                     href="https://business.adobe.com/products/magento/magento-commerce.html"
-                    text="Magento Commerce"
-                />,
+                    text="Magento Commerce" />,
                 mockConfig,
             );
 
@@ -187,9 +181,7 @@ describe('withLinkTransformer', () => {
 
             mockGetItem.mockRestore();
         });
-
     });
-
 });
 
 const settings = {

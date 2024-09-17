@@ -1,10 +1,10 @@
-/* eslint-disable */
 import React from 'react';
 import { useConfig } from '../Helpers/hooks';
 import { logLana } from '../Helpers/lana';
 
 function isValidURL(string) {
     try {
+        // eslint-disable-next-line no-new
         new URL(string);
         return true;
     } catch (_) {
@@ -48,7 +48,7 @@ function getLocalStorageSettings() {
         const settings = localStorage.getItem('linkTransformerSettings');
         return settings ? JSON.parse(settings) : {};
     } catch (error) {
-        logLana({message: 'Error reading from localStorage:', tags: 'linkTransformer', e: error}); // here
+        logLana({ message: 'Error reading from localStorage:', tags: 'linkTransformer', e: error }); // here
         return {}; // here
     }
 }
@@ -60,10 +60,13 @@ function withLinkTransformer(Component) {
         const configHostnameTransforms = getConfig('linkTransformer', 'hostnameTransforms') || [];
 
         const localStorageSettings = getLocalStorageSettings();
+        // eslint-disable-next-line max-len
         const localStorageEnabled = localStorageSettings && localStorageSettings.enabled !== undefined ? localStorageSettings.enabled : false;
 
         const enabled = configEnabled || localStorageEnabled;
+        // eslint-disable-next-line max-len
         const haveLocalStorageHostnameTransforms = localStorageEnabled && localStorageSettings.hostnameTransforms;
+        // eslint-disable-next-line max-len
         const hostnameTransforms = haveLocalStorageHostnameTransforms ? localStorageSettings.hostnameTransforms : configHostnameTransforms;
 
         const transformedProps = React.useMemo(() => {
