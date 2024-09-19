@@ -1,5 +1,13 @@
 
 
+## [0.21.5](https://github.com/adobecom/caas/compare/0.21.4...0.21.5) (2024-09-19)
+
+
+### Bug Fixes
+
+* **mwpw-139846:** caas carousel cutuff with grid width ([35f56d2](https://github.com/adobecom/caas/commit/35f56d224fe795baf603d38871cf250adc7e70b9))
+* **mwpw-139846:** rebuild after rebase ([bb4ee0d](https://github.com/adobecom/caas/commit/bb4ee0d65fac778bf0c9113057c81dd521318ab1))
+
 ## [0.21.4](https://github.com/adobecom/caas/compare/0.21.3...0.21.4) (2024-09-19)
 
 ## [0.21.3](https://github.com/adobecom/caas/compare/0.21.2...0.21.3) (2024-09-17)
