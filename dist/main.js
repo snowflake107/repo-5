@@ -1,5 +1,5 @@
 /*!
- * Chimera UI Libraries - Build 0.21.2 (9/16/2024, 17:47:26)
+ * Chimera UI Libraries - Build 0.21.3 (9/19/2024, 11:21:47)
  *         
  */
 /******/ (function(modules) { // webpackBootstrap
@@ -7740,7 +7740,7 @@ var Container = function Container(props) {
                 {
                     ref: box,
                     role: 'group',
-                    'aria-label': title,
+                    'aria-label': title || 'Card Collection',
                     'daa-lh': collectionAnalytics,
                     'daa-im': String(trackImpressions),
                     onClick: handleWindowClick,
@@ -8270,7 +8270,6 @@ var Grid = function Grid(props) {
             'data-card-style': collectionStyleOverride,
             'data-testid': 'consonant-CardsGrid',
             className: gridClass,
-            role: 'tablist',
             'aria-live': isAriaLiveActive ? 'polite' : 'off' },
         cardsToshow.map(function (card, index) {
             var cardStyleOverride = (0, _general.getByPath)(card, 'styles.typeOverride');
@@ -44293,8 +44292,6 @@ function CardsCarousel() {
                 onMouseMove: mouseMoveHandler,
                 onMouseLeave: mouseLeaveHandler,
                 onScroll: scrollHandler,
-                role: 'tab',
-                tabIndex: -1,
                 ref: carouselRef },
             _react2.default.createElement(_Grid2.default, {
                 cards: cards,
@@ -52285,8 +52282,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /* eslint-disable */
-
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _react = __webpack_require__(0);
 
@@ -52300,6 +52296,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function isValidURL(string) {
     try {
+        // eslint-disable-next-line no-new
         new URL(string);
         return true;
     } catch (_) {
@@ -52406,10 +52403,13 @@ function withLinkTransformer(Component) {
         var configHostnameTransforms = getConfig('linkTransformer', 'hostnameTransforms') || [];
 
         var localStorageSettings = getLocalStorageSettings();
+        // eslint-disable-next-line max-len
         var localStorageEnabled = localStorageSettings && localStorageSettings.enabled !== undefined ? localStorageSettings.enabled : false;
 
         var enabled = configEnabled || localStorageEnabled;
+        // eslint-disable-next-line max-len
         var haveLocalStorageHostnameTransforms = localStorageEnabled && localStorageSettings.hostnameTransforms;
+        // eslint-disable-next-line max-len
         var hostnameTransforms = haveLocalStorageHostnameTransforms ? localStorageSettings.hostnameTransforms : configHostnameTransforms;
 
         var transformedProps = _react2.default.useMemo(function () {
