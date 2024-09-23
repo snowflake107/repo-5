@@ -22,8 +22,8 @@ describe('lana', () => {
             addEventListener: jest.fn(),
             removeEventListener: jest.fn(),
             location: {
-                href: 'https://example.com'
-            }
+                href: 'https://example.com',
+            },
         };
     });
 
@@ -72,7 +72,7 @@ describe('lana', () => {
                     clientId: 'chimera',
                     sampleRate: 1,
                     tags,
-                })
+                }),
             );
         });
 
