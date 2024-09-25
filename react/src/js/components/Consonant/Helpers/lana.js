@@ -26,9 +26,11 @@ export const logLana = ({
     message, tags, e = '', sampleRate = 1,
 } = {}) => {
     const msg = `${message} | referer: ${window.location.href} | ${e.reason || e.error || e.message || e}`;
-    window.lana.log(msg, {
-        clientId: 'chimera',
-        sampleRate,
-        tags,
-    });
+    if (window.lana && typeof window.lana.log === 'function') {
+        window.lana.log(msg, {
+            clientId: 'chimera',
+            sampleRate,
+            tags,
+        });
+    }
 };
