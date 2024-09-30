@@ -1,5 +1,12 @@
 
 
+## [0.21.7](https://github.com/adobecom/caas/compare/0.21.6...0.21.7) (2024-09-30)
+
+
+### Bug Fixes
+
+* **MWPW-159159:** Updates overlay links aria-label value ([#180](https://github.com/adobecom/caas/issues/180)) ([ab88da5](https://github.com/adobecom/caas/commit/ab88da57a456b211f69db11b2dbe91e18bb0264c))
+
 ## [0.21.6](https://github.com/adobecom/caas/compare/0.21.5...0.21.6) (2024-09-25)
 
 ## [0.21.5](https://github.com/adobecom/caas/compare/0.21.4...0.21.5) (2024-09-19)
