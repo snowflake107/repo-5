@@ -1,5 +1,10 @@
 # Releases
 
+## 3.0.3
+
+* _No changes to color values._
+* Updated the structure of the Swift distributable: [#721](https://github.com/Automattic/color-studio/pull/721).
+
 ## 3.0.2
 
 * _No changes to color values._
@@ -8,7 +13,7 @@
 ## 3.0.1
 
 * _No changes to color values._
-* Removes the unintential dependency that appeared in `package.json` during development of the new WordPress Blue. Color Studio is now again dependency-free.
+* Removed an unintential dependency that appeared in `package.json` during development of the new WordPress Blue. Color Studio is now again dependency-free.
 
 ## 3.0.0
 
