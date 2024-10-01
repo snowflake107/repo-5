@@ -1,11 +1,11 @@
 version: 2
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: "weekly"
-  versioning-strategy: increase
-  ignore:
-  - dependency-name: copy-text-to-clipboard
-    versions:
-    - ">= 3.0.0"
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    versioning-strategy: "increase-if-necessary"
+    ignore:
+      - dependency-name: "copy-text-to-clipboard"
+        versions:
+        - ">= 3.0.0"
