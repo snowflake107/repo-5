@@ -1,5 +1,12 @@
 
 
+## [0.21.9](https://github.com/adobecom/caas/compare/0.21.8...0.21.9) (2024-10-02)
+
+
+### Bug Fixes
+
+* **MWPW-159573:** Restores default white background color to one-half cards ([#182](https://github.com/adobecom/caas/issues/182)) ([5941c7b](https://github.com/adobecom/caas/commit/5941c7b7ecdd226cc80f2d2445dc3bc61f658af7))
+
 ## [0.21.8](https://github.com/adobecom/caas/compare/0.21.7...0.21.8) (2024-10-01)
 
 ## [0.21.7](https://github.com/adobecom/caas/compare/0.21.6...0.21.7) (2024-09-30)
