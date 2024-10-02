@@ -1,5 +1,12 @@
 
 
+## [0.21.10](https://github.com/adobecom/caas/compare/0.21.9...0.21.10) (2024-10-02)
+
+
+### Reverts
+
+* **mwpw-139846:** revert carousel cutoff change - was fixed by other changes ([8e8ad34](https://github.com/adobecom/caas/commit/8e8ad34794896528ae220236e20983a7b1f2c9dd))
+
 ## [0.21.9](https://github.com/adobecom/caas/compare/0.21.8...0.21.9) (2024-10-02)
 
 
