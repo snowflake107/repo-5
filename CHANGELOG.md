@@ -1,5 +1,12 @@
 
 
+## [0.21.11](https://github.com/adobecom/caas/compare/0.21.10...0.21.11) (2024-10-04)
+
+
+### Bug Fixes
+
+* **MWPW-147059:** Fix line height accessibility issue ([#184](https://github.com/adobecom/caas/issues/184)) ([0d7e404](https://github.com/adobecom/caas/commit/0d7e404340c744db3b687e2d7cc435f5a665782f))
+
 ## [0.21.10](https://github.com/adobecom/caas/compare/0.21.9...0.21.10) (2024-10-02)
 
 
