@@ -1,5 +1,12 @@
 
 
+## [0.21.12](https://github.com/adobecom/caas/compare/0.21.11...0.21.12) (2024-10-10)
+
+
+### Bug Fixes
+
+* **MWPW-159846:** Adds support for drak themes to Icon card ([#187](https://github.com/adobecom/caas/issues/187)) ([d57dee8](https://github.com/adobecom/caas/commit/d57dee856c17232e754510b527243bf0b24eff4e))
+
 ## [0.21.11](https://github.com/adobecom/caas/compare/0.21.10...0.21.11) (2024-10-04)
 
 
