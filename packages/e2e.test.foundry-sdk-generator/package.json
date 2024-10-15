@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@osdk/tmp-foundry-sdk-generator": "workspace:~",
-    "execa": "^9.3.0"
+    "execa": "^9.4.0"
   },
   "devDependencies": {
     "@osdk/monorepo.api-extractor": "workspace:~",
