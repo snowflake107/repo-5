@@ -11,6 +11,6 @@ require (
 	github.com/urfave/cli/v2 v2.3.0
 	golang.org/x/net v0.0.0-20210220033124-5f55cee0dc0d
 	golang.org/x/text v0.3.4 // indirect
-	golang.org/x/time v0.0.0-20201208040808-7e3f01d25324
+	golang.org/x/time v0.7.0
 	gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127 // indirect
 )
