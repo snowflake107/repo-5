@@ -272,7 +272,7 @@ jobs:
         --check-version-increment=false --validate-maintainers=false
     - continue-on-error: true
       name: Create Kind cluster
-      uses: helm/kind-action@dda0770415bac9fc20092cacbc54aa298604d140
+      uses: helm/kind-action@0025e74a8c7512023d06dc019c617aa3cf561fde
     - continue-on-error: true
       name: Run chart-testing (install)
       run: ct install --chart-dirs=helm --charts=helm/provisioner
