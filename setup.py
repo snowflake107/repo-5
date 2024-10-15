@@ -21,7 +21,7 @@ setup(name="pipelinewise-target-redshift",
           'pipelinewise-singer-python==1.*',
           'boto3==1.12.39',
           'psycopg2-binary==2.8.5',
-          'inflection==0.4.0',
+          'inflection==0.5.1',
           'joblib==0.16.0'
       ],
       extras_require={
