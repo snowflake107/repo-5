@@ -251,7 +251,7 @@ jobs:
       with:
         fetch-depth: 0
     - continue-on-error: true
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v5
       with:
         cache: true
         go-version-file: go.mod
