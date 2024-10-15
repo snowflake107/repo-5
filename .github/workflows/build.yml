@@ -280,7 +280,7 @@ jobs:
         path: installers
     - continue-on-error: true
       name: Push Python artifacts to PyPI
-      uses: pypa/gh-action-pypi-publish@v1.10.0
+      uses: pypa/gh-action-pypi-publish@v1.10.3
       with:
         password: ${{ secrets.PYPI_API_TOKEN }}
         skip-existing: true
