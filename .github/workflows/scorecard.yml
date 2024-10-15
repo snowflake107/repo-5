@@ -250,31 +250,31 @@ jobs:
         sudo sh -c ''echo 1 > /proc/sys/net/ipv4/ip_forward'''
     - continue-on-error: true
       name: Harden Runner
-      uses: step-security/harden-runner@eb238b55efaa70779f274895e782ed17c84f2895
+      uses: step-security/harden-runner@91182cccc01eb5e619899d80e4e971d6181294a7
       with:
         egress-policy: audit
     - continue-on-error: true
       name: Checkout code
-      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871
       with:
         persist-credentials: false
     - continue-on-error: true
       name: Run analysis
-      uses: ossf/scorecard-action@0864cf19026789058feabb7e87baa5f140aac736
+      uses: ossf/scorecard-action@62b2cac7ed8198b15735ed49ab1e5cf35480ba46
       with:
         publish_results: true
         results_file: results.sarif
         results_format: sarif
     - continue-on-error: true
       name: Upload artifact
-      uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
       with:
         name: SARIF file
         path: results.sarif
         retention-days: 5
     - continue-on-error: true
       name: Upload to code-scanning
-      uses: github/codeql-action/upload-sarif@012739e5082ff0c22ca6d6ab32e07c36df03c4a4
+      uses: github/codeql-action/upload-sarif@f779452ac5af1c261dce0346a8f964149f49322b
       with:
         sarif_file: results.sarif
     - name: after

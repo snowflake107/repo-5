@@ -248,12 +248,12 @@ jobs:
         sudo sh -c ''echo 1 > /proc/sys/net/ipv4/ip_forward'''
     - continue-on-error: true
       name: Harden Runner
-      uses: step-security/harden-runner@eb238b55efaa70779f274895e782ed17c84f2895
+      uses: step-security/harden-runner@91182cccc01eb5e619899d80e4e971d6181294a7
       with:
         egress-policy: audit
     - continue-on-error: true
       name: Run helper
-      uses: bazelbuild/continuous-integration/actions/release-helper@d646a2d9a98e699bdba517276cf0e16cfff0c62c
+      uses: bazelbuild/continuous-integration/actions/release-helper@14a03783d205697c7da49ae2c4294cbf1fa9aa9b
       with:
         token: ${{ secrets.BAZEL_IO_TOKEN }}
     - name: after
