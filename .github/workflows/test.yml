@@ -270,32 +270,32 @@ jobs:
           '
     - continue-on-error: true
       if: env.GIT_DIFF
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: ${{ github.sha }}-00-coverage
     - continue-on-error: true
       if: env.GIT_DIFF
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: ${{ github.sha }}-01-coverage
     - continue-on-error: true
       if: env.GIT_DIFF
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: ${{ github.sha }}-02-coverage
     - continue-on-error: true
       if: env.GIT_DIFF
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: ${{ github.sha }}-03-coverage
     - continue-on-error: true
       if: env.GIT_DIFF
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: ${{ github.sha }}-integration-coverage
     - continue-on-error: true
       if: env.GIT_DIFF
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: ${{ github.sha }}-e2e-coverage
     - continue-on-error: true
@@ -13702,7 +13702,7 @@ jobs:
 
           '
     - continue-on-error: true
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: ${{ github.sha }}-${{ matrix.part }}
     - continue-on-error: true
