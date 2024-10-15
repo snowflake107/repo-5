@@ -37,7 +37,7 @@
     "@swc/core": "^1.5.5",
     "@swc/jest": "^0.2.36",
     "@types/fs-extra": "^11.0.4",
-    "@types/jest": "^29.5.12",
+    "@types/jest": "^29.5.13",
     "@types/lodash.kebabcase": "^4.1.9",
     "@types/lodash.merge": "^4.6.9",
     "@types/node": "^20.12.11",
