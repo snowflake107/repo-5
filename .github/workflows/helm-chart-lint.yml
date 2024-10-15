@@ -260,7 +260,7 @@ jobs:
         version: latest
     - continue-on-error: true
       name: Set-up Python
-      uses: actions/setup-python@61a6322f88396a6271a6ee3565807d608ecaddd1
+      uses: actions/setup-python@f677139bbe7f9c59b41e40162b753c062f5d49a3
       with:
         python-version: 3.x
     - continue-on-error: true
