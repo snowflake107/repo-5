@@ -34,7 +34,7 @@
     "embla-carousel-react": "8.0.4",
     "focus-trap-react": "^10.2.3",
     "gql.tada": "^1.7.1",
-    "graphql": "^16.8.1",
+    "graphql": "^16.9.0",
     "lodash.debounce": "^4.0.8",
     "lru-cache": "^10.2.2",
     "lucide-react": "^0.378.0",
