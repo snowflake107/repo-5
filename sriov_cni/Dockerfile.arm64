@@ -10,7 +10,7 @@ RUN apk add --no-cache --virtual build-dependencies build-base=~0.5 && \
     make clean && \
     make build
 
-FROM arm64v8/alpine@sha256:a0264d60f80df12bc1e6dd98bae6c43debe6667c0ba482711f0d806493467a46
+FROM arm64v8/alpine@sha256:9cee2b382fe2412cd77d5d437d15a93da8de373813621f2e4d406e3df0cf0e7c
 COPY --from=builder /usr/src/sriov-cni/build/sriov /usr/bin/
 WORKDIR /
 
