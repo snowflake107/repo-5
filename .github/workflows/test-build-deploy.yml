@@ -571,7 +571,7 @@ jobs:
         '
     - continue-on-error: true
       name: Download Archive with Docker Images
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: Docker Images
     - continue-on-error: true
@@ -1400,7 +1400,7 @@ jobs:
         path: ${{ steps.gocache.outputs.path }}
     - continue-on-error: true
       name: Download Archive with Docker Images
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: Docker Images
     - continue-on-error: true
