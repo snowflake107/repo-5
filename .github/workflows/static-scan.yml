@@ -251,7 +251,7 @@ jobs:
       with:
         egress-policy: audit
     - continue-on-error: true
-      uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
+      uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871
     - continue-on-error: true
       uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
       with:
@@ -526,7 +526,7 @@ jobs:
       with:
         egress-policy: audit
     - continue-on-error: true
-      uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
+      uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871
     - continue-on-error: true
       name: Run Hadolint
       uses: hadolint/hadolint-action@54c9adbab1582c2ef04b2016b760714a4bfde3cf
@@ -788,7 +788,7 @@ jobs:
       with:
         egress-policy: audit
     - continue-on-error: true
-      uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
+      uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871
     - continue-on-error: true
       name: Run ShellCheck
       uses: ludeeus/action-shellcheck@cd81f4475ab741e097ec0fe73b692f3e49d66b8c
