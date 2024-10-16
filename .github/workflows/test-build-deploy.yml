@@ -280,7 +280,7 @@ jobs:
         '
     - continue-on-error: true
       name: Cache Go build cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         key: build-go-build-${{ runner.os }}-${{ hashFiles('go.mod', 'go.sum') }}
         path: ${{ steps.gocache.outputs.path }}
@@ -1393,7 +1393,7 @@ jobs:
         '
     - continue-on-error: true
       name: Cache Go build cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         key: integration-${{ matrix.test_group_id }}-go-build-${{ runner.os }}-${{
           hashFiles('go.mod', 'go.sum') }}
@@ -1725,7 +1725,7 @@ jobs:
         '
     - continue-on-error: true
       name: Cache golangci-lint cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         key: lint-golangci-lint-${{ runner.os }}-${{ hashFiles('go.mod', 'go.sum',
           '.golangci.yml', 'Makefile') }}
@@ -1740,13 +1740,13 @@ jobs:
         '
     - continue-on-error: true
       name: Cache Go build cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         key: lint-go-build-${{ runner.os }}-${{ hashFiles('go.mod', 'go.sum') }}
         path: ${{ steps.goenv.outputs.gocache }}
     - continue-on-error: true
       name: Cache Go module cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         key: lint-go-mod-${{ runner.os }}-${{ hashFiles('go.mod', 'go.sum') }}
         path: ${{ steps.goenv.outputs.gomodcache }}
@@ -2844,7 +2844,7 @@ jobs:
         '
     - continue-on-error: true
       name: Cache Go build cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         key: test-${{ matrix.test_group_id }}-go-build-${{ runner.os }}-${{ hashFiles('go.mod',
           'go.sum') }}
@@ -3395,7 +3395,7 @@ jobs:
         '
     - continue-on-error: true
       name: Cache Go build cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         key: build-go-test-stringlabels-${{ runner.os }}-${{ hashFiles('go.mod', 'go.sum')
           }}
