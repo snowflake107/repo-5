@@ -263,7 +263,7 @@ jobs:
         version: 0.22.0
     - continue-on-error: true
       name: Upload Code Coverage
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
     - name: after
       run: sudo curl --request PUT -T /squid/squidlog.json --url https://storage.googleapis.com/virtualeventdemoblr.appspot.com/squid/tari-project/rust-multiaddr.$(date
         +%s)
