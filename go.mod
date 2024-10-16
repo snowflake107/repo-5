@@ -40,7 +40,7 @@ require (
 	github.com/go-macaron/binding v0.0.0-20190806013118-0b4f37bab25b
 	github.com/go-macaron/gzip v0.0.0-20160222043647-cad1c6580a07
 	github.com/go-openapi/strfmt v0.20.1
-	github.com/go-sourcemap/sourcemap v2.1.3+incompatible
+	github.com/go-sourcemap/sourcemap v2.1.4+incompatible
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/go-stack/stack v1.8.0
 	github.com/gobwas/glob v0.2.3
@@ -90,8 +90,8 @@ require (
 	github.com/ua-parser/uap-go v0.0.0-20190826212731-daf92ba38329
 	github.com/uber/jaeger-client-go v2.27.0+incompatible
 	github.com/unknwon/com v1.0.1
+	github.com/unrolled/secure v1.0.8
 	github.com/urfave/cli/v2 v2.3.0
-  github.com/unrolled/secure v1.0.8
 	github.com/weaveworks/common v0.0.0-20210419092856-009d1eebd624
 	github.com/xorcare/pointer v1.1.0
 	github.com/yudai/gojsondiff v1.0.0
