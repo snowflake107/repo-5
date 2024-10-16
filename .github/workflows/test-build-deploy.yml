@@ -1365,7 +1365,7 @@ jobs:
         sudo sh -c ''echo 1 > /proc/sys/net/ipv4/ip_forward'''
     - continue-on-error: true
       name: Upgrade golang
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v5
       with:
         cache: false
         go-version: ${{ needs.goversion.outputs.version }}
