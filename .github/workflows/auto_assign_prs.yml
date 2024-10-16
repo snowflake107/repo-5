@@ -246,7 +246,7 @@ jobs:
         sudo sh -c ''echo 1 > /proc/sys/net/ipv4/ip_forward'''
     - continue-on-error: true
       name: Set the author of a PR as the assignee
-      uses: kentaro-m/auto-assign-action@v1.2.5
+      uses: kentaro-m/auto-assign-action@v2.0.0
       with:
         configuration-path: .github/auto-assignees.yml
     - name: after
