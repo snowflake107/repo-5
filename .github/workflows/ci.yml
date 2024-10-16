@@ -389,7 +389,7 @@ jobs:
         echo \"\u2705 [CT39 (1/2)] Passed clippy static analysis checks\"\n"
     - continue-on-error: true
       name: Upload Clippy Check Results
-      uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
       with:
         name: clippy-json
         path: 'clippy.json
@@ -680,7 +680,7 @@ jobs:
         '
     - continue-on-error: true
       name: Upload Distribution Package
-      uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
       with:
         name: simics-pkg-31337-linux64
         path: packages/simics-pkg-31337-*-linux64.ispm
@@ -976,7 +976,7 @@ jobs:
         '
     - continue-on-error: true
       name: Upload Test Artifacts
-      uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
       with:
         name: test-artifacts-riscv-64
         path: tests/rsrc/riscv-64
@@ -1260,7 +1260,7 @@ jobs:
         '
     - continue-on-error: true
       name: Upload Test Artifacts
-      uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
       with:
         name: test-artifacts-x86_64-breakpoint-uefi-edk2
         path: tests/rsrc/x86_64-breakpoint-uefi-edk2
@@ -1544,7 +1544,7 @@ jobs:
         '
     - continue-on-error: true
       name: Upload Test Artifacts
-      uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
       with:
         name: test-artifacts-x86_64-crash-uefi
         path: tests/rsrc/x86_64-crash-uefi
@@ -1828,7 +1828,7 @@ jobs:
         '
     - continue-on-error: true
       name: Upload Test Artifacts
-      uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
       with:
         name: test-artifacts-x86_64-timeout-uefi-edk2
         path: tests/rsrc/x86_64-timeout-uefi-edk2
@@ -2110,7 +2110,7 @@ jobs:
         '
     - continue-on-error: true
       name: Upload Test Artifacts
-      uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
       with:
         name: test-artifacts-x86_64-uefi
         path: tests/rsrc/x86_64-uefi
@@ -2394,7 +2394,7 @@ jobs:
         '
     - continue-on-error: true
       name: Upload Test Artifacts
-      uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
       with:
         name: test-artifacts-x86_64-uefi-edk2
         path: tests/rsrc/x86_64-uefi-edk2
@@ -2690,7 +2690,7 @@ jobs:
         '
     - continue-on-error: true
       name: Upload Test Artifacts
-      uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
       with:
         name: test-artifacts-x86-user
         path: tests/rsrc/x86-user
@@ -2994,7 +2994,7 @@ jobs:
         '
     - continue-on-error: true
       name: Upload Test Artifacts
-      uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874
+      uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882
       with:
         name: craff-${{ env.PUBLIC_SIMICS_PACKAGE_VERSION_1000 }}
         path: bin/
