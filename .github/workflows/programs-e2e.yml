@@ -266,7 +266,7 @@ jobs:
         profile: minimal
         toolchain: ${{ env.RUST_TOOLCHAIN }}
     - continue-on-error: true
-      uses: Swatinem/rust-cache@v1
+      uses: Swatinem/rust-cache@v2
     - continue-on-error: true
       name: Install Linux dependencies
       run: 'sudo apt-get update
