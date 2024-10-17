@@ -249,7 +249,7 @@ jobs:
     - continue-on-error: true
       id: filter
       name: See if any file needs checking
-      uses: dorny/paths-filter@v2
+      uses: dorny/paths-filter@v3
       with:
         filters: "required_files:\n  - \".nvmrc\"\n  - \"files/**\"\n  - \".github/workflows/pr-check_redirects.yml\"\
           \n"
