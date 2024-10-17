@@ -263,7 +263,7 @@ jobs:
     - continue-on-error: true
       if: ${{ env.DIFF_DOCUMENTS }}
       name: AutoCorrect changed content
-      uses: huacnlee/autocorrect-action@v2.8.4
+      uses: huacnlee/autocorrect-action@v2.10.0
       with:
         args: ${{ env.DIFF_DOCUMENTS }} --lint --no-diff-bg-color
     - name: after
