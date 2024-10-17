@@ -292,7 +292,7 @@ jobs:
         '
     - continue-on-error: true
       name: Install chainsaw
-      uses: kyverno/action-install-chainsaw@v0.2.6
+      uses: kyverno/action-install-chainsaw@v0.2.11
     - continue-on-error: true
       name: Install metrics-server
       run: 'kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
@@ -598,7 +598,7 @@ jobs:
         '
     - continue-on-error: true
       name: Install chainsaw
-      uses: kyverno/action-install-chainsaw@v0.2.6
+      uses: kyverno/action-install-chainsaw@v0.2.11
     - continue-on-error: true
       name: Install metrics-server
       run: 'kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
