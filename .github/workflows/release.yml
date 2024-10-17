@@ -1112,7 +1112,7 @@ jobs:
       run: cp -R images/ site/
     - continue-on-error: true
       name: "Deploy \U0001F680"
-      uses: JamesIves/github-pages-deploy-action@v4.3.3
+      uses: JamesIves/github-pages-deploy-action@v4.6.8
       with:
         branch: gh-pages
         folder: site
